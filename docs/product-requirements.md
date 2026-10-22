@@ -160,4 +160,6 @@ recibir el primer recibo. No se amplían durante el cierre de F1.
 
 **Helios App ejecutándose en el navegador, con dashboard del CRM, gestión de prospectos
 y recepción de recibos PDF/imagen desde el formulario público y el CRM, sin crear un
-proyecto obligatorio.** La documentación y la infraestructura dejan de ser el foco.
+proyecto obligatorio, como entrada al flujo de cotización y seguimiento.** Las
+cotizaciones configurables siguen siendo evolución prevista, no una capacidad simulada
+en este cierre. La documentación y la infraestructura dejan de ser el foco.
