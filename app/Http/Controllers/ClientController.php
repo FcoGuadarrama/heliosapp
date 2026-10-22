@@ -73,6 +73,24 @@ class ClientController extends Controller
     {
         $this->authorize('view', $client);
 
+        $possibleDuplicates = [];
+        if ($client->email || $client->phone) {
+            $possibleDuplicates = Client::query()
+                ->where('id', '<>', $client->id)
+                ->where(function ($query) use ($client): void {
+                    if ($client->email) {
+                        $query->orWhere('email', $client->email);
+                    }
+                    if ($client->phone) {
+                        $query->orWhere('phone', $client->phone);
+                    }
+                })
+                ->orderBy('id')->limit(5)->get(['id', 'name'])
+                ->filter(fn (Client $candidate) => request()->user()->can('view', $candidate))
+                ->map(fn (Client $candidate) => ['id' => $candidate->id, 'name' => $candidate->name])
+                ->values();
+        }
+
         $projects = request()->user()->can('projects.view') ? $client->projects()
             ->orderBy('created_at', 'desc')
             ->get()
@@ -103,6 +121,7 @@ class ClientController extends Controller
                 'notes' => $client->notes,
             ],
             'projects' => $projects,
+            'possibleDuplicates' => $possibleDuplicates,
             'intakes' => request()->user()->can('receipts.view')
                 ? $client->intakes()->latest()->get()->map(fn (ReceiptIntake $intake) => [
                     'id' => $intake->id,
