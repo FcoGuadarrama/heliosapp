@@ -299,6 +299,13 @@ No se implementa IA real, web manager, constructor de landings ni API pública c
   existentes. En CRM se selecciona un ID explícito (no borrado) y se exige `clients.view`;
   crear requiere `clients.create`; ambos requieren `receipts.import`. No se permite
   secuestro por coincidencia de correo/teléfono ni deduplicación global de archivos.
+- El detalle autenticado del prospecto devuelve `possibleDuplicates`: hasta cinco
+  candidatos activos con correo o teléfono exactamente iguales según la comparación
+  de la BD, excluyendo el registro actual y filtrados por `ClientPolicy::view`. Solo
+  expone ID y nombre; no usa nombres similares, contactos vacíos ni coincidencias
+  difusas. Es un aviso de revisión manual, no una identidad comprobada. Para reutilizar
+  un prospecto se selecciona explícitamente en CRM antes de adjuntar el recibo; no se
+  reasignan archivos, se fusionan datos ni se muestran candidatos en el formulario público.
 - Se conserva aviso/version/URL/fecha de consentimiento. `HELIOS_INTAKE_ENABLED` solo
   habilita recepción si hay `HELIOS_PRIVACY_VERSION` y `HELIOS_PRIVACY_TEXT` no vacíos;
   `HELIOS_PRIVACY_URL` opcional acepta HTTPS. El propietario debe aprobar el contenido.

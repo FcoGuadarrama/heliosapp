@@ -51,6 +51,39 @@ class ClientTest extends TestCase
             ->assertInertia(fn ($page) => $page->has('projects', 1)->where('projects.0.id', $project->id));
     }
 
+    public function test_possible_duplicates_are_internal_contact_matches_without_automatic_linking(): void
+    {
+        $client = Client::factory()->create(['email' => 'match@example.test', 'phone' => '5551234567']);
+        $emailMatch = Client::factory()->create(['email' => $client->email, 'phone' => null]);
+        $phoneMatch = Client::factory()->create(['email' => null, 'phone' => $client->phone]);
+        Client::factory()->create(['name' => $client->name, 'email' => 'different@example.test', 'phone' => '5551234568']);
+        Client::factory()->create(['email' => $client->email, 'phone' => null])->delete();
+        $user = User::factory()->create();
+        $user->givePermissionTo('clients.view');
+
+        $this->actingAs($user)->get('/clients/'.$client->id)->assertOk()
+            ->assertInertia(fn ($page) => $page->has('possibleDuplicates', 2)
+                ->where('possibleDuplicates.0', ['id' => $emailMatch->id, 'name' => $emailMatch->name])
+                ->where('possibleDuplicates.1', ['id' => $phoneMatch->id, 'name' => $phoneMatch->name]));
+        $this->assertDatabaseCount('clients', 5);
+        $this->assertSame('match@example.test', $client->fresh()->email);
+        $this->actingAs(User::factory()->create())->get('/clients/'.$client->id)->assertForbidden();
+    }
+
+    public function test_possible_duplicates_are_bounded_and_ignore_empty_contacts(): void
+    {
+        $client = Client::factory()->create(['email' => 'shared@example.test', 'phone' => null]);
+        Client::factory()->count(6)->create(['email' => $client->email, 'phone' => null]);
+        $user = User::factory()->create();
+        $user->givePermissionTo('clients.view');
+        $this->actingAs($user)->get('/clients/'.$client->id)->assertOk()
+            ->assertInertia(fn ($page) => $page->has('possibleDuplicates', 5));
+
+        $client->update(['email' => null]);
+        $this->get('/clients/'.$client->id)->assertOk()
+            ->assertInertia(fn ($page) => $page->has('possibleDuplicates', 0));
+    }
+
     public function test_users_with_clients_create_can_create_a_client()
     {
         $user = User::factory()->create();

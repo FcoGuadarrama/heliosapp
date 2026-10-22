@@ -19,6 +19,8 @@ presupuesto configurable → cotización → seguimiento**. `Client` se reutiliz
 - **I2 CRM — en curso:** crear/seleccionar prospecto y subir archivo sin proyecto;
   snippet copiable, descarga autorizada, estados y errores claros. Navegación prioritaria
   Dashboard/Mis prospectos/Cotizaciones/Proveedores/Costos y márgenes/Usuarios.
+  Aviso interno de posibles duplicados por contacto exacto; reutilización por selección
+  explícita del prospecto. No se enlazan ni fusionan datos desde la entrada pública.
 - **I3 Mock y contrato — en curso:** fixtures internas explícitas, validadores CFE
   existentes, trazabilidad e inmutabilidad. No extrae PDF ni simula ingeniería real.
 - **I4 Seguridad y cierre — pendiente:** pruebas permisos/archivos/consentimiento/abuso/
@@ -101,6 +103,10 @@ para el control de permisos.
 ### F1.5 — Proyectos solares · **H**
 
 _Depende de:_ F1.4
+
+Criterios históricos: no imponen crear proyectos ni cargar JSON manualmente en el flujo
+vigente I1–I3. El detalle del prospecto y sus recibos es la entrada actual del CRM;
+los proyectos permanecen como soporte interno opcional.
 
 - Migración, modelo, factory, _soft deletes_, enum de estado y generación de `code`.
 - CRUD con páginas Inertia; el detalle del proyecto es la pantalla central del producto:
