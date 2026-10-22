@@ -109,6 +109,10 @@ La respuesta pública no muestra IDs ni datos de prospectos existentes. Una coin
 pública de correo/teléfono **no** da acceso ni vincula registros: se conserva una entrada
 separada para revisión humana. El token de un solo uso evita repetir el mismo envío.
 No se fusionan prospectos por hash de archivo ni por datos de contacto.
+El detalle interno avisa de hasta cinco posibles duplicados activos por correo o teléfono
+exactos, visibles solo con autorización sobre esos prospectos. Una coincidencia no
+demuestra identidad. El asesor revisa los candidatos y selecciona explícitamente el
+prospecto correcto en CRM para nuevas cargas; no hay fusión ni traslado automático de PII.
 
 La recepción conserva el texto, versión, URL y fecha UTC del consentimiento. Deben configurarse
 un aviso aprobado por el responsable y los orígenes HTTPS exactos permitidos para iframe.
