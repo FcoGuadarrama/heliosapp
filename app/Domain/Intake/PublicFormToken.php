@@ -22,7 +22,7 @@ final class PublicFormToken
             return false;
         }
 
-        if (count($parts) !== 2 || ! ctype_digit($parts[0]) || strlen($parts[1]) !== 48) {
+        if (count($parts) !== 2 || ! ctype_digit($parts[0]) || strlen($parts[1]) !== 48 || ! ctype_alnum($parts[1])) {
             return false;
         }
         $age = now()->getTimestamp() - (int) $parts[0];

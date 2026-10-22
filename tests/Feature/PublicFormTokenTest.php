@@ -8,6 +8,14 @@ use Tests\TestCase;
 
 class PublicFormTokenTest extends TestCase
 {
+    public function test_authenticated_nonce_must_be_alphanumeric(): void
+    {
+        $token = Crypt::encryptString(now()->getTimestamp().'|'.str_repeat('!', 48));
+        $this->travel((int) config('intake.minimum_fill_seconds'))->seconds();
+
+        $this->assertFalse(app(PublicFormToken::class)->consume($token));
+    }
+
     public function test_equivalent_ciphertext_serialization_cannot_replay_a_consumed_token(): void
     {
         $tokens = app(PublicFormToken::class);
