@@ -24,7 +24,7 @@ const page = usePage();
 
 const mainNavItems = computed<NavItem[]>(() => {
     const permissions = Array.isArray(page.props.auth.user?.permissions)
-        ? page.props.auth.user.permissions as string[]
+        ? (page.props.auth.user.permissions as string[])
         : [];
 
     return [
@@ -33,16 +33,24 @@ const mainNavItems = computed<NavItem[]>(() => {
             href: dashboard(),
             icon: LayoutGrid,
         },
-        ...(permissions.includes('clients.view') ? [{
-            title: 'Clientes',
-            href: clientsModule.index(),
-            icon: Users,
-        }] : []),
-        ...(permissions.includes('projects.view') ? [{
-            title: 'Proyectos',
-            href: projectsModule.index(),
-            icon: Zap,
-        }] : []),
+        ...(permissions.includes('clients.view')
+            ? [
+                  {
+                      title: 'Clientes',
+                      href: clientsModule.index(),
+                      icon: Users,
+                  },
+              ]
+            : []),
+        ...(permissions.includes('projects.view')
+            ? [
+                  {
+                      title: 'Proyectos',
+                      href: projectsModule.index(),
+                      icon: Zap,
+                  },
+              ]
+            : []),
     ];
 });
 

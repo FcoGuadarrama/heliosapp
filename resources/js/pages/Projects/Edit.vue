@@ -87,10 +87,15 @@ defineOptions({
             class="max-w-2xl space-y-6"
             v-slot="{ errors, processing }"
         >
-            <Alert v-if="project.isMissingCoordinates" class="border-yellow-200 bg-yellow-50">
+            <Alert
+                v-if="project.isMissingCoordinates"
+                class="border-yellow-200 bg-yellow-50"
+            >
                 <AlertCircle class="h-4 w-4 text-yellow-600" />
                 <AlertDescription class="text-yellow-800">
-                    Este proyecto aún no tiene coordenadas definidas. Sin latitud y longitud, no es posible estimar la irradiación solar.
+                    Este proyecto aún no tiene coordenadas definidas. Sin
+                    latitud y longitud, no es posible estimar la irradiación
+                    solar.
                 </AlertDescription>
             </Alert>
 
@@ -99,7 +104,10 @@ defineOptions({
                 <div class="space-y-4">
                     <div class="grid gap-2">
                         <Label for="client_id">Cliente</Label>
-                        <Select name="client_id" :default-value="String(project.client_id)">
+                        <Select
+                            name="client_id"
+                            :default-value="String(project.client_id)"
+                        >
                             <SelectTrigger id="client_id">
                                 <SelectValue />
                             </SelectTrigger>
@@ -135,29 +143,48 @@ defineOptions({
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="draft">Borrador</SelectItem>
-                                <SelectItem value="data_received">Datos recibidos</SelectItem>
-                                <SelectItem value="analyzing">Analizando</SelectItem>
-                                <SelectItem value="analyzed">Analizado</SelectItem>
-                                <SelectItem value="quoted">Presupuestado</SelectItem>
-                                <SelectItem value="proposal_sent">Propuesta enviada</SelectItem>
+                                <SelectItem value="data_received"
+                                    >Datos recibidos</SelectItem
+                                >
+                                <SelectItem value="analyzing"
+                                    >Analizando</SelectItem
+                                >
+                                <SelectItem value="analyzed"
+                                    >Analizado</SelectItem
+                                >
+                                <SelectItem value="quoted"
+                                    >Presupuestado</SelectItem
+                                >
+                                <SelectItem value="proposal_sent"
+                                    >Propuesta enviada</SelectItem
+                                >
                                 <SelectItem value="won">Ganado</SelectItem>
                                 <SelectItem value="lost">Perdido</SelectItem>
-                                <SelectItem value="archived">Archivado</SelectItem>
+                                <SelectItem value="archived"
+                                    >Archivado</SelectItem
+                                >
                             </SelectContent>
                         </Select>
                         <InputError :message="errors.status" />
                     </div>
 
                     <div class="grid gap-2">
-                        <Label for="installation_type">Tipo de instalación</Label>
-                        <Select name="installation_type" :default-value="project.installation_type">
+                        <Label for="installation_type"
+                            >Tipo de instalación</Label
+                        >
+                        <Select
+                            name="installation_type"
+                            :default-value="project.installation_type"
+                        >
                             <SelectTrigger id="installation_type">
                                 <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="roof">Techo</SelectItem>
                                 <SelectItem value="ground">Terreno</SelectItem>
-                                <SelectItem value="carport">Estacionamiento</SelectItem>
+                                <SelectItem value="carport"
+                                    >Estacionamiento</SelectItem
+                                >
                                 <SelectItem value="other">Otro</SelectItem>
                             </SelectContent>
                         </Select>
@@ -166,9 +193,16 @@ defineOptions({
 
                     <div class="grid gap-2">
                         <Label for="assigned_user_id">Asignado a</Label>
-                        <Select name="assigned_user_id" :default-value="String(project.assigned_user_id || '')">
+                        <Select
+                            name="assigned_user_id"
+                            :default-value="
+                                String(project.assigned_user_id || '')
+                            "
+                        >
                             <SelectTrigger id="assigned_user_id">
-                                <SelectValue placeholder="Selecciona un usuario" />
+                                <SelectValue
+                                    placeholder="Selecciona un usuario"
+                                />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="">Sin asignar</SelectItem>
@@ -276,7 +310,8 @@ defineOptions({
                     </div>
 
                     <p class="text-sm text-muted-foreground">
-                        Las coordenadas (latitud y longitud) son necesarias para calcular la irradiación solar y dimensionar el sistema.
+                        Las coordenadas (latitud y longitud) son necesarias para
+                        calcular la irradiación solar y dimensionar el sistema.
                     </p>
                 </div>
             </div>
