@@ -24,7 +24,7 @@ class ClientFactory extends Factory
             'name' => $this->faker->company(),
             'contact_name' => $this->faker->name(),
             'email' => $this->faker->email(),
-            'phone' => $this->faker->phoneNumber(),
+            'phone' => $this->faker->numerify('##########'),
             'rfc' => strtoupper($this->faker->regexify('[A-Z]{4}[0-9]{6}[A-Z0-9]{3}')),
             'street' => $this->faker->streetAddress(),
             'exterior_number' => $this->faker->numerify('###'),
@@ -32,7 +32,7 @@ class ClientFactory extends Factory
             'neighborhood' => $this->faker->citySuffix(),
             'municipality' => $this->faker->city(),
             'state' => 'CDMX',
-            'postal_code' => $this->faker->postcode(),
+            'postal_code' => $this->faker->numerify('#####'),
             'notes' => $this->faker->optional()->paragraph(),
             'created_by' => null,
         ];

@@ -215,7 +215,10 @@ const handleLogoChange = (e: Event) => {
                             class="mt-1 flex-shrink-0"
                         >
                             <img
-                                :src="logoPreview || `/storage/${settings.logo_path}`"
+                                :src="
+                                    logoPreview ||
+                                    `/storage/${settings.logo_path}`
+                                "
                                 alt="Logo preview"
                                 class="h-24 w-24 rounded border object-contain p-1"
                             />
@@ -246,7 +249,9 @@ const handleLogoChange = (e: Event) => {
                             type="color"
                             class="mt-1 block h-10 w-full"
                             name="secondary_color"
-                            :default-value="settings.secondary_color || '#000000'"
+                            :default-value="
+                                settings.secondary_color || '#000000'
+                            "
                         />
                         <InputError
                             class="mt-2"
@@ -270,7 +275,10 @@ const handleLogoChange = (e: Event) => {
                         :default-value="settings.address?.street || ''"
                         placeholder="Ej. Avenida Paseo de la Reforma"
                     />
-                    <InputError class="mt-2" :message="errors['address.street']" />
+                    <InputError
+                        class="mt-2"
+                        :message="errors['address.street']"
+                    />
                 </div>
 
                 <div class="grid gap-4 sm:grid-cols-2">
@@ -291,13 +299,17 @@ const handleLogoChange = (e: Event) => {
                     </div>
 
                     <div class="grid gap-2">
-                        <Label for="address.interior_number">Número interior</Label>
+                        <Label for="address.interior_number"
+                            >Número interior</Label
+                        >
                         <Input
                             id="address.interior_number"
                             type="text"
                             class="mt-1 block w-full"
                             name="address[interior_number]"
-                            :default-value="settings.address?.interior_number || ''"
+                            :default-value="
+                                settings.address?.interior_number || ''
+                            "
                             placeholder="Ej. Apt. 301"
                         />
                         <InputError
@@ -331,7 +343,9 @@ const handleLogoChange = (e: Event) => {
                             type="text"
                             class="mt-1 block w-full"
                             name="address[municipality]"
-                            :default-value="settings.address?.municipality || ''"
+                            :default-value="
+                                settings.address?.municipality || ''
+                            "
                             placeholder="Ej. Benito Juárez"
                         />
                         <InputError
@@ -376,7 +390,9 @@ const handleLogoChange = (e: Event) => {
 
             <!-- Preferencias y responsable -->
             <div class="space-y-4">
-                <h2 class="text-lg font-semibold">Preferencias y responsable</h2>
+                <h2 class="text-lg font-semibold">
+                    Preferencias y responsable
+                </h2>
 
                 <div class="grid gap-4 sm:grid-cols-2">
                     <div class="grid gap-2">
@@ -404,7 +420,9 @@ const handleLogoChange = (e: Event) => {
                     </div>
 
                     <div class="grid gap-2">
-                        <Label for="default_currency">Moneda predeterminada</Label>
+                        <Label for="default_currency"
+                            >Moneda predeterminada</Label
+                        >
                         <Select
                             :default-value="settings.default_currency || 'MXN'"
                             name="default_currency"
@@ -482,7 +500,10 @@ const handleLogoChange = (e: Event) => {
             </div>
 
             <div class="flex items-center gap-4">
-                <Button :disabled="processing" data-test="update-company-button">
+                <Button
+                    :disabled="processing"
+                    data-test="update-company-button"
+                >
                     Guardar cambios
                 </Button>
             </div>

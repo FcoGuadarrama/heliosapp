@@ -8,18 +8,24 @@ use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Client;
 use App\Models\Project;
 use App\Models\User;
+use Illuminate\Database\UniqueConstraintViolationException;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class ProjectController extends Controller
 {
+    use AuthorizesRequests;
+
     public function __construct(
         private readonly GenerateProjectCode $generateCode,
     ) {}
 
     public function index(): Response
     {
+        $this->authorize('viewAny', Project::class);
+
         $projects = Project::with('client')
             ->orderBy('created_at', 'desc')
             ->paginate(15)
@@ -39,6 +45,8 @@ class ProjectController extends Controller
 
     public function create(): Response
     {
+        $this->authorize('create', Project::class);
+
         $clients = Client::orderBy('name')->get()->map(fn (Client $client) => [
             'id' => $client->id,
             'name' => $client->name,
@@ -57,17 +65,23 @@ class ProjectController extends Controller
 
     public function store(StoreProjectRequest $request): RedirectResponse
     {
+        $this->authorize('create', Project::class);
+
         $data = $request->validated();
-        $data['code'] = ($this->generateCode)();
         $data['created_by'] = $request->user()->id;
 
-        Project::create($data);
+        // The unique database constraint arbitrates concurrent allocations.
+        retry(5, function () use ($data): void {
+            Project::create([...$data, 'code' => ($this->generateCode)()]);
+        }, 10, fn (\Exception $exception) => $exception instanceof UniqueConstraintViolationException);
 
         return to_route('projects.index')->with('success', 'Proyecto creado exitosamente.');
     }
 
     public function show(Project $project): Response
     {
+        $this->authorize('view', $project);
+
         $clients = Client::orderBy('name')->get()->map(fn (Client $client) => [
             'id' => $client->id,
             'name' => $client->name,
@@ -109,6 +123,8 @@ class ProjectController extends Controller
 
     public function edit(Project $project): Response
     {
+        $this->authorize('update', $project);
+
         $clients = Client::orderBy('name')->get()->map(fn (Client $client) => [
             'id' => $client->id,
             'name' => $client->name,
@@ -149,6 +165,8 @@ class ProjectController extends Controller
 
     public function update(UpdateProjectRequest $request, Project $project): RedirectResponse
     {
+        $this->authorize('update', $project);
+
         $project->update($request->validated());
 
         return to_route('projects.show', $project)->with('success', 'Proyecto actualizado exitosamente.');
@@ -156,6 +174,8 @@ class ProjectController extends Controller
 
     public function destroy(Project $project): RedirectResponse
     {
+        $this->authorize('delete', $project);
+
         $project->delete();
 
         return to_route('projects.index')->with('success', 'Proyecto eliminado exitosamente.');

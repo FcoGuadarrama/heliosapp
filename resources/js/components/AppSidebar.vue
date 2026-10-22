@@ -1,6 +1,16 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
-import { BookOpen, FolderGit2, LayoutGrid, Users, Zap } from '@lucide/vue';
+import {
+    BookOpen,
+    FolderGit2,
+    LayoutGrid,
+    Users,
+    Zap,
+    FileText,
+    Truck,
+    Calculator,
+    UserCog,
+} from '@lucide/vue';
 import { computed } from 'vue';
 import AppLogo from '@/components/AppLogo.vue';
 import NavFooter from '@/components/NavFooter.vue';
@@ -18,14 +28,13 @@ import {
 import { dashboard } from '@/routes';
 import * as clientsModule from '@/routes/clients';
 import * as projectsModule from '@/routes/projects';
+import { index as usersIndex } from '@/routes/users';
 import type { NavItem } from '@/types';
 
 const page = usePage();
 
 const mainNavItems = computed<NavItem[]>(() => {
-    const permissions = Array.isArray(page.props.auth.user?.permissions)
-        ? page.props.auth.user.permissions as string[]
-        : [];
+    const permissions = page.props.auth.permissions ?? [];
 
     return [
         {
@@ -33,16 +42,35 @@ const mainNavItems = computed<NavItem[]>(() => {
             href: dashboard(),
             icon: LayoutGrid,
         },
-        ...(permissions.includes('clients.view') ? [{
-            title: 'Clientes',
-            href: clientsModule.index(),
-            icon: Users,
-        }] : []),
-        ...(permissions.includes('projects.view') ? [{
-            title: 'Proyectos',
-            href: projectsModule.index(),
-            icon: Zap,
-        }] : []),
+        ...(permissions.includes('clients.view')
+            ? [
+                  {
+                      title: 'Mis prospectos',
+                      href: clientsModule.index(),
+                      icon: Users,
+                  },
+              ]
+            : []),
+        { title: 'Cotizaciones', href: '#', icon: FileText, disabled: true },
+        { title: 'Proveedores', href: '#', icon: Truck, disabled: true },
+        {
+            title: 'Costos y márgenes',
+            href: '#',
+            icon: Calculator,
+            disabled: true,
+        },
+        ...(permissions.includes('users.view')
+            ? [{ title: 'Usuarios', href: usersIndex(), icon: UserCog }]
+            : []),
+        ...(permissions.includes('projects.view')
+            ? [
+                  {
+                      title: 'Proyectos internos',
+                      href: projectsModule.index(),
+                      icon: Zap,
+                  },
+              ]
+            : []),
     ];
 });
 

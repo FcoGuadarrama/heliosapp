@@ -19,7 +19,7 @@ import { index as clientsIndex } from '@/routes/clients';
 
 interface ClientData {
     id: number;
-    type: string;
+    type: string | null;
     name: string;
     contact_name: string | null;
     email: string | null;
@@ -42,7 +42,7 @@ defineOptions({
     layout: {
         breadcrumbs: [
             {
-                title: 'Clientes',
+                title: 'Mis prospectos',
                 href: clientsIndex(),
             },
             {
@@ -54,13 +54,13 @@ defineOptions({
 </script>
 
 <template>
-    <Head title="Editar cliente" />
+    <Head title="Editar prospecto" />
 
     <div class="flex flex-col space-y-6">
         <Heading
             variant="small"
-            title="Editar cliente"
-            description="Actualiza la información del cliente"
+            title="Editar prospecto"
+            description="Actualiza la información del prospecto"
         />
 
         <Form
@@ -73,9 +73,12 @@ defineOptions({
                 <div class="space-y-4">
                     <div class="grid gap-2">
                         <Label for="type">Tipo</Label>
-                        <Select name="type" :default-value="client.type">
+                        <Select
+                            name="type"
+                            :default-value="client.type ?? undefined"
+                        >
                             <SelectTrigger id="type">
-                                <SelectValue />
+                                <SelectValue placeholder="Sin clasificar" />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="residential">

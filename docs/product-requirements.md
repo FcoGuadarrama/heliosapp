@@ -1,6 +1,6 @@
 # Helios App — Requisitos de producto
 
-> v0.2 · 2026-10-21 · **Supersede la v0.1**, que asumía SaaS multiempresa.
+> v0.3 · 2026-10-22 · Flujo de prospectos y recibos. Conserva single-tenant de v0.2 y supersede la entrada JSON pública de esa versión.
 > Fuente de verdad: documento maestro de producto y arquitectura entregado por el
 > propietario el 2026-10-21.
 
@@ -32,19 +32,31 @@ Consecuencias técnicas obligatorias:
 - La instalación, configuración, actualización, migración y respaldo deben ser sencillas.
 - El licenciamiento comercial se implementa después; no bloquea el MVP.
 
-## 3. El dashboard es el producto estrella
+## 3. El CRM es el producto
+
+Prioridad: **recibo → prospecto → JSON interno Ollama/mock → validación → ingeniero con
+motores deterministas y proveedores reales → presupuesto configurable → cotización → seguimiento**.
+`Client` representa al prospecto. Un proyecto es un recurso interno opcional: subir un
+recibo nunca obliga a crear un proyecto manualmente. No es un constructor de landings,
+un gestor de webs ni una API pública completa.
+
+Navegación prioritaria: **Dashboard / Mis prospectos / Cotizaciones / Proveedores /
+Costos y márgenes / Usuarios**. Los módulos aún no implementados se señalan pendientes;
+no se construyen pantallas funcionales ficticias para simularlos.
+
+El catálogo histórico de módulos se conserva como contexto:
 
 La primera prioridad es la **interfaz web**, no la API. Módulos:
 
-| Módulo | Contenido |
-|---|---|
-| **Panel principal** | Resumen de proyectos, cotizaciones, pendientes, diagnósticos, actividad reciente, indicadores del negocio |
-| **Clientes** | Registro, contacto, ubicaciones de instalación, historial de proyectos y propuestas |
-| **Proyectos solares** | Crear/editar, cliente asociado, ubicación, datos energéticos, diagnósticos, diseños preliminares, equipos, presupuestos |
-| **Ingeniero IA** | Análisis, diagnóstico energético, sistema recomendado, alternativas, justificación, advertencias, pendientes para instalación |
-| **Proveedores** | Distribuidores, credenciales API, productos, precios, existencias, fichas técnicas, sincronización y caché |
-| **Presupuestos** | Costos, porcentajes y márgenes, mano de obra, materiales, servicios, impuestos, cotizaciones, historial de modificaciones |
-| **Configuración** | Empresa, usuarios y permisos, parámetros comerciales y técnicos, proveedores, plantillas de propuestas, IA |
+| Módulo                | Contenido                                                                                                                     |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| **Panel principal**   | Resumen de proyectos, cotizaciones, pendientes, diagnósticos, actividad reciente, indicadores del negocio                     |
+| **Clientes**          | Registro, contacto, ubicaciones de instalación, historial de proyectos y propuestas                                           |
+| **Proyectos solares** | Crear/editar, cliente asociado, ubicación, datos energéticos, diagnósticos, diseños preliminares, equipos, presupuestos       |
+| **Ingeniero IA**      | Análisis, diagnóstico energético, sistema recomendado, alternativas, justificación, advertencias, pendientes para instalación |
+| **Proveedores**       | Distribuidores, credenciales API, productos, precios, existencias, fichas técnicas, sincronización y caché                    |
+| **Presupuestos**      | Costos, porcentajes y márgenes, mano de obra, materiales, servicios, impuestos, cotizaciones, historial de modificaciones     |
+| **Configuración**     | Empresa, usuarios y permisos, parámetros comerciales y técnicos, proveedores, plantillas de propuestas, IA                    |
 
 Interfaz moderna, clara y profesional, con identidad visual de Helios y energía solar.
 Prioridad: usabilidad, rapidez y visualización clara de resultados técnicos.
@@ -63,13 +75,13 @@ determinista.
 
 **R3 — Tres resultados posibles** para todo análisis:
 
-| Estado | Significado |
-|---|---|
-| `preliminary_complete` | Propuesta generada, con supuestos y verificaciones documentadas |
-| `conditioned` | Hay datos pendientes que afectan el diseño; se enumeran |
+| Estado                         | Significado                                                     |
+| ------------------------------ | --------------------------------------------------------------- |
+| `preliminary_complete`         | Propuesta generada, con supuestos y verificaciones documentadas |
+| `conditioned`                  | Hay datos pendientes que afectan el diseño; se enumeran         |
 | `requires_professional_review` | No hay certeza suficiente, o existe un riesgo técnico relevante |
 
-**R4 — Autonomía limitada.** Una propuesta *preliminar* puede generarse sin intervención.
+**R4 — Autonomía limitada.** Una propuesta _preliminar_ puede generarse sin intervención.
 Un diseño ejecutivo destinado a instalación queda sujeto a verificación física,
 eléctrica, normativa y profesional.
 
@@ -80,29 +92,38 @@ supuestos, metodología, versión del motor, resultado y advertencias.
 completa.
 
 **R7 — Dato no disponible ≠ dato cero.** Si una API de proveedor no entrega un campo, el
-adaptador lo marca como *no disponible*. Un `200 OK` de un tercero no garantiza que los
+adaptador lo marca como _no disponible_. Un `200 OK` de un tercero no garantiza que los
 datos basten para una decisión técnica.
 
 **R8 — Las credenciales de proveedores nunca llegan al navegador.**
 
-## 5. Entrada de datos CFE: JSON
+## 5. Entrada de producto: PDF o imagen del recibo
 
-Helios recibe **información estructurada en JSON**. Después, Ollama interpretará recibos
-en PDF o imagen y producirá *el mismo* esquema JSON. El desarrollo inicial usa documentos
-JSON de prueba.
+Dos entradas del mismo flujo: formulario público `/embed/cfe`, embebible mediante iframe,
+y carga autenticada `/intakes/create`, creando o seleccionando un prospecto explícitamente.
+Se requieren nombre y al menos correo o teléfono para un prospecto nuevo, recibo PDF/JPEG/PNG/WebP
+(hasta 10 MiB) y consentimiento con versión vigente. No se pide un proyecto.
 
-**No se construye un formulario de captura manual como flujo principal** (sí existe
-corrección supervisada de campos puntuales).
+Los archivos se guardan en almacenamiento privado; la descarga exige permisos del CRM.
+La respuesta pública no muestra IDs ni datos de prospectos existentes. Una coincidencia
+pública de correo/teléfono **no** da acceso ni vincula registros: se conserva una entrada
+separada para revisión humana. El token de un solo uso evita repetir el mismo envío.
+No se fusionan prospectos por hash de archivo ni por datos de contacto.
 
-El esquema contempla: versión, identificación del recibo, tarifa CFE, periodos de
-facturación, consumo kWh, historial, importes, datos del suministro, advertencias de
-extracción, campos faltantes, evidencia/referencia al documento origen y estado de
-validación. **No todos los formatos de recibo traen los mismos campos.**
+La recepción conserva el texto, versión, URL y fecha UTC del consentimiento. Deben configurarse
+un aviso aprobado por el responsable y los orígenes HTTPS exactos permitidos para iframe.
+Por defecto la recepción está deshabilitada y no admite framing. Los textos de demostración
+son exclusivamente de prueba y no constituyen un aviso legal aprobado.
 
-Validación obligatoria: tipos de dato, consumos negativos o inconsistentes, periodos
-imposibles, obligatorios faltantes, JSON malformado, inconsistencias entre importes,
-periodos y consumos; registro de advertencias; corrección supervisada.
-**Un JSON válido no garantiza que la información del recibo sea correcta.**
+El **JSON CFE es un contrato interno** (`docs/cfe-receipt-schema.md`), producido después
+por Ollama. La implementación actual solo ofrece una simulación explícita con fixtures
+identificadas; no extrae información del PDF ni la presenta como real. Un archivo recibido
+queda `stored`, pendiente de extracción. Ejecutar una fixture produce `mock_validated`,
+`mock_needs_review` o `mock_rejected`, conservando JSON original y validación CFE.
+No hay cálculos ni cotizaciones automáticas derivados de datos ficticios.
+
+La validación interna sigue comprobando estructura, coherencia, campos críticos y evidencia;
+JSON válido no garantiza información correcta. Las correcciones posteriores se auditarán.
 
 ## 6. Proveedores
 
@@ -117,19 +138,20 @@ compatibilidad.
 
 ## 7. Fases
 
-| Fase | Entregable |
-|---|---|
-| **F1 Dashboard y fundamentos** | Laravel+Inertia+Vue, auth, roles, configuración de empresa, clientes, proyectos, navegación y dashboard funcional, recepción y validación de JSON CFE. *Una empresa instala Helios, entra y crea proyectos energéticos.* |
-| **F2 Ingeniería y proveedores** | Motor energético y cálculos deterministas, adaptadores Syscom y Mock, catálogo técnico normalizado, validación de compatibilidad, selección de productos, estimación de producción |
-| **F3 Presupuestos configurables** | Panel de costos, porcentajes y márgenes, mano de obra, materiales, perfiles comerciales, motor de presupuestos, impuestos, historial |
-| **F4 Propuestas** | Generación, PDF, personalización de documentos, alternativas, historial y versiones |
-| **F5 Ingeniero IA** | Ollama, lector de recibos, agente, herramientas, validación de los resultados del agente |
-| **F6 API pública** | REST versionada, auth de consumidores, OpenAPI, control de acceso, límites de uso, webhooks |
+| Fase                              | Entregable                                                                                                                                                                                                                                                     |
+| --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **F1 Dashboard y fundamentos**    | Laravel+Inertia+Vue, auth, roles, configuración de empresa, clientes, proyectos, navegación y dashboard funcional, recepción privada de PDF/imagen y validación del JSON interno CFE. _Una empresa instala Helios, entra y recibe prospectos con sus recibos._ |
+| **F2 Ingeniería y proveedores**   | Motor energético y cálculos deterministas, adaptadores Syscom y Mock, catálogo técnico normalizado, validación de compatibilidad, selección de productos, estimación de producción                                                                             |
+| **F3 Presupuestos configurables** | Panel de costos, porcentajes y márgenes, mano de obra, materiales, perfiles comerciales, motor de presupuestos, impuestos, historial                                                                                                                           |
+| **F4 Propuestas**                 | Generación, PDF, personalización de documentos, alternativas, historial y versiones                                                                                                                                                                            |
+| **F5 Ingeniero IA**               | Ollama, lector de recibos, agente, herramientas, validación de los resultados del agente                                                                                                                                                                       |
+| **F6 API pública**                | REST versionada, auth de consumidores, OpenAPI, control de acceso, límites de uso, webhooks                                                                                                                                                                    |
 
 Fuera de alcance inicial: modelado 3D, análisis estructural avanzado, integraciones CRM
 particulares, aplicaciones móviles nativas, billing y cuotas.
 
 ## 8. Objetivo inmediato
 
-**Helios App ejecutándose en el navegador, con dashboard funcional, gestión de proyectos
-y recepción de JSON CFE.** La documentación y la infraestructura dejan de ser el foco.
+**Helios App ejecutándose en el navegador, con dashboard del CRM, gestión de prospectos
+y recepción de recibos PDF/imagen desde el formulario público y el CRM, sin crear un
+proyecto obligatorio.** La documentación y la infraestructura dejan de ser el foco.

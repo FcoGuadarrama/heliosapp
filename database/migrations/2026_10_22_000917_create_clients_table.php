@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -27,7 +28,7 @@ return new class extends Migration
             $table->string('state')->nullable();
             $table->string('postal_code')->nullable();
             $table->text('notes')->nullable();
-            $table->foreignIdFor(\App\Models\User::class, 'created_by')
+            $table->foreignIdFor(User::class, 'created_by')
                 ->nullable()
                 ->constrained('users')
                 ->nullOnDelete();

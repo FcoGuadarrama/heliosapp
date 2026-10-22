@@ -23,7 +23,7 @@ class UpdateClientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type' => 'required|in:residential,commercial,industrial,agricultural',
+            'type' => 'nullable|in:residential,commercial,industrial,agricultural',
             'name' => 'required|string|max:255',
             'contact_name' => 'nullable|string|max:255',
             'email' => 'nullable|email|max:255',
