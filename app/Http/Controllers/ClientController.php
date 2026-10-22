@@ -73,7 +73,7 @@ class ClientController extends Controller
     {
         $this->authorize('view', $client);
 
-        $projects = $client->projects()
+        $projects = request()->user()->can('projects.view') ? $client->projects()
             ->orderBy('created_at', 'desc')
             ->get()
             ->map(fn ($project) => [
@@ -82,7 +82,7 @@ class ClientController extends Controller
                 'name' => $project->name,
                 'status' => $project->status->value,
                 'created_at' => $project->created_at->format('Y-m-d H:i'),
-            ]);
+            ]) : [];
 
         return Inertia::render('Clients/Show', [
             'client' => [
