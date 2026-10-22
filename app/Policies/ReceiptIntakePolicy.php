@@ -14,7 +14,9 @@ class ReceiptIntakePolicy
 
     public function view(User $user, ReceiptIntake $intake): bool
     {
-        return $user->can('receipts.view') && $user->can('view', $intake->client);
+        return ! $intake->client->trashed()
+            && $user->can('receipts.view')
+            && $user->can('view', $intake->client);
     }
 
     public function process(User $user, ReceiptIntake $intake): bool
