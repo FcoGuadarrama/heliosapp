@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\EmbedSecurity;
 use App\Http\Middleware\HandleAppearance;
 use App\Http\Middleware\HandleInertiaRequests;
 use Illuminate\Foundation\Application;
@@ -16,8 +17,12 @@ return Application::configure(basePath: dirname(__DIR__))
         web: __DIR__.'/../routes/web.php',
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
+        then: function (): void {
+            require __DIR__.'/../routes/embed.php';
+        },
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->prepend(EmbedSecurity::class);
         $middleware->encryptCookies(except: ['appearance', 'sidebar_state']);
 
         $middleware->web(append: [

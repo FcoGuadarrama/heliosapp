@@ -3,9 +3,14 @@
 namespace Tests\Feature;
 
 use App\Models\Client;
+use App\Models\Project;
 use App\Models\User;
+use App\Policies\ClientPolicy;
 use Database\Seeders\RolesAndPermissionsSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Gate;
+use PHPUnit\Framework\Attributes\DataProvider;
+use Spatie\Permission\Middleware\PermissionMiddleware;
 use Tests\TestCase;
 
 class ClientTest extends TestCase
@@ -16,6 +21,7 @@ class ClientTest extends TestCase
     {
         parent::setUp();
         $this->seed(RolesAndPermissionsSeeder::class);
+        $this->withoutVite();
     }
 
     public function test_users_with_clients_view_permission_can_view_clients_index()
@@ -106,5 +112,87 @@ class ClientTest extends TestCase
                 'postal_code' => '123',
             ])
             ->assertSessionHasErrors(['postal_code']);
+    }
+
+    public static function roles(): array
+    {
+        return [['owner', true, true, true], ['admin', true, true, true], ['sales', true, true, true], ['engineer', false, false, false], ['viewer', false, false, false]];
+    }
+
+    #[DataProvider('roles')]
+    public function test_policies_and_crud_by_role(string $role, bool $create, bool $update, bool $delete): void
+    {
+        $user = User::factory()->create();
+        $user->assignRole($role);
+        $resource = Client::factory()->create();
+        $this->assertInstanceOf(ClientPolicy::class, Gate::getPolicyFor(Client::class));
+        foreach (['viewAny' => true, 'view' => true, 'create' => $create, 'update' => $update, 'delete' => $delete] as $ability => $allowed) {
+            $this->assertSame($allowed, Gate::forUser($user)->allows($ability, in_array($ability, ['create', 'viewAny']) ? Client::class : $resource));
+        }
+        // Policies remain active when the route permission middleware is absent.
+        $this->withoutMiddleware(PermissionMiddleware::class);
+        $this->actingAs($user)->get('/clients')->assertOk();
+        $this->get('/clients/'.$resource->id)->assertOk();
+        $this->get('/clients/create')->assertStatus($create ? 200 : 403);
+        $this->get('/clients/'.$resource->id.'/edit')->assertStatus($update ? 200 : 403);
+        $this->post('/clients', ['type' => 'residential', 'name' => 'Nuevo'])->assertStatus($create ? 302 : 403);
+        $this->patch('/clients/'.$resource->id, ['type' => 'commercial', 'name' => 'Editado'])->assertStatus($update ? 302 : 403);
+        $this->assertSame($update ? 'Editado' : $resource->name, $resource->fresh()->name);
+        $this->delete('/clients/'.$resource->id)->assertStatus($delete ? 302 : 403);
+        if ($delete) {
+            $this->assertSoftDeleted($resource);
+            $this->get('/clients/'.$resource->id)->assertNotFound();
+        } else {
+            $this->assertNotSoftDeleted($resource);
+        }
+    }
+
+    public static function actions(): array
+    {
+        return [['index', 'viewAny'], ['create', 'create'], ['store', 'create'], ['show', 'view'], ['edit', 'update'], ['update', 'update'], ['destroy', 'delete']];
+    }
+
+    #[DataProvider('actions')]
+    public function test_controller_enforces_resource_policy_even_with_route_permission(string $action, string $ability): void
+    {
+        $user = User::factory()->create();
+        $user->assignRole('owner');
+        $resource = Client::factory()->create();
+        $this->mock(ClientPolicy::class, function ($mock) use ($resource, $ability, $action): void {
+            $expectation = $mock->shouldReceive($ability)->once();
+            if (in_array($action, ['index', 'create', 'store'])) {
+                $expectation->withArgs(fn ($user) => $user->hasRole('owner'));
+            } else {
+                $expectation->withArgs(fn ($user, $model) => $model->id === $resource->id);
+            }
+            $expectation->andReturn(false);
+        });
+        $this->actingAs($user);
+        $response = match ($action) {
+            'index' => $this->get('/clients'),
+            'create' => $this->get('/clients/create'),
+            'show' => $this->get('/clients/'.$resource->id),
+            'edit' => $this->get('/clients/'.$resource->id.'/edit'),
+            'store' => $this->post('/clients', ['type' => 'residential', 'name' => 'Nuevo']),
+            'update' => $this->patch('/clients/'.$resource->id, ['type' => 'residential', 'name' => 'Nuevo']),
+            'destroy' => $this->delete('/clients/'.$resource->id),
+        };
+        $response->assertForbidden();
+        $this->assertNotSoftDeleted($resource);
+    }
+
+    public function test_search_pagination_and_project_history_preserve_resource_dates(): void
+    {
+        $user = User::factory()->create();
+        $user->assignRole('sales');
+        $client = Client::factory()->create(['name' => 'Solar buscable', 'created_at' => '2026-01-01 10:00:00']);
+        Client::factory()->count(16)->create(['name' => 'Otro']);
+        $project = Project::factory()->create(['client_id' => $client->id, 'created_at' => '2026-10-01 12:30:00']);
+        $this->actingAs($user)->get('/clients?search=Solar%20buscable')->assertInertia(fn ($page) => $page
+            ->has('clients.data', 1)->where('clients.data.0.id', $client->id));
+        $this->get('/clients?page=2')->assertInertia(fn ($page) => $page->has('clients.data', 2));
+        $this->get('/clients/'.$client->id)->assertInertia(fn ($page) => $page
+            ->has('projects', 1)->where('projects.0.id', $project->id)
+            ->where('projects.0.created_at', '2026-10-01 12:30'));
     }
 }

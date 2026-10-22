@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Client;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Client::class)
+            $table->foreignIdFor(Client::class)
                 ->constrained('clients')
                 ->cascadeOnDelete();
             $table->string('code')->unique();
@@ -32,11 +34,11 @@ return new class extends Migration
             $table->json('objectives')->nullable();
             $table->json('property_data')->nullable();
             $table->text('notes')->nullable();
-            $table->foreignIdFor(\App\Models\User::class, 'assigned_user_id')
+            $table->foreignIdFor(User::class, 'assigned_user_id')
                 ->nullable()
                 ->constrained('users')
                 ->nullOnDelete();
-            $table->foreignIdFor(\App\Models\User::class, 'created_by')
+            $table->foreignIdFor(User::class, 'created_by')
                 ->nullable()
                 ->constrained('users')
                 ->nullOnDelete();

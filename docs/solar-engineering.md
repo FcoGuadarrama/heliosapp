@@ -12,14 +12,14 @@ Si falta alguno o no está marcado como verificado, el análisis **no entrega la
 dependería de él** y el resultado baja a `conditioned` o `requires_professional_review`,
 nombrando explícitamente el parámetro ausente.
 
-| # | Parámetro | Qué bloquea si falta | Origen requerido |
-|---|---|---|---|
-| P1 | Irradiación por coordenadas | Estimación de producción y todo el dimensionamiento | Fuente externa verificada (candidata: NASA POWER) |
-| P2 | Metodología de estimación de producción | Producción anual y mensual, ahorro, retorno | Referencia documentada (candidata: PVWatts V8) |
-| P3 | Modelo de pérdidas del sistema | Producción realista | Fuente técnica reconocida y citada |
-| P4 | Tarifas CFE vigentes y su estructura | Costo actual, ahorro, retorno de inversión | Publicación oficial de CFE / DOF |
-| P5 | Esquema de compensación aplicable | Cálculo del ahorro real | Normativa oficial vigente |
-| P6 | Reglas fiscales y su vigencia | Total de la cotización | Fuente fiscal oficial |
+| #   | Parámetro                               | Qué bloquea si falta                                | Origen requerido                                  |
+| --- | --------------------------------------- | --------------------------------------------------- | ------------------------------------------------- |
+| P1  | Irradiación por coordenadas             | Estimación de producción y todo el dimensionamiento | Fuente externa verificada (candidata: NASA POWER) |
+| P2  | Metodología de estimación de producción | Producción anual y mensual, ahorro, retorno         | Referencia documentada (candidata: PVWatts V8)    |
+| P3  | Modelo de pérdidas del sistema          | Producción realista                                 | Fuente técnica reconocida y citada                |
+| P4  | Tarifas CFE vigentes y su estructura    | Costo actual, ahorro, retorno de inversión          | Publicación oficial de CFE / DOF                  |
+| P5  | Esquema de compensación aplicable       | Cálculo del ahorro real                             | Normativa oficial vigente                         |
+| P6  | Reglas fiscales y su vigencia           | Total de la cotización                              | Fuente fiscal oficial                             |
 
 **Ninguno de estos valores debe tomarse de la memoria de un modelo de lenguaje.**
 
@@ -32,7 +32,7 @@ uso comercial, estabilidad de la API y política de versiones.
 - **NASA POWER** — propuesta como fuente inicial de irradiación.
 - **PVWatts V8 (NREL)** — propuesta como referencia de estimación de producción.
 
-Hasta completar esa revisión, ambas quedan como *candidatas*, no como decisión tomada.
+Hasta completar esa revisión, ambas quedan como _candidatas_, no como decisión tomada.
 
 ## 3. Reglas de diseño del motor
 
