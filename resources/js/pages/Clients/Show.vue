@@ -7,11 +7,12 @@ import IntakeController from '@/actions/App/Http/Controllers/IntakeController';
 import { create as intakeCreate, file as intakeFile } from '@/routes/intakes';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import {
     create as projectsCreate,
     show as projectsShow,
 } from '@/routes/projects';
-import { index as clientsIndex } from '@/routes/clients';
+import { index as clientsIndex, show as clientsShow } from '@/routes/clients';
 
 interface ClientData {
     id: number;
@@ -39,6 +40,11 @@ interface Project {
     created_at: string;
 }
 
+interface PossibleDuplicate {
+    id: number;
+    name: string;
+}
+
 interface Intake {
     id: number;
     status: string;
@@ -52,6 +58,9 @@ interface Intake {
 const page = usePage();
 const permissions = computed(() => page.props.auth.permissions ?? []);
 const intakes = computed(() => (page.props.intakes ?? []) as Intake[]);
+const possibleDuplicates = computed(
+    () => (page.props.possibleDuplicates ?? []) as PossibleDuplicate[],
+);
 const receiptStatuses: Record<string, string> = {
     stored: 'Archivo guardado · extracción pendiente',
     mock_validated: 'Simulación: JSON validado',
@@ -115,6 +124,29 @@ defineOptions({
                 Editar prospecto
             </Link>
         </div>
+
+        <Alert v-if="possibleDuplicates.length > 0">
+            <AlertTitle>Posible prospecto duplicado</AlertTitle>
+            <AlertDescription class="space-y-3">
+                <p>
+                    Revisa antes de crear otro. No se fusionarán registros
+                    automáticamente. Si corresponde, abre el prospecto correcto
+                    y usa «Adjuntar recibo».
+                </p>
+                <ul class="list-inside list-disc space-y-1">
+                    <li
+                        v-for="candidate in possibleDuplicates"
+                        :key="candidate.id"
+                    >
+                        <Link
+                            :href="clientsShow(candidate.id)"
+                            class="underline"
+                            >{{ candidate.name }}</Link
+                        >
+                    </li>
+                </ul>
+            </AlertDescription>
+        </Alert>
 
         <section
             class="space-y-4 rounded-lg border p-6"
