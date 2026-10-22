@@ -56,9 +56,7 @@ defineOptions({
 });
 
 const page = usePage();
-const clients = computed(
-    () => (page.props.clients as unknown as PaginatedClients).data,
-);
+const clients = computed(() => (page.props.clients as unknown as PaginatedClients).data);
 const searchQuery = computed(() => page.props.search as unknown as string);
 
 const typeLabels: Record<string, string> = {
@@ -68,10 +66,7 @@ const typeLabels: Record<string, string> = {
     agricultural: 'Agrícola',
 };
 
-const typeColors: Record<
-    string,
-    'default' | 'secondary' | 'destructive' | 'outline'
-> = {
+const typeColors: Record<string, 'default' | 'secondary' | 'destructive' | 'outline'> = {
     residential: 'default',
     commercial: 'secondary',
     industrial: 'destructive',
@@ -94,9 +89,7 @@ const createOpen = ref(false);
 
             <Dialog v-model:open="createOpen">
                 <DialogTrigger as-child>
-                    <Button data-test="create-client-button"
-                        >Nuevo cliente</Button
-                    >
+                    <Button data-test="create-client-button">Nuevo cliente</Button>
                 </DialogTrigger>
                 <DialogContent>
                     <Form
@@ -110,8 +103,7 @@ const createOpen = ref(false);
                         <DialogHeader>
                             <DialogTitle>Nuevo cliente</DialogTitle>
                             <DialogDescription>
-                                Crea un nuevo cliente y su información de
-                                contacto.
+                                Crea un nuevo cliente y su información de contacto.
                             </DialogDescription>
                         </DialogHeader>
 
@@ -141,15 +133,20 @@ const createOpen = ref(false);
 
                         <div class="grid gap-2">
                             <Label for="create-name">Nombre</Label>
-                            <Input id="create-name" name="name" required />
+                            <Input
+                                id="create-name"
+                                name="name"
+                                required
+                            />
                             <InputError :message="errors.name" />
                         </div>
 
                         <div class="grid gap-2">
-                            <Label for="create-contact"
-                                >Nombre de contacto</Label
-                            >
-                            <Input id="create-contact" name="contact_name" />
+                            <Label for="create-contact">Nombre de contacto</Label>
+                            <Input
+                                id="create-contact"
+                                name="contact_name"
+                            />
                             <InputError :message="errors.contact_name" />
                         </div>
 
@@ -165,7 +162,11 @@ const createOpen = ref(false);
 
                         <div class="grid gap-2">
                             <Label for="create-phone">Teléfono</Label>
-                            <Input id="create-phone" type="tel" name="phone" />
+                            <Input
+                                id="create-phone"
+                                type="tel"
+                                name="phone"
+                            />
                             <InputError :message="errors.phone" />
                         </div>
 
@@ -220,9 +221,7 @@ const createOpen = ref(false);
                                 {{ typeLabels[client.type] }}
                             </Badge>
                         </td>
-                        <td
-                            class="px-4 py-2 whitespace-nowrap text-muted-foreground"
-                        >
+                        <td class="px-4 py-2 whitespace-nowrap text-muted-foreground">
                             {{ client.email || '-' }}
                         </td>
                         <td class="px-4 py-2 whitespace-nowrap">
@@ -250,11 +249,7 @@ const createOpen = ref(false);
                                 <Form
                                     method="DELETE"
                                     :action="`/clients/${client.id}`"
-                                    @submit="
-                                        !confirmDelete(
-                                            '¿Deseas eliminar este cliente?',
-                                        ) && $event.preventDefault()
-                                    "
+                                    @submit="!confirmDelete('¿Deseas eliminar este cliente?') && $event.preventDefault()"
                                 >
                                     <Button
                                         type="submit"

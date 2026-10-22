@@ -34,9 +34,7 @@ interface ProjectData {
 
 const page = usePage();
 const project = computed(() => page.props.project as unknown as ProjectData);
-const clients = computed(
-    () => page.props.clients as unknown as Array<{ id: number; name: string }>,
-);
+const clients = computed(() => page.props.clients as unknown as Array<{ id: number; name: string }>);
 
 const statusLabels: Record<string, string> = {
     draft: 'Borrador',
@@ -58,7 +56,7 @@ const installationLabels: Record<string, string> = {
 };
 
 const clientName = computed(() => {
-    const client = clients.value.find((c) => c.id === project.value.client_id);
+    const client = clients.value.find(c => c.id === project.value.client_id);
     return client?.name || 'Desconocido';
 });
 
@@ -104,16 +102,10 @@ defineOptions({
             </Link>
         </div>
 
-        <Alert
-            v-if="project.isMissingCoordinates"
-            class="border-yellow-200 bg-yellow-50"
-        >
+        <Alert v-if="project.isMissingCoordinates" class="border-yellow-200 bg-yellow-50">
             <AlertCircle class="h-4 w-4 text-yellow-600" />
             <AlertDescription class="text-yellow-800">
-                Este proyecto aún no tiene coordenadas definidas. Sin latitud y
-                longitud, no es posible estimar la irradiación solar ni
-                dimensionar el sistema. Por favor, proporciona las coordenadas
-                del sitio.
+                Este proyecto aún no tiene coordenadas definidas. Sin latitud y longitud, no es posible estimar la irradiación solar ni dimensionar el sistema. Por favor, proporciona las coordenadas del sitio.
             </AlertDescription>
         </Alert>
 
@@ -126,9 +118,7 @@ defineOptions({
             </div>
             <div class="rounded-lg border p-4">
                 <p class="text-sm text-muted-foreground">Tipo de instalación</p>
-                <p class="mt-2 font-medium">
-                    {{ installationLabels[project.installation_type] }}
-                </p>
+                <p class="mt-2 font-medium">{{ installationLabels[project.installation_type] }}</p>
             </div>
             <div class="rounded-lg border p-4">
                 <p class="text-sm text-muted-foreground">Cliente</p>
@@ -149,9 +139,7 @@ defineOptions({
                 </div>
                 <div>
                     <p class="text-sm text-muted-foreground">Número exterior</p>
-                    <p class="font-medium">
-                        {{ project.exterior_number || '-' }}
-                    </p>
+                    <p class="font-medium">{{ project.exterior_number || '-' }}</p>
                 </div>
                 <div>
                     <p class="text-sm text-muted-foreground">Colonia</p>
@@ -177,15 +165,11 @@ defineOptions({
             <div class="grid gap-4 md:grid-cols-2">
                 <div>
                     <p class="text-sm text-muted-foreground">Latitud</p>
-                    <p class="font-mono font-medium">
-                        {{ project.latitude || 'No definida' }}
-                    </p>
+                    <p class="font-mono font-medium">{{ project.latitude || 'No definida' }}</p>
                 </div>
                 <div>
                     <p class="text-sm text-muted-foreground">Longitud</p>
-                    <p class="font-mono font-medium">
-                        {{ project.longitude || 'No definida' }}
-                    </p>
+                    <p class="font-mono font-medium">{{ project.longitude || 'No definida' }}</p>
                 </div>
             </div>
         </div>
@@ -198,10 +182,7 @@ defineOptions({
         <div class="rounded-lg border p-6">
             <h3 class="mb-4 text-lg font-semibold">Datos energéticos</h3>
             <p class="text-sm text-muted-foreground">
-                Los datos energéticos se habilitarán después de importar el
-                recibo de electricidad (CFE). Una vez cargado, podrás ver el
-                historial de consumo, el análisis energético y las
-                recomendaciones de dimensionamiento del sistema.
+                Los datos energéticos se habilitarán después de importar el recibo de electricidad (CFE). Una vez cargado, podrás ver el historial de consumo, el análisis energético y las recomendaciones de dimensionamiento del sistema.
             </p>
         </div>
     </div>

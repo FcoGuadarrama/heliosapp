@@ -95,9 +95,7 @@ defineOptions({
                 <h3 class="mb-4 text-lg font-semibold">Información general</h3>
                 <div class="grid gap-4 md:grid-cols-2">
                     <div>
-                        <p class="text-sm text-muted-foreground">
-                            Nombre de contacto
-                        </p>
+                        <p class="text-sm text-muted-foreground">Nombre de contacto</p>
                         <p class="font-medium">
                             {{ client.contact_name || '-' }}
                         </p>
@@ -133,17 +131,13 @@ defineOptions({
                         </p>
                     </div>
                     <div>
-                        <p class="text-sm text-muted-foreground">
-                            Número exterior
-                        </p>
+                        <p class="text-sm text-muted-foreground">Número exterior</p>
                         <p class="font-medium">
                             {{ client.exterior_number || '-' }}
                         </p>
                     </div>
                     <div>
-                        <p class="text-sm text-muted-foreground">
-                            Número interior
-                        </p>
+                        <p class="text-sm text-muted-foreground">Número interior</p>
                         <p class="font-medium">
                             {{ client.interior_number || '-' }}
                         </p>
@@ -167,9 +161,7 @@ defineOptions({
                         </p>
                     </div>
                     <div>
-                        <p class="text-sm text-muted-foreground">
-                            Código postal
-                        </p>
+                        <p class="text-sm text-muted-foreground">Código postal</p>
                         <p class="font-medium">
                             {{ client.postal_code || '-' }}
                         </p>
@@ -194,31 +186,18 @@ defineOptions({
                     </Link>
                 </div>
                 <div class="mt-4">
-                    <div
-                        v-if="projects.length === 0"
-                        class="text-center text-muted-foreground"
-                    >
+                    <div v-if="projects.length === 0" class="text-center text-muted-foreground">
                         <p>No hay proyectos para este cliente</p>
                     </div>
                     <div v-else class="overflow-x-auto">
                         <table class="w-full text-sm">
                             <thead class="bg-muted/50">
                                 <tr>
-                                    <th class="px-4 py-2 text-left font-medium">
-                                        Código
-                                    </th>
-                                    <th class="px-4 py-2 text-left font-medium">
-                                        Nombre
-                                    </th>
-                                    <th class="px-4 py-2 text-left font-medium">
-                                        Estado
-                                    </th>
-                                    <th class="px-4 py-2 text-left font-medium">
-                                        Fecha
-                                    </th>
-                                    <th class="px-4 py-2 text-left font-medium">
-                                        Acciones
-                                    </th>
+                                    <th class="px-4 py-2 text-left font-medium">Código</th>
+                                    <th class="px-4 py-2 text-left font-medium">Nombre</th>
+                                    <th class="px-4 py-2 text-left font-medium">Estado</th>
+                                    <th class="px-4 py-2 text-left font-medium">Fecha</th>
+                                    <th class="px-4 py-2 text-left font-medium">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -227,20 +206,14 @@ defineOptions({
                                     :key="project.id"
                                     class="border-t"
                                 >
-                                    <td class="px-4 py-2">
-                                        {{ project.code }}
-                                    </td>
-                                    <td class="px-4 py-2">
-                                        {{ project.name }}
-                                    </td>
+                                    <td class="px-4 py-2">{{ project.code }}</td>
+                                    <td class="px-4 py-2">{{ project.name }}</td>
                                     <td class="px-4 py-2">
                                         <Badge variant="secondary">
                                             {{ statusLabels[project.status] }}
                                         </Badge>
                                     </td>
-                                    <td class="px-4 py-2">
-                                        {{ project.created_at }}
-                                    </td>
+                                    <td class="px-4 py-2">{{ project.created_at }}</td>
                                     <td class="px-4 py-2">
                                         <Link
                                             :href="`/projects/${project.id}`"

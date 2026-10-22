@@ -63,7 +63,7 @@ const roleLabels: Record<string, string> = {
 };
 
 const roleLabel = (role: string | null) =>
-    role ? (roleLabels[role] ?? role) : 'Sin rol';
+    role ? roleLabels[role] ?? role : 'Sin rol';
 </script>
 
 <template>
@@ -79,9 +79,7 @@ const roleLabel = (role: string | null) =>
 
             <Dialog v-model:open="createOpen">
                 <DialogTrigger as-child>
-                    <Button data-test="create-user-button"
-                        >Nuevo usuario</Button
-                    >
+                    <Button data-test="create-user-button">Nuevo usuario</Button>
                 </DialogTrigger>
                 <DialogContent>
                     <Form
@@ -338,7 +336,9 @@ const roleLabel = (role: string | null) =>
                                                         <SelectItem
                                                             v-for="roleOption in roles"
                                                             :key="roleOption"
-                                                            :value="roleOption"
+                                                            :value="
+                                                                roleOption
+                                                            "
                                                         >
                                                             {{
                                                                 roleLabel(
@@ -353,7 +353,9 @@ const roleLabel = (role: string | null) =>
                                                 />
                                             </div>
 
-                                            <div class="flex justify-end gap-2">
+                                            <div
+                                                class="flex justify-end gap-2"
+                                            >
                                                 <Button
                                                     type="submit"
                                                     :disabled="processing"
