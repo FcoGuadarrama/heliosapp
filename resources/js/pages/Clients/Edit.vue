@@ -42,7 +42,7 @@ defineOptions({
     layout: {
         breadcrumbs: [
             {
-                title: 'Clientes',
+                title: 'Mis prospectos',
                 href: clientsIndex(),
             },
             {
@@ -54,13 +54,13 @@ defineOptions({
 </script>
 
 <template>
-    <Head title="Editar cliente" />
+    <Head title="Editar prospecto" />
 
     <div class="flex flex-col space-y-6">
         <Heading
             variant="small"
-            title="Editar cliente"
-            description="Actualiza la información del cliente"
+            title="Editar prospecto"
+            description="Actualiza la información del prospecto"
         />
 
         <Form

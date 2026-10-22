@@ -85,11 +85,7 @@ defineOptions({
 
                     <div class="grid gap-2">
                         <Label for="name">Nombre del proyecto</Label>
-                        <Input
-                            id="name"
-                            name="name"
-                            required
-                        />
+                        <Input id="name" name="name" required />
                         <InputError :message="errors.name" />
                     </div>
 
@@ -101,21 +97,35 @@ defineOptions({
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="draft">Borrador</SelectItem>
-                                <SelectItem value="data_received">Datos recibidos</SelectItem>
-                                <SelectItem value="analyzing">Analizando</SelectItem>
-                                <SelectItem value="analyzed">Analizado</SelectItem>
-                                <SelectItem value="quoted">Presupuestado</SelectItem>
-                                <SelectItem value="proposal_sent">Propuesta enviada</SelectItem>
+                                <SelectItem value="data_received"
+                                    >Datos recibidos</SelectItem
+                                >
+                                <SelectItem value="analyzing"
+                                    >Analizando</SelectItem
+                                >
+                                <SelectItem value="analyzed"
+                                    >Analizado</SelectItem
+                                >
+                                <SelectItem value="quoted"
+                                    >Presupuestado</SelectItem
+                                >
+                                <SelectItem value="proposal_sent"
+                                    >Propuesta enviada</SelectItem
+                                >
                                 <SelectItem value="won">Ganado</SelectItem>
                                 <SelectItem value="lost">Perdido</SelectItem>
-                                <SelectItem value="archived">Archivado</SelectItem>
+                                <SelectItem value="archived"
+                                    >Archivado</SelectItem
+                                >
                             </SelectContent>
                         </Select>
                         <InputError :message="errors.status" />
                     </div>
 
                     <div class="grid gap-2">
-                        <Label for="installation_type">Tipo de instalación</Label>
+                        <Label for="installation_type"
+                            >Tipo de instalación</Label
+                        >
                         <Select name="installation_type" required>
                             <SelectTrigger id="installation_type">
                                 <SelectValue />
@@ -123,7 +133,9 @@ defineOptions({
                             <SelectContent>
                                 <SelectItem value="roof">Techo</SelectItem>
                                 <SelectItem value="ground">Terreno</SelectItem>
-                                <SelectItem value="carport">Estacionamiento</SelectItem>
+                                <SelectItem value="carport"
+                                    >Estacionamiento</SelectItem
+                                >
                                 <SelectItem value="other">Otro</SelectItem>
                             </SelectContent>
                         </Select>
@@ -134,7 +146,9 @@ defineOptions({
                         <Label for="assigned_user_id">Asignado a</Label>
                         <Select name="assigned_user_id">
                             <SelectTrigger id="assigned_user_id">
-                                <SelectValue placeholder="Selecciona un usuario" />
+                                <SelectValue
+                                    placeholder="Selecciona un usuario"
+                                />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem
@@ -156,55 +170,37 @@ defineOptions({
                 <div class="space-y-4">
                     <div class="grid gap-2">
                         <Label for="street">Calle</Label>
-                        <Input
-                            id="street"
-                            name="street"
-                        />
+                        <Input id="street" name="street" />
                         <InputError :message="errors.street" />
                     </div>
 
                     <div class="grid gap-2">
                         <Label for="exterior_number">Número exterior</Label>
-                        <Input
-                            id="exterior_number"
-                            name="exterior_number"
-                        />
+                        <Input id="exterior_number" name="exterior_number" />
                         <InputError :message="errors.exterior_number" />
                     </div>
 
                     <div class="grid gap-2">
                         <Label for="neighborhood">Colonia</Label>
-                        <Input
-                            id="neighborhood"
-                            name="neighborhood"
-                        />
+                        <Input id="neighborhood" name="neighborhood" />
                         <InputError :message="errors.neighborhood" />
                     </div>
 
                     <div class="grid gap-2">
                         <Label for="municipality">Municipio</Label>
-                        <Input
-                            id="municipality"
-                            name="municipality"
-                        />
+                        <Input id="municipality" name="municipality" />
                         <InputError :message="errors.municipality" />
                     </div>
 
                     <div class="grid gap-2">
                         <Label for="state">Estado</Label>
-                        <Input
-                            id="state"
-                            name="state"
-                        />
+                        <Input id="state" name="state" />
                         <InputError :message="errors.state" />
                     </div>
 
                     <div class="grid gap-2">
                         <Label for="postal_code">Código postal</Label>
-                        <Input
-                            id="postal_code"
-                            name="postal_code"
-                        />
+                        <Input id="postal_code" name="postal_code" />
                         <InputError :message="errors.postal_code" />
                     </div>
 
@@ -233,7 +229,8 @@ defineOptions({
                     </div>
 
                     <p class="text-sm text-muted-foreground">
-                        Las coordenadas (latitud y longitud) son necesarias para calcular la irradiación solar y dimensionar el sistema.
+                        Las coordenadas (latitud y longitud) son necesarias para
+                        calcular la irradiación solar y dimensionar el sistema.
                     </p>
                 </div>
             </div>
@@ -242,11 +239,7 @@ defineOptions({
                 <h3 class="mb-4 text-lg font-semibold">Notas</h3>
                 <div class="grid gap-2">
                     <Label for="notes">Notas adicionales</Label>
-                    <Textarea
-                        id="notes"
-                        name="notes"
-                        class="min-h-24"
-                    />
+                    <Textarea id="notes" name="notes" class="min-h-24" />
                     <InputError :message="errors.notes" />
                 </div>
             </div>

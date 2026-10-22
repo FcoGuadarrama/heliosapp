@@ -6,6 +6,7 @@ const confirmDelete = (message: string): boolean => {
     return window.confirm(message);
 };
 import Heading from '@/components/Heading.vue';
+import PaginationLinks from '@/components/PaginationLinks.vue';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { index as projectsIndex } from '@/routes/projects';
@@ -25,7 +26,13 @@ interface PaginatedProjects {
 }
 
 const page = usePage();
-const projects = computed(() => (page.props.projects as unknown as PaginatedProjects).data);
+const projects = computed(
+    () => (page.props.projects as unknown as PaginatedProjects).data,
+);
+
+const pagination = computed(
+    () => (page.props.projects as unknown as PaginatedProjects).links,
+);
 
 const statusLabels: Record<string, string> = {
     draft: 'Borrador',
@@ -39,7 +46,10 @@ const statusLabels: Record<string, string> = {
     archived: 'Archivado',
 };
 
-const statusColors: Record<string, 'default' | 'secondary' | 'destructive' | 'outline'> = {
+const statusColors: Record<
+    string,
+    'default' | 'secondary' | 'destructive' | 'outline'
+> = {
     draft: 'secondary',
     data_received: 'default',
     analyzing: 'default',
@@ -104,7 +114,7 @@ defineOptions({
                         class="border-t"
                         :data-test="`project-row-${project.id}`"
                     >
-                        <td class="px-4 py-2 whitespace-nowrap font-mono">
+                        <td class="px-4 py-2 font-mono whitespace-nowrap">
                             {{ project.code }}
                         </td>
                         <td class="px-4 py-2">
@@ -118,7 +128,9 @@ defineOptions({
                                 {{ statusLabels[project.status] }}
                             </Badge>
                         </td>
-                        <td class="px-4 py-2 whitespace-nowrap text-muted-foreground">
+                        <td
+                            class="px-4 py-2 whitespace-nowrap text-muted-foreground"
+                        >
                             {{ project.created_at }}
                         </td>
                         <td class="px-4 py-2 whitespace-nowrap">
@@ -140,7 +152,11 @@ defineOptions({
                                 <Form
                                     method="DELETE"
                                     :action="`/projects/${project.id}`"
-                                    @submit="!confirmDelete('¿Deseas eliminar este proyecto?') && $event.preventDefault()"
+                                    @submit="
+                                        !confirmDelete(
+                                            '¿Deseas eliminar este proyecto?',
+                                        ) && $event.preventDefault()
+                                    "
                                 >
                                     <Button
                                         type="submit"
@@ -157,5 +173,6 @@ defineOptions({
                 </tbody>
             </table>
         </div>
+        <PaginationLinks :links="pagination" />
     </div>
 </template>
