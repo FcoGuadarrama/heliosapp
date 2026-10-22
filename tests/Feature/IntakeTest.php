@@ -161,15 +161,33 @@ class IntakeTest extends TestCase
 
     public function test_crm_selects_existing_prospect_explicitly_and_authorizes_file(): void
     {
-        $client = Client::factory()->create(['name' => 'Conservar']);
+        $client = Client::factory()->create(['name' => 'Conservar', 'type' => 'commercial']);
         $this->actingAs($this->user('sales'))->get('/intakes/create')->assertOk();
         $this->post('/intakes', [...$this->data(), 'client_id' => $client->id])->assertRedirect('/clients/'.$client->id);
         $intake = ReceiptIntake::sole();
         $this->assertSame('Conservar', $client->fresh()->name);
+        $this->assertSame('commercial', $client->fresh()->type->value);
         $this->assertDatabaseCount('clients', 1);
         $this->get('/intakes/'.$intake->id.'/file')->assertOk()->assertDownload('recibo-'.$intake->id.'.pdf')->assertHeader('Content-Type', 'application/octet-stream');
         $this->actingAs(User::factory()->create())->get('/intakes/'.$intake->id.'/file')->assertForbidden();
         $this->actingAs($this->user('viewer'))->post('/intakes', $this->data())->assertForbidden();
+    }
+
+    public function test_crm_minimal_prospect_remains_unclassified_and_serializes_safely(): void
+    {
+        $data = $this->data();
+        unset($data['email']);
+        $this->actingAs($this->user('sales'))->post('/intakes', [...$data, 'phone' => '5551234567'])->assertRedirect();
+        $client = Client::sole();
+        $this->assertNull($client->type);
+        $this->assertNull($client->email);
+        $this->assertSame('5551234567', $client->phone);
+        $this->assertSame($client->id, ReceiptIntake::sole()->client_id);
+        $this->assertDatabaseCount('projects', 0);
+        $this->get('/clients/'.$client->id)->assertOk()
+            ->assertInertia(fn ($page) => $page->where('client.type', null));
+        $this->get('/clients')->assertOk()
+            ->assertInertia(fn ($page) => $page->where('clients.data.0.type', null));
     }
 
     public function test_engineer_can_attach_receipt_but_cannot_create_new_prospect(): void
