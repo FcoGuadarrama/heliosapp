@@ -84,6 +84,34 @@ class ClientTest extends TestCase
             ->assertInertia(fn ($page) => $page->has('possibleDuplicates', 0));
     }
 
+    public function test_contact_can_be_edited_without_classifying_a_prospect(): void
+    {
+        $client = Client::factory()->create(['type' => null]);
+        $user = User::factory()->create();
+        $user->assignRole('sales');
+        $this->actingAs($user);
+
+        foreach ([[], ['type' => null], ['type' => '']] as $classification) {
+            $this->patch('/clients/'.$client->id, [...$classification, 'name' => 'Contacto actualizado', 'phone' => '5551234567'])
+                ->assertRedirect('/clients');
+            $this->assertNull($client->fresh()->type);
+            $this->assertSame('5551234567', $client->fresh()->phone);
+        }
+    }
+
+    public function test_contact_edit_preserves_existing_classification_and_rejects_unknown_types(): void
+    {
+        $client = Client::factory()->create(['type' => 'commercial']);
+        $user = User::factory()->create();
+        $user->assignRole('sales');
+        $this->actingAs($user)->patch('/clients/'.$client->id, ['name' => 'Contacto actualizado'])->assertRedirect('/clients');
+        $this->assertSame('commercial', $client->fresh()->type->value);
+
+        $this->patch('/clients/'.$client->id, ['name' => 'No guardar', 'type' => 'unknown'])->assertSessionHasErrors('type');
+        $this->assertSame('commercial', $client->fresh()->type->value);
+        $this->assertSame('Contacto actualizado', $client->fresh()->name);
+    }
+
     public function test_users_with_clients_create_can_create_a_client()
     {
         $user = User::factory()->create();
