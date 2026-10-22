@@ -34,6 +34,23 @@ class ClientTest extends TestCase
             ->assertStatus(200);
     }
 
+    public function test_client_details_do_not_expose_projects_without_project_permission(): void
+    {
+        $client = Client::factory()->create();
+        $project = Project::factory()->create(['client_id' => $client->id]);
+        $user = User::factory()->create();
+        $user->givePermissionTo('clients.view');
+
+        $this->actingAs($user)->get('/clients/'.$client->id)
+            ->assertOk()
+            ->assertInertia(fn ($page) => $page->where('client.id', $client->id)->has('projects', 0));
+
+        $user->givePermissionTo('projects.view');
+        $this->get('/clients/'.$client->id)
+            ->assertOk()
+            ->assertInertia(fn ($page) => $page->has('projects', 1)->where('projects.0.id', $project->id));
+    }
+
     public function test_users_with_clients_create_can_create_a_client()
     {
         $user = User::factory()->create();
