@@ -7,6 +7,7 @@ const confirmDelete = (message: string): boolean => {
 };
 import ClientController from '@/actions/App/Http/Controllers/ClientController';
 import Heading from '@/components/Heading.vue';
+import PaginationLinks from '@/components/PaginationLinks.vue';
 import InputError from '@/components/InputError.vue';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -27,11 +28,12 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select';
+import { create as intakeCreate } from '@/routes/intakes';
 import { index as clientsIndex } from '@/routes/clients';
 
 interface Client {
     id: number;
-    type: string;
+    type: string | null;
     name: string;
     email: string | null;
     phone: string | null;
@@ -48,7 +50,7 @@ defineOptions({
         wide: true,
         breadcrumbs: [
             {
-                title: 'Clientes',
+                title: 'Mis prospectos',
                 href: clientsIndex(),
             },
         ],
@@ -56,7 +58,13 @@ defineOptions({
 });
 
 const page = usePage();
-const clients = computed(() => (page.props.clients as unknown as PaginatedClients).data);
+const permissions = computed(() => page.props.auth.permissions ?? []);
+const clients = computed(
+    () => (page.props.clients as unknown as PaginatedClients).data,
+);
+const pagination = computed(
+    () => (page.props.clients as unknown as PaginatedClients).links,
+);
 const searchQuery = computed(() => page.props.search as unknown as string);
 
 const typeLabels: Record<string, string> = {
@@ -66,7 +74,10 @@ const typeLabels: Record<string, string> = {
     agricultural: 'Agrícola',
 };
 
-const typeColors: Record<string, 'default' | 'secondary' | 'destructive' | 'outline'> = {
+const typeColors: Record<
+    string,
+    'default' | 'secondary' | 'destructive' | 'outline'
+> = {
     residential: 'default',
     commercial: 'secondary',
     industrial: 'destructive',
@@ -77,122 +88,150 @@ const createOpen = ref(false);
 </script>
 
 <template>
-    <Head title="Clientes" />
+    <Head title="Mis prospectos" />
 
     <div class="flex flex-col space-y-6">
         <div class="flex items-center justify-between">
             <Heading
                 variant="small"
-                title="Clientes"
+                title="Mis prospectos"
                 description="Gestiona tus clientes y sus datos de contacto"
             />
 
-            <Dialog v-model:open="createOpen">
-                <DialogTrigger as-child>
-                    <Button data-test="create-client-button">Nuevo cliente</Button>
-                </DialogTrigger>
-                <DialogContent>
-                    <Form
-                        v-bind="ClientController.store.form()"
-                        reset-on-success
-                        :options="{ preserveScroll: true }"
-                        @success="createOpen = false"
-                        class="space-y-4"
-                        v-slot="{ errors, processing }"
-                    >
-                        <DialogHeader>
-                            <DialogTitle>Nuevo cliente</DialogTitle>
-                            <DialogDescription>
-                                Crea un nuevo cliente y su información de contacto.
-                            </DialogDescription>
-                        </DialogHeader>
+            <div class="flex flex-wrap gap-2">
+                <Button
+                    v-if="
+                        page.props.auth.permissions.includes('receipts.import')
+                    "
+                    as-child
+                    ><Link :href="intakeCreate()">Recibir CFE</Link></Button
+                >
+                <Dialog
+                    v-if="permissions.includes('clients.create')"
+                    v-model:open="createOpen"
+                >
+                    <DialogTrigger as-child>
+                        <Button data-test="create-client-button"
+                            >Nuevo prospecto</Button
+                        >
+                    </DialogTrigger>
+                    <DialogContent>
+                        <Form
+                            v-bind="ClientController.store.form()"
+                            reset-on-success
+                            :options="{ preserveScroll: true }"
+                            @success="createOpen = false"
+                            class="space-y-4"
+                            v-slot="{ errors, processing }"
+                        >
+                            <DialogHeader>
+                                <DialogTitle>Nuevo prospecto</DialogTitle>
+                                <DialogDescription>
+                                    Crea un nuevo cliente y su información de
+                                    contacto.
+                                </DialogDescription>
+                            </DialogHeader>
 
-                        <div class="grid gap-2">
-                            <Label for="create-type">Tipo</Label>
-                            <Select name="type" required>
-                                <SelectTrigger id="create-type">
-                                    <SelectValue />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="residential">
-                                        Residencial
-                                    </SelectItem>
-                                    <SelectItem value="commercial">
-                                        Comercial
-                                    </SelectItem>
-                                    <SelectItem value="industrial">
-                                        Industrial
-                                    </SelectItem>
-                                    <SelectItem value="agricultural">
-                                        Agrícola
-                                    </SelectItem>
-                                </SelectContent>
-                            </Select>
-                            <InputError :message="errors.type" />
-                        </div>
+                            <div class="grid gap-2">
+                                <Label for="create-type">Tipo</Label>
+                                <Select name="type" required>
+                                    <SelectTrigger id="create-type">
+                                        <SelectValue />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="residential">
+                                            Residencial
+                                        </SelectItem>
+                                        <SelectItem value="commercial">
+                                            Comercial
+                                        </SelectItem>
+                                        <SelectItem value="industrial">
+                                            Industrial
+                                        </SelectItem>
+                                        <SelectItem value="agricultural">
+                                            Agrícola
+                                        </SelectItem>
+                                    </SelectContent>
+                                </Select>
+                                <InputError :message="errors.type" />
+                            </div>
 
-                        <div class="grid gap-2">
-                            <Label for="create-name">Nombre</Label>
-                            <Input
-                                id="create-name"
-                                name="name"
-                                required
-                            />
-                            <InputError :message="errors.name" />
-                        </div>
+                            <div class="grid gap-2">
+                                <Label for="create-name">Nombre</Label>
+                                <Input id="create-name" name="name" required />
+                                <InputError :message="errors.name" />
+                            </div>
 
-                        <div class="grid gap-2">
-                            <Label for="create-contact">Nombre de contacto</Label>
-                            <Input
-                                id="create-contact"
-                                name="contact_name"
-                            />
-                            <InputError :message="errors.contact_name" />
-                        </div>
+                            <div class="grid gap-2">
+                                <Label for="create-contact"
+                                    >Nombre de contacto</Label
+                                >
+                                <Input
+                                    id="create-contact"
+                                    name="contact_name"
+                                />
+                                <InputError :message="errors.contact_name" />
+                            </div>
 
-                        <div class="grid gap-2">
-                            <Label for="create-email">Correo</Label>
-                            <Input
-                                id="create-email"
-                                type="email"
-                                name="email"
-                            />
-                            <InputError :message="errors.email" />
-                        </div>
+                            <div class="grid gap-2">
+                                <Label for="create-email">Correo</Label>
+                                <Input
+                                    id="create-email"
+                                    type="email"
+                                    name="email"
+                                />
+                                <InputError :message="errors.email" />
+                            </div>
 
-                        <div class="grid gap-2">
-                            <Label for="create-phone">Teléfono</Label>
-                            <Input
-                                id="create-phone"
-                                type="tel"
-                                name="phone"
-                            />
-                            <InputError :message="errors.phone" />
-                        </div>
+                            <div class="grid gap-2">
+                                <Label for="create-phone">Teléfono</Label>
+                                <Input
+                                    id="create-phone"
+                                    type="tel"
+                                    name="phone"
+                                />
+                                <InputError :message="errors.phone" />
+                            </div>
 
-                        <div class="flex justify-end gap-2">
-                            <Button type="submit" :disabled="processing">
-                                Crear cliente
-                            </Button>
-                        </div>
-                    </Form>
-                </DialogContent>
-            </Dialog>
+                            <div class="flex justify-end gap-2">
+                                <Button type="submit" :disabled="processing">
+                                    Crear prospecto
+                                </Button>
+                            </div>
+                        </Form>
+                    </DialogContent>
+                </Dialog>
+            </div>
         </div>
 
-        <div class="flex items-center gap-2">
-            <Input
-                type="search"
-                placeholder="Buscar por nombre, correo o teléfono..."
-                :default-value="searchQuery"
-                class="max-w-md"
-                @change="$event.target.form?.submit()"
-                @keydown.enter="$event.target.form?.submit()"
-            />
-            <form method="GET" action="#" class="hidden">
-                <input type="hidden" name="search" :value="searchQuery" />
-            </form>
-        </div>
+        <Form
+            v-bind="ClientController.index.form()"
+            class="flex flex-wrap items-end gap-2"
+            role="search"
+        >
+            <div class="grid w-full max-w-md gap-2">
+                <Label for="search">Buscar prospectos</Label>
+                <Input
+                    id="search"
+                    name="search"
+                    type="search"
+                    placeholder="Nombre, correo o teléfono"
+                    :default-value="searchQuery"
+                />
+            </div>
+            <Button type="submit" variant="outline">Buscar</Button>
+            <Link
+                v-if="searchQuery"
+                :href="clientsIndex()"
+                class="px-3 py-2 text-sm underline"
+                >Limpiar búsqueda</Link
+            >
+        </Form>
+
+        <p v-if="clients.length === 0" class="text-sm text-muted-foreground">
+            No hay prospectos que mostrar. Crea un prospecto o cambia la
+            búsqueda.
+        </p>
 
         <div class="w-full overflow-x-auto rounded-lg border">
             <table class="w-full min-w-[56rem] text-left text-sm">
@@ -217,11 +256,20 @@ const createOpen = ref(false);
                             {{ client.name }}
                         </td>
                         <td class="px-4 py-2 whitespace-nowrap">
-                            <Badge :variant="typeColors[client.type]">
-                                {{ typeLabels[client.type] }}
+                            <Badge
+                                :variant="
+                                    typeColors[client.type ?? ''] ?? 'outline'
+                                "
+                            >
+                                {{
+                                    typeLabels[client.type ?? ''] ??
+                                    'Sin clasificar'
+                                }}
                             </Badge>
                         </td>
-                        <td class="px-4 py-2 whitespace-nowrap text-muted-foreground">
+                        <td
+                            class="px-4 py-2 whitespace-nowrap text-muted-foreground"
+                        >
                             {{ client.email || '-' }}
                         </td>
                         <td class="px-4 py-2 whitespace-nowrap">
@@ -240,6 +288,9 @@ const createOpen = ref(false);
                                     Ver
                                 </Link>
                                 <Link
+                                    v-if="
+                                        permissions.includes('clients.update')
+                                    "
                                     :href="`/clients/${client.id}/edit`"
                                     as="button"
                                     class="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-3 text-sm font-medium shadow-sm hover:bg-accent hover:text-accent-foreground"
@@ -247,9 +298,16 @@ const createOpen = ref(false);
                                     Editar
                                 </Link>
                                 <Form
+                                    v-if="
+                                        permissions.includes('clients.delete')
+                                    "
                                     method="DELETE"
                                     :action="`/clients/${client.id}`"
-                                    @submit="!confirmDelete('¿Deseas eliminar este cliente?') && $event.preventDefault()"
+                                    @submit="
+                                        !confirmDelete(
+                                            '¿Deseas eliminar este cliente?',
+                                        ) && $event.preventDefault()
+                                    "
                                 >
                                     <Button
                                         type="submit"
@@ -266,5 +324,6 @@ const createOpen = ref(false);
                 </tbody>
             </table>
         </div>
+        <PaginationLinks :links="pagination" />
     </div>
 </template>
