@@ -189,6 +189,20 @@ class IntakeTest extends TestCase
         $this->assertDatabaseCount('receipt_intakes', 0);
     }
 
+    public function test_soft_deleted_prospect_receipt_cannot_be_downloaded_or_processed(): void
+    {
+        $client = Client::factory()->create();
+        $this->actingAs($this->user('owner'))->post('/intakes', [...$this->data(), 'client_id' => $client->id])->assertRedirect('/clients/'.$client->id);
+        $intake = ReceiptIntake::sole();
+        $client->delete();
+
+        $this->get('/intakes/'.$intake->id.'/file')->assertForbidden();
+        $this->post('/intakes/'.$intake->id.'/mock', ['fixture_identifier' => 'complete'])->assertForbidden();
+        $this->assertSame('stored', $intake->fresh()->status);
+        $this->assertNull($intake->fresh()->raw_payload);
+        Storage::disk('receipts')->assertExists($intake->file_path);
+    }
+
     public function test_transaction_failure_rolls_back_new_prospect_and_removes_file(): void
     {
         DB::statement("CREATE TRIGGER fail_intake BEFORE INSERT ON receipt_intakes BEGIN SELECT RAISE(ABORT, 'test storage rollback'); END");
