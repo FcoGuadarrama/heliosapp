@@ -195,4 +195,29 @@ class ClientTest extends TestCase
             ->has('projects', 1)->where('projects.0.id', $project->id)
             ->where('projects.0.created_at', '2026-10-01 12:30'));
     }
+
+    public function test_pagination_links_preserve_the_prospect_search(): void
+    {
+        $user = User::factory()->create();
+        $user->assignRole('viewer');
+        Client::factory()->count(16)->create(['name' => 'Solar buscable']);
+        Client::factory()->count(16)->create(['name' => 'Otro prospecto']);
+
+        $response = $this->actingAs($user)->get('/clients?search=Solar%20buscable');
+        $response->assertInertia(fn ($page) => $page
+            ->where('search', 'Solar buscable')
+            ->where('clients.total', 16)
+            ->has('clients.data', 15));
+
+        $nextUrl = $response->viewData('page')['props']['clients']['next_page_url'];
+        parse_str(parse_url($nextUrl, PHP_URL_QUERY), $query);
+        $this->assertSame('Solar buscable', $query['search']);
+        $this->assertSame('2', $query['page']);
+
+        $this->get($nextUrl)->assertInertia(fn ($page) => $page
+            ->where('search', 'Solar buscable')
+            ->where('clients.total', 16)
+            ->has('clients.data', 1)
+            ->where('clients.data.0.name', 'Solar buscable'));
+    }
 }

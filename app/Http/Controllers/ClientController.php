@@ -34,6 +34,7 @@ class ClientController extends Controller
 
         $clients = $query->orderBy('name')
             ->paginate(15)
+            ->withQueryString()
             ->through(fn (Client $client) => [
                 'id' => $client->id,
                 'type' => $client->type?->value,
