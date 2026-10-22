@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\IntakeController;
 use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
 
@@ -8,6 +9,11 @@ Route::inertia('/', 'Welcome')->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'Dashboard')->name('dashboard');
+
+    Route::get('intakes/create', [IntakeController::class, 'create'])->middleware('permission:receipts.import')->name('intakes.create');
+    Route::post('intakes', [IntakeController::class, 'store'])->middleware(['permission:receipts.import', 'throttle:10,1'])->name('intakes.store');
+    Route::get('intakes/{intake}/file', [IntakeController::class, 'download'])->middleware('permission:receipts.view')->name('intakes.file');
+    Route::post('intakes/{intake}/mock', [IntakeController::class, 'mock'])->middleware(['permission:receipts.import', 'throttle:10,1'])->name('intakes.mock');
 
     // Clients routes
     Route::get('clients', [ClientController::class, 'index'])

@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateProjectRequest extends FormRequest
 {
@@ -23,7 +24,7 @@ class UpdateProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'client_id' => 'required|exists:clients,id',
+            'client_id' => ['required', 'integer', Rule::exists('clients', 'id')->whereNull('deleted_at')],
             'name' => 'required|string|max:255',
             'status' => 'required|in:draft,data_received,analyzing,analyzed,quoted,proposal_sent,won,lost,archived',
             'installation_type' => 'required|in:roof,ground,carport,other',

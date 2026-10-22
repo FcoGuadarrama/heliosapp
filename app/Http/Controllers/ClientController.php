@@ -5,14 +5,20 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
 use App\Models\Client;
+use App\Models\ReceiptIntake;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class ClientController extends Controller
 {
+    use AuthorizesRequests;
+
     public function index(): Response
     {
+        $this->authorize('viewAny', Client::class);
+
         $search = request('search', '');
         $page = request('page', 1);
 
@@ -30,7 +36,7 @@ class ClientController extends Controller
             ->paginate(15)
             ->through(fn (Client $client) => [
                 'id' => $client->id,
-                'type' => $client->type->value,
+                'type' => $client->type?->value,
                 'name' => $client->name,
                 'email' => $client->email,
                 'phone' => $client->phone,
@@ -45,11 +51,15 @@ class ClientController extends Controller
 
     public function create(): Response
     {
+        $this->authorize('create', Client::class);
+
         return Inertia::render('Clients/Create');
     }
 
     public function store(StoreClientRequest $request): RedirectResponse
     {
+        $this->authorize('create', Client::class);
+
         $data = $request->validated();
         $data['created_by'] = $request->user()->id;
 
@@ -60,6 +70,8 @@ class ClientController extends Controller
 
     public function show(Client $client): Response
     {
+        $this->authorize('view', $client);
+
         $projects = $client->projects()
             ->orderBy('created_at', 'desc')
             ->get()
@@ -68,13 +80,13 @@ class ClientController extends Controller
                 'code' => $project->code,
                 'name' => $project->name,
                 'status' => $project->status->value,
-                'created_at' => $client->created_at->format('Y-m-d H:i'),
+                'created_at' => $project->created_at->format('Y-m-d H:i'),
             ]);
 
         return Inertia::render('Clients/Show', [
             'client' => [
                 'id' => $client->id,
-                'type' => $client->type->value,
+                'type' => $client->type?->value,
                 'name' => $client->name,
                 'contact_name' => $client->contact_name,
                 'email' => $client->email,
@@ -90,15 +102,28 @@ class ClientController extends Controller
                 'notes' => $client->notes,
             ],
             'projects' => $projects,
+            'intakes' => request()->user()->can('receipts.view')
+                ? $client->intakes()->latest()->get()->map(fn (ReceiptIntake $intake) => [
+                    'id' => $intake->id,
+                    'status' => $intake->status,
+                    'mime_type' => $intake->mime_type,
+                    'created_at' => $intake->created_at->format('Y-m-d H:i'),
+                    'download_url' => route('intakes.file', $intake),
+                    'reader_identifier' => $intake->reader_identifier,
+                    'fixture_identifier' => $intake->fixture_identifier,
+                    'validation_result' => $intake->validation_result,
+                ]) : [],
         ]);
     }
 
     public function edit(Client $client): Response
     {
+        $this->authorize('update', $client);
+
         return Inertia::render('Clients/Edit', [
             'client' => [
                 'id' => $client->id,
-                'type' => $client->type->value,
+                'type' => $client->type?->value,
                 'name' => $client->name,
                 'contact_name' => $client->contact_name,
                 'email' => $client->email,
@@ -118,6 +143,8 @@ class ClientController extends Controller
 
     public function update(UpdateClientRequest $request, Client $client): RedirectResponse
     {
+        $this->authorize('update', $client);
+
         $client->update($request->validated());
 
         return to_route('clients.index')->with('success', 'Cliente actualizado exitosamente.');
@@ -125,6 +152,8 @@ class ClientController extends Controller
 
     public function destroy(Client $client): RedirectResponse
     {
+        $this->authorize('delete', $client);
+
         $client->delete();
 
         return to_route('clients.index')->with('success', 'Cliente eliminado exitosamente.');

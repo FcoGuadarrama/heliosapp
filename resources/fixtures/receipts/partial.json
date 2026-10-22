@@ -1,0 +1,94 @@
+{
+    "schema_version": "1.0",
+    "document": {
+        "source_type": "pdf",
+        "source_reference": "mock-fixture:partial; synthetic, not extracted",
+        "page_count": 1,
+        "extracted_at": "2026-10-20T10:00:00-06:00",
+        "extractor": {
+            "identifier": "mock-fixture",
+            "version": "1.0.0"
+        }
+    },
+    "receipt": {
+        "receipt_id": "0000123456789",
+        "issue_date": "2026-09-15",
+        "due_date": "2026-09-30",
+        "total_amount_mxn": 1234.56
+    },
+    "service": {
+        "service_number": "123456789012",
+        "tariff_code": "1C",
+        "tariff_description": "Doméstica 1C",
+        "voltage_level": "baja_tension",
+        "phases": 1,
+        "contracted_demand_kw": null,
+        "billing_cycle": "bimonthly",
+        "holder_name": "Cliente de Prueba",
+        "service_address": {
+            "street": "Calle Falsa 123",
+            "neighborhood": "Centro",
+            "municipality": "Querétaro",
+            "state": "Querétaro",
+            "postal_code": "76000"
+        }
+    },
+    "current_period": {
+        "period_start": "2026-07-15",
+        "period_end": "2026-09-13",
+        "days": 60,
+        "consumption_kwh": null,
+        "consumption_by_tier": [],
+        "demand_kw": null,
+        "amount_mxn": 1234.56,
+        "concepts": [
+            {
+                "code": "energia",
+                "description": "Energía",
+                "amount_mxn": 900
+            },
+            {
+                "code": "transmision",
+                "description": "Transmisión",
+                "amount_mxn": 334.56
+            }
+        ]
+    },
+    "consumption_history": [
+        {
+            "period_start": "2026-03-15",
+            "period_end": "2026-05-14",
+            "days": 60,
+            "consumption_kwh": 450,
+            "amount_mxn": 1100,
+            "source": "receipt_chart"
+        },
+        {
+            "period_start": "2026-05-15",
+            "period_end": "2026-07-14",
+            "days": 60,
+            "consumption_kwh": 480,
+            "amount_mxn": 1150,
+            "source": "receipt_chart"
+        }
+    ],
+    "extraction": {
+        "status": "partial",
+        "confidence": {
+            "current_period.consumption_kwh": 0.97,
+            "current_period.period_start": 0.95,
+            "current_period.period_end": 0.95,
+            "service.tariff_code": 0.99
+        },
+        "missing_fields": ["current_period.consumption_kwh"],
+        "warnings": [],
+        "evidence": [
+            {
+                "field": "current_period.consumption_kwh",
+                "page": 1,
+                "bbox": [0.12, 0.44, 0.31, 0.49],
+                "text": "520 kWh"
+            }
+        ]
+    }
+}
