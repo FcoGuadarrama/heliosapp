@@ -30,6 +30,6 @@ final class PublicFormToken
             return false;
         }
 
-        return Cache::add('intake-token:'.hash('sha256', $token), true, (int) config('intake.token_ttl_seconds'));
+        return Cache::add('intake-token:'.hash('sha256', $parts[1]), true, (int) config('intake.token_ttl_seconds'));
     }
 }
