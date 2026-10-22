@@ -19,6 +19,8 @@ presupuesto configurable → cotización → seguimiento**. `Client` se reutiliz
 - **I2 CRM — en curso:** crear/seleccionar prospecto y subir archivo sin proyecto;
   snippet copiable, descarga autorizada, estados y errores claros. Navegación prioritaria
   Dashboard/Mis prospectos/Cotizaciones/Proveedores/Costos y márgenes/Usuarios.
+  Aviso interno de posibles duplicados por contacto exacto; reutilización por selección
+  explícita del prospecto. No se enlazan ni fusionan datos desde la entrada pública.
 - **I3 Mock y contrato — en curso:** fixtures internas explícitas, validadores CFE
   existentes, trazabilidad e inmutabilidad. No extrae PDF ni simula ingeniería real.
 - **I4 Seguridad y cierre — pendiente:** pruebas permisos/archivos/consentimiento/abuso/
