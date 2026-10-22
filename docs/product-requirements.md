@@ -44,24 +44,24 @@ Navegación prioritaria: **Dashboard / Mis prospectos / Cotizaciones / Proveedor
 Costos y márgenes / Usuarios**. Los módulos aún no implementados se señalan pendientes;
 no se construyen pantallas funcionales ficticias para simularlos.
 
-El catálogo histórico de módulos se conserva como contexto:
+La primera prioridad es la **interfaz web**. Módulos del CRM y su evolución prevista:
 
-La primera prioridad es la **interfaz web**, no la API. Módulos:
-
-| Módulo                | Contenido                                                                                                                     |
-| --------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| **Panel principal**   | Resumen de proyectos, cotizaciones, pendientes, diagnósticos, actividad reciente, indicadores del negocio                     |
-| **Clientes**          | Registro, contacto, ubicaciones de instalación, historial de proyectos y propuestas                                           |
-| **Proyectos solares** | Crear/editar, cliente asociado, ubicación, datos energéticos, diagnósticos, diseños preliminares, equipos, presupuestos       |
-| **Ingeniero IA**      | Análisis, diagnóstico energético, sistema recomendado, alternativas, justificación, advertencias, pendientes para instalación |
-| **Proveedores**       | Distribuidores, credenciales API, productos, precios, existencias, fichas técnicas, sincronización y caché                    |
-| **Presupuestos**      | Costos, porcentajes y márgenes, mano de obra, materiales, servicios, impuestos, cotizaciones, historial de modificaciones     |
-| **Configuración**     | Empresa, usuarios y permisos, parámetros comerciales y técnicos, proveedores, plantillas de propuestas, IA                    |
+| Módulo                 | Contenido                                                                                                                        |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| **Dashboard**          | Resumen de prospectos, recibos pendientes, cotizaciones, seguimiento y actividad reciente; sólo datos reales disponibles         |
+| **Mis prospectos**     | Contacto, alta o selección explícita, recibos privados, consentimiento e historial comercial; sin proyecto obligatorio           |
+| **Cotizaciones**       | Evolución prevista: propuestas, estados y seguimiento comercial vinculados al prospecto                                          |
+| **Proyectos internos** | Soporte técnico opcional del prospecto para ubicación, datos energéticos y diseños; no son una entrada obligatoria del CRM       |
+| **Ingeniero IA**       | Evolución prevista: JSON interno Ollama validado, motores y proveedores reales; hoy sólo fixtures explícitas sin extracción real |
+| **Proveedores**        | Distribuidores, credenciales API, productos, precios, existencias, fichas técnicas, sincronización y caché                       |
+| **Costos y márgenes**  | Evolución prevista: costos configurables, mano de obra, materiales, servicios, impuestos e historial de cambios                  |
+| **Usuarios**           | Acceso al CRM, roles y permisos por operación y recurso                                                                          |
+| **Configuración**      | Empresa, usuarios y permisos, parámetros comerciales y técnicos, proveedores, plantillas de propuestas, IA                       |
 
 Interfaz moderna, clara y profesional, con identidad visual de Helios y energía solar.
 Prioridad: usabilidad, rapidez y visualización clara de resultados técnicos.
 **No construir un CRM genérico complejo**: los módulos administrativos sirven al flujo
-comercial y técnico de proyectos solares.
+comercial y técnico desde prospectos y recibos hasta cotizaciones y seguimiento.
 
 ## 4. Reglas no negociables
 
@@ -142,17 +142,19 @@ compatibilidad.
 
 ## 7. Fases
 
-| Fase                              | Entregable                                                                                                                                                                                                                                                     |
-| --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **F1 Dashboard y fundamentos**    | Laravel+Inertia+Vue, auth, roles, configuración de empresa, clientes, proyectos, navegación y dashboard funcional, recepción privada de PDF/imagen y validación del JSON interno CFE. _Una empresa instala Helios, entra y recibe prospectos con sus recibos._ |
-| **F2 Ingeniería y proveedores**   | Motor energético y cálculos deterministas, adaptadores Syscom y Mock, catálogo técnico normalizado, validación de compatibilidad, selección de productos, estimación de producción                                                                             |
-| **F3 Presupuestos configurables** | Panel de costos, porcentajes y márgenes, mano de obra, materiales, perfiles comerciales, motor de presupuestos, impuestos, historial                                                                                                                           |
-| **F4 Propuestas**                 | Generación, PDF, personalización de documentos, alternativas, historial y versiones                                                                                                                                                                            |
-| **F5 Ingeniero IA**               | Ollama, lector de recibos, agente, herramientas, validación de los resultados del agente                                                                                                                                                                       |
-| **F6 API pública**                | REST versionada, auth de consumidores, OpenAPI, control de acceso, límites de uso, webhooks                                                                                                                                                                    |
+| Fase                              | Entregable                                                                                                                                                                                                                                                                                                                               |
+| --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **F1 CRM y recepción de recibos** | Laravel+Inertia+Vue, auth, roles, configuración de empresa, prospectos, navegación y dashboard, recepción privada de PDF/imagen pública y autenticada, consentimiento y mock explícito del JSON interno CFE. Proyectos sólo internos y opcionales. _Una empresa instala Helios y recibe prospectos con sus recibos sin crear proyectos._ |
+| **F2 Ingeniería y proveedores**   | Motor energético y cálculos deterministas, adaptadores Syscom y Mock, catálogo técnico normalizado, validación de compatibilidad, selección de productos, estimación de producción                                                                                                                                                       |
+| **F3 Presupuestos configurables** | Panel de costos, porcentajes y márgenes, mano de obra, materiales, perfiles comerciales, motor de presupuestos, impuestos, historial                                                                                                                                                                                                     |
+| **F4 Propuestas**                 | Generación, PDF, personalización de documentos, alternativas, historial y versiones                                                                                                                                                                                                                                                      |
+| **F5 Ingeniero IA**               | Ollama, lector de recibos, agente, herramientas, validación de los resultados del agente                                                                                                                                                                                                                                                 |
+| **F6 API pública (histórica)**    | Referencia de planificación anterior, fuera del alcance vigente. No se construye una API pública completa; cualquier integración posterior requiere alcance expreso.                                                                                                                                                                     |
 
 Fuera de alcance inicial: modelado 3D, análisis estructural avanzado, integraciones CRM
 particulares, aplicaciones móviles nativas, billing y cuotas.
+F2–F5 describen evolución prevista, no capacidades ya implementadas ni requisitos para
+recibir el primer recibo. No se amplían durante el cierre de F1.
 
 ## 8. Objetivo inmediato
 
