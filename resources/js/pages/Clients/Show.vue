@@ -15,7 +15,7 @@ import { index as clientsIndex } from '@/routes/clients';
 
 interface ClientData {
     id: number;
-    type: string;
+    type: string | null;
     name: string;
     contact_name: string | null;
     email: string | null;
@@ -103,7 +103,7 @@ defineOptions({
             <Heading
                 variant="small"
                 :title="client.name"
-                :description="typeLabels[client.type]"
+                :description="typeLabels[client.type ?? ''] ?? 'Sin clasificar'"
             />
 
             <Link

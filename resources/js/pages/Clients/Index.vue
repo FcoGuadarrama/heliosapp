@@ -33,7 +33,7 @@ import { index as clientsIndex } from '@/routes/clients';
 
 interface Client {
     id: number;
-    type: string;
+    type: string | null;
     name: string;
     email: string | null;
     phone: string | null;
@@ -256,8 +256,15 @@ const createOpen = ref(false);
                             {{ client.name }}
                         </td>
                         <td class="px-4 py-2 whitespace-nowrap">
-                            <Badge :variant="typeColors[client.type]">
-                                {{ typeLabels[client.type] }}
+                            <Badge
+                                :variant="
+                                    typeColors[client.type ?? ''] ?? 'outline'
+                                "
+                            >
+                                {{
+                                    typeLabels[client.type ?? ''] ??
+                                    'Sin clasificar'
+                                }}
                             </Badge>
                         </td>
                         <td

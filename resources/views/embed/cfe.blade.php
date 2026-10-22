@@ -46,41 +46,41 @@
         @if (count($errors) > 0)
             <section class="errors" role="alert" aria-labelledby="error-title">
                 <strong id="error-title">Revisa los datos de tu solicitud</strong>
-                <ul>@foreach ($errors as $field => $messages)@foreach ($messages as $message)<li>{{ $message }}</li>@endforeach @endforeach</ul>
+                <ul>@foreach ($errors as $field => $messages)@foreach ($messages as $message)<li><a href="#{{ in_array($field, ['name', 'email', 'phone', 'receipt', 'privacy_consent']) ? $field : ($field === 'privacy_version' ? 'privacy_consent' : 'intake-form') }}">{{ $message }}</a></li>@endforeach @endforeach</ul>
                 <p class="muted">Por privacidad, vuelve a introducir los datos y selecciona el archivo.</p>
             </section>
         @endif
-        <form action="{{ route('embed.cfe.store') }}" method="post" enctype="multipart/form-data">
+        <form id="intake-form" tabindex="-1" action="{{ route('embed.cfe.store') }}" method="post" enctype="multipart/form-data">
             <input type="hidden" name="form_token" value="{{ $formToken }}">
             <input type="hidden" name="privacy_version" value="{{ $privacyNotice['version'] }}">
             <div class="trap" aria-hidden="true"><label for="website">Sitio web</label><input id="website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
             <div class="field">
                 <label for="name">Nombre</label>
-                <input id="name" name="name" type="text" required maxlength="255" autocomplete="name" aria-invalid="{{ isset($errors['name']) ? 'true' : 'false' }}">
-                @foreach ($errors['name'] ?? [] as $message)<p class="error">{{ $message }}</p>@endforeach
+                <input id="name" name="name" type="text" required maxlength="255" autocomplete="name" aria-invalid="{{ isset($errors['name']) ? 'true' : 'false' }}" aria-describedby="name-error">
+                <div id="name-error">@foreach ($errors['name'] ?? [] as $message)<p class="error">{{ $message }}</p>@endforeach</div>
             </div>
             <p class="muted">Indica al menos un medio de contacto: correo o teléfono.</p>
             <div class="field">
                 <label for="email">Correo</label>
-                <input id="email" name="email" type="email" maxlength="255" autocomplete="email" aria-invalid="{{ isset($errors['email']) ? 'true' : 'false' }}">
-                @foreach ($errors['email'] ?? [] as $message)<p class="error">{{ $message }}</p>@endforeach
+                <input id="email" name="email" type="email" maxlength="255" autocomplete="email" aria-invalid="{{ isset($errors['email']) ? 'true' : 'false' }}" aria-describedby="email-error">
+                <div id="email-error">@foreach ($errors['email'] ?? [] as $message)<p class="error">{{ $message }}</p>@endforeach</div>
             </div>
             <div class="field">
                 <label for="phone">Teléfono</label>
-                <input id="phone" name="phone" type="tel" maxlength="20" autocomplete="tel" aria-invalid="{{ isset($errors['phone']) ? 'true' : 'false' }}">
-                @foreach ($errors['phone'] ?? [] as $message)<p class="error">{{ $message }}</p>@endforeach
+                <input id="phone" name="phone" type="tel" maxlength="20" autocomplete="tel" aria-invalid="{{ isset($errors['phone']) ? 'true' : 'false' }}" aria-describedby="phone-error">
+                <div id="phone-error">@foreach ($errors['phone'] ?? [] as $message)<p class="error">{{ $message }}</p>@endforeach</div>
             </div>
             <div class="field">
                 <label for="receipt">Recibo CFE</label>
-                <input id="receipt" name="receipt" type="file" accept="application/pdf,image/jpeg,image/png,image/webp" required aria-describedby="receipt-help" aria-invalid="{{ isset($errors['receipt']) ? 'true' : 'false' }}">
+                <input id="receipt" name="receipt" type="file" accept="application/pdf,image/jpeg,image/png,image/webp" required aria-describedby="receipt-help receipt-error" aria-invalid="{{ isset($errors['receipt']) ? 'true' : 'false' }}">
                 <p id="receipt-help" class="muted">PDF, JPG, PNG o WebP. Máximo {{ config('intake.max_file_kb') / 1024 }} MB.</p>
-                @foreach ($errors['receipt'] ?? [] as $message)<p class="error">{{ $message }}</p>@endforeach
+                <div id="receipt-error">@foreach ($errors['receipt'] ?? [] as $message)<p class="error">{{ $message }}</p>@endforeach</div>
             </div>
             <section class="notice" aria-label="Privacidad">
-                <p class="muted">{{ $privacyNotice['text'] }}</p>
+                <p id="privacy-text" class="muted">{{ $privacyNotice['text'] }}</p>
                 @if ($privacyNotice['url'])<p><a href="{{ $privacyNotice['url'] }}" target="_blank" rel="noopener noreferrer">Consultar aviso de privacidad</a></p>@endif
-                <label for="privacy_consent" class="consent"><input id="privacy_consent" name="privacy_consent" type="checkbox" value="1" required>Autorizo el tratamiento de mis datos personales y de mi recibo conforme al aviso de privacidad.</label>
-                @foreach ($errors['privacy_consent'] ?? [] as $message)<p class="error">{{ $message }}</p>@endforeach
+                <label for="privacy_consent" class="consent"><input id="privacy_consent" name="privacy_consent" type="checkbox" value="1" required aria-describedby="privacy-text privacy-error" aria-invalid="{{ isset($errors['privacy_consent']) || isset($errors['privacy_version']) ? 'true' : 'false' }}">Autorizo el tratamiento de mis datos personales y de mi recibo conforme al aviso de privacidad.</label>
+                <div id="privacy-error">@foreach ($errors['privacy_consent'] ?? [] as $message)<p class="error">{{ $message }}</p>@endforeach @foreach ($errors['privacy_version'] ?? [] as $message)<p class="error">{{ $message }}</p>@endforeach</div>
             </section>
             <p class="muted">El archivo se guardará de forma privada para su revisión. La extracción automática de PDF e imágenes está pendiente.</p>
             <button type="submit">Enviar solicitud y recibo</button>

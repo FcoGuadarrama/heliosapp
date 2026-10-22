@@ -19,7 +19,7 @@ import { index as clientsIndex } from '@/routes/clients';
 
 interface ClientData {
     id: number;
-    type: string;
+    type: string | null;
     name: string;
     contact_name: string | null;
     email: string | null;
@@ -73,9 +73,12 @@ defineOptions({
                 <div class="space-y-4">
                     <div class="grid gap-2">
                         <Label for="type">Tipo</Label>
-                        <Select name="type" :default-value="client.type">
+                        <Select
+                            name="type"
+                            :default-value="client.type ?? undefined"
+                        >
                             <SelectTrigger id="type">
-                                <SelectValue />
+                                <SelectValue placeholder="Sin clasificar" />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="residential">

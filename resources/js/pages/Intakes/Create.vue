@@ -210,10 +210,13 @@ defineOptions({
                 >
             </fieldset>
         </Form>
-        <details class="space-y-3 rounded-lg border p-4">
-            <summary class="cursor-pointer font-medium">
+        <section
+            class="space-y-3 rounded-lg border p-4"
+            aria-labelledby="embed-heading"
+        >
+            <h2 id="embed-heading" class="font-medium">
                 Formulario público para tu sitio
-            </summary>
+            </h2>
             <p class="my-3 text-sm text-muted-foreground">
                 Comparte el formulario o intégralo en un sitio autorizado por el
                 administrador. La lista de dominios permitidos se controla en el
@@ -267,7 +270,7 @@ defineOptions({
                 >Copiar código iframe</Button
             >
             <p role="status" class="mt-2 text-sm">{{ copyStatus }}</p>
-        </details>
+        </section>
         <Link :href="clientsIndex()" class="text-sm underline"
             >Volver a Mis prospectos</Link
         >
