@@ -35,7 +35,7 @@ final class StoreReceiptIntake
                 ]);
                 $notice = app(IntakeSettings::class)->notice();
 
-                return ReceiptIntake::create([
+                $intake = ReceiptIntake::create([
                     'client_id' => $client->id,
                     'created_by' => $actor?->id,
                     'source' => $actor === null ? 'embed' : 'crm',
@@ -49,6 +49,9 @@ final class StoreReceiptIntake
                     'consented_at' => now(),
                     'status' => 'stored',
                 ]);
+                app(RegisterReceiptCase::class)($intake, $actor);
+
+                return $intake;
             });
         } catch (Throwable $exception) {
             $disk->delete($path);

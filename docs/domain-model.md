@@ -4,6 +4,11 @@
 > Las tablas marcadas **[F1]** se construyen ahora. El resto queda documentado para que las
 > decisiones de hoy no estorben mañana, pero **no se implementan todavía**.
 
+> Revisión 2026-10-23: las marcas F1/F2 y tablas de diseño no acreditan tablas
+> creadas. Ver inventario y secuencia en [plan del proyecto](project-plan.md).
+> La normalización futura se vincula al expediente/prospecto sin exigir proyecto;
+> las referencias históricas `project_id` de abajo deben adaptarse antes de migrar.
+
 ## Convenciones
 
 - Dinero: `DECIMAL(14,2)`. Nunca `FLOAT`.
@@ -19,7 +24,8 @@
 
 ### `users` **[F1]**
 
-Del starter kit (Fortify, 2FA, passkeys). Se le añade `role` y `is_active`.
+Del starter kit (Fortify, 2FA, passkeys), con `is_active`. Los roles/permisos
+actuales se almacenan mediante Spatie; no existe una columna `role` de negocio.
 Roles previstos: `owner`, `admin`, `engineer`, `sales`, `viewer`.
 
 ### `company_settings` **[F1]** — registro único (`id = 1`)
@@ -50,7 +56,7 @@ Vincula un archivo privado directamente a `client_id`; **no requiere `project_id
 `mime_type`, `file_size`, `sha256`, `privacy_version`, `privacy_text`, `privacy_url`,
 `consented_at`, `status`, `reader_identifier`, `reader_version`, `fixture_identifier`,
 `raw_payload` (texto exacto, incluso una fixture malformada), `validation_result` JSON,
-timestamps. El hash no se usa para fusionar prospectos. El nombre original no se expone
+timestamps; desde E1, `solar_case_id` nullable. El hash no se usa para fusionar prospectos. El nombre original no se expone
 ni se utiliza como ruta. El endpoint público no serializa el registro.
 
 Estados actuales: `stored` indica archivo recibido sin extracción;
@@ -58,6 +64,17 @@ Estados actuales: `stored` indica archivo recibido sin extracción;
 La validación interna distingue `validated|needs_review|rejected`; ninguna equivale a
 aceptación humana o diseño apto para instalación. El JSON original de una simulación
 no se sobrescribe. Los recibos conservan vínculo a prospectos borrados lógicamente.
+
+### Expediente y ejecución **[E1 — implementado, migración aditiva]**
+
+`solar_cases`: referencia pública UUID (no credencial), `client_id`, responsable
+nullable, procesamiento y ejes separados de ubicación/cálculo/publicación/entrega,
+marca de simulación, bloqueo y fecha de atención. `receipt_processing_runs`:
+ejecución única por intake, estado, número de intentos técnicos y tiempos/código
+de error. `solar_case_events`: historial con clave única, evento, código y actor.
+Recibos históricos quedan sin expediente hasta vinculación explícita. Nuevas
+cargas crean expediente en received; aún no disparan el job automáticamente.
+Detalles en [ADR-015](adrs/015-expediente-y-procesamiento-compartido.md).
 
 ### `projects` **[F1]** — internos y opcionales en el nuevo flujo
 
@@ -70,9 +87,10 @@ presupuestal, preferencias), `property_data` (json: superficie disponible, orien
 inclinación, sombreado, tablero, acometida), `notes`, `assigned_user_id`, `created_by`,
 _soft deletes_.
 
-> La ubicación vive en el proyecto, no en el cliente: un cliente puede tener varias
-> instalaciones y cada proyecto es una de ellas.
-> **Sin `latitude`/`longitude` no hay irradiación, y por tanto no hay dimensionamiento.**
+> El proyecto opcional puede guardar ubicación. El flujo de recibo necesita una
+> ubicación/entidad propia del expediente, fuera del JSON CFE, sin obligar a
+> crear proyecto. HSP se obtiene del catálogo estatal NASA; no se exige una
+> consulta de irradiación por coordenadas para cada dimensionamiento.
 
 ---
 
@@ -111,6 +129,11 @@ Historial normalizado que consume el motor.
 ---
 
 ## Ingeniería _(F2)_
+
+Diseño histórico a adaptar. Falta el catálogo HSP por entidad/versión con
+metodología, valores y evidencia NASA (ADR-014); `irradiance_samples` por
+coordenadas no sustituye ese catálogo. El motor puro `Domain/Solar` ya existe,
+pero ninguna de las tablas de ingeniería descritas aquí está implementada.
 
 ### `energy_diagnoses`
 
@@ -176,6 +199,13 @@ dimensiones). Pueden originarse de un proveedor o capturarse manualmente.
 ---
 
 ## Presupuestos _(F3)_
+
+La regla vigente es RFC-001 §9–10: perfiles de venta por kWp/panel/paquete,
+sin IVA ni instalación, inclusiones y prioridad explícitas; descuentos por
+concepto/subtotal de un solo tipo por versión. El costo de compra es un dato
+separado con disponibilidad explícita y solo se expone a asesor autorizado.
+Los diseños históricos de markup/mano de obra siguientes no sustituyen estas
+reglas ni autorizan incluir instalación. Cerrar bases por concepto antes de migrar.
 
 ### `pricing_profiles`
 

@@ -27,7 +27,10 @@ No exige sustituir fórmulas por PVWatts ni por fórmulas generadas por un model
 Implementar desde cero en Helios según el reverse engineering, por preferencia
 explícita del responsable de producto. No copiar ni adaptar el PHP externo.
 Las 110 pruebas reportadas de ese proyecto no validan esta nueva implementación.
-La primera entrega usa Syscom como primer adaptador de catálogo sin precios.
+La integración de catálogo empieza por Syscom sin exigir precios de compra;
+antes se entrega una API de necesidades genéricas sin proveedor conforme al
+[plan del proyecto](../project-plan.md). No confundir ese hito con selección
+comercial de equipos reales. El precio interno exige una fuente de costo válida.
 El dominio es independiente del proveedor: no exige ser comprador de Syscom.
 El Ingeniero de IA compara candidatos validados mediante herramientas; la base
 técnica omite precio y versiona sus criterios, según el

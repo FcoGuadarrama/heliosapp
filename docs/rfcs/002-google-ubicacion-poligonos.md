@@ -1,7 +1,7 @@
 # RFC-002 — Integración Google para ubicación y contornos de edificios
 
 - Fecha: 2026-10-22.
-- Estado: borrador; inicio de preparación solicitado por el usuario.
+- Estado: borrador pospuesto por decisión posterior del usuario; no bloquea RFC-001.
 - Implementación y pruebas con Google: pendientes.
 - Relacionado: [RFC-001](001-cotizacion-ia-ubicacion-hsp.md) y
   [ADR-013](../adrs/013-ubicacion-desde-recibo-cfe.md).
@@ -9,10 +9,11 @@
 ## Objetivo
 
 Preparar Google Cloud e integrar ubicación y contornos de edificios para Helios.
-El usuario solicita comenzar la conexión real y recibir instrucciones para la
-consola en el navegador. Esta prioridad sustituye la postergación de esa
-preparación hasta integrar el lector real; no activa automáticamente servicios
-en la aplicación ni acredita cobertura.
+La solicitud inicial fue preparar conexión real y consola Cloud. Después el
+usuario pospuso Google/polígonos; prevalece esa decisión. Se conserva la guía
+como referencia futura, sin activar servicios ni acreditar cobertura.
+El [plan global](../project-plan.md) mantiene esta ampliación separada del
+cálculo con HSP estatal; una vía manual de ubicación debe permitir avanzar.
 
 ## Alcance inicial propuesto
 

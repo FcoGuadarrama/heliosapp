@@ -6,7 +6,22 @@
 
 ---
 
-## Prioridad vigente — ingreso de recibos al CRM (en curso)
+## Orden vigente — entregas E0–E10
+
+La revisión completa de 2026-10-23 se mantiene en
+[alcance, estado y orden de entrega](project-plan.md). Es la fuente del orden de
+ejecución y sus dependencias; las fases F1–F6 de abajo son historial de
+planificación, no una instrucción de posponer el lector o la API compartida.
+
+E1 cerrada: runtime/CI, contratos, expediente, estados, auditoría y cola;
+instalación limpia y migración local verificadas. Siguiente:
+E2 (NASA estatal), E3 (lector real), E4 (API integrada sin proveedor), E5
+(asesor/embebido), E6 (venta), E7 (equipos/costos), E8 (Ingeniero IA), E9
+(propuestas/entrega) y E10 (cierre operativo). NASA y lector son independientes;
+ver dependencias concretas y criterios de cierre antes de iniciar cada entrega.
+No se inicia implementación por el solo hecho de documentar este plan.
+
+## Historial — ingreso de recibos al CRM
 
 El historial de F1 se conserva abajo. La prioridad de producto supersede la carga pública
 de JSON y la creación manual obligatoria de proyectos: **recibo PDF/imagen → prospecto →
@@ -27,8 +42,8 @@ presupuesto configurable → cotización → seguimiento**. `Client` se reutiliz
   embed/duplicados/vínculos, checks completos sobre integración y revisión independiente
   de interfaz/seguridad. No se marca terminado solo con tests de servidor.
 
-No expandir módulos futuros ni iniciar la normalización energética histórica F1.7 antes
-de cerrar los fundamentos necesarios; su entrada deberá adaptarse al nuevo intake.
+La normalización energética se adapta al intake de prospectos en E3; no se
+condiciona al cierre de todos los módulos administrativos históricos.
 
 ## Fase 1 — Dashboard y fundamentos
 
@@ -198,14 +213,15 @@ sesión. Ejecutarlo dos veces no rompe nada.
 
 ---
 
-## Fase 2 — Ingeniería y proveedores · _no iniciar hasta cerrar F1_
+## Fase 2 histórica — Ingeniería y proveedores
 
 Motor energético determinista · `ParameterGate` y parámetros verificables · adaptadores
 `MockSupplierProvider` y `SyscomProvider` · catálogo técnico normalizado · validador de
 compatibilidad eléctrica · estimación de producción · `calculation_runs`.
 
-**Bloqueada para emitir cifras** por D1–D4 de `docs/architecture.md` §8. La estructura, los
-contratos y las pruebas sí pueden construirse.
+El motor manual ya existe. La entrada automática necesita recibo real validado y
+HSP estatal válida (E2–E4), no el cierre de toda F1. Tarifas CFE/compensación
+condicionan ahorro/retorno; reglas fiscales condicionan IVA, no dimensionamiento.
 
 ## Fase 3 — Presupuestos configurables
 
@@ -218,10 +234,16 @@ Armado · PDF personalizable · alternativas comparadas · versiones e historial
 
 ## Fase 5 — Ingeniero IA
 
+Orden sustituido: lector real en E3; Ingeniero IA con herramientas en E8. No
+posponer la extracción de recibos hasta después de construir propuestas.
+
 Integración de Ollama · `OllamaReceiptReader` · `SolarEngineeringAdvisor` · `ToolRegistry` ·
 validación de los resultados del agente contra el motor determinista.
 
 ## Fase 6 — API pública
+
+Esta ampliación es para consumidores externos. La API compartida del asesor y
+embebido se define desde E1 e integra en E4; no espera F6.
 
 REST versionada · autenticación de consumidores · OpenAPI · límites de uso · webhooks.
 

@@ -29,6 +29,11 @@ La localización se almacena fuera del JSON CFE; no se cambia su versión 1.0.
 
 ## Etapa de implementación actual
 
+Actualización de secuencia 2026-10-23: Google/contornos permanece pospuesto según
+RFC-002 y el [plan global](../project-plan.md). El cierre real debe incluir una
+vía de confirmación/corrección manual de ubicación y entidad sin presentar las
+fixtures geográficas como verificadas. No se exige proveedor pago para avanzar.
+
 Por decisión del usuario, simular la consulta a Google con fixtures explícitas
 para verde, amarillo, rojo y fallo técnico mientras el lector de archivos sea
 mock. No exigir credenciales ni facturación ni realizar llamadas reales. Los

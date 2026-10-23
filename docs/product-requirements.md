@@ -4,6 +4,10 @@
 > Fuente de verdad: documento maestro de producto y arquitectura entregado por el
 > propietario el 2026-10-21.
 
+> Revisión 2026-10-23: las decisiones del RFC-001 y el
+> [plan de entregas](project-plan.md) actualizan el alcance y orden históricos
+> de este documento. El plan distingue implementación real de pendientes.
+
 ## 1. Qué es
 
 Software **comercial de ingeniería fotovoltaica asistida por IA** para empresas que
@@ -37,8 +41,10 @@ Consecuencias técnicas obligatorias:
 Prioridad: **recibo → prospecto → JSON interno Ollama/mock → validación → ingeniero con
 motores deterministas y proveedores reales → presupuesto configurable → cotización → seguimiento**.
 `Client` representa al prospecto. Un proyecto es un recurso interno opcional: subir un
-recibo nunca obliga a crear un proyecto manualmente. No es un constructor de landings,
-un gestor de webs ni una API pública completa.
+recibo nunca obliga a crear un proyecto manualmente. La API de negocio compartida
+sirve tanto al asesor como al formulario embebido; el CRM es su consumidor interno.
+No es un constructor de landings ni un gestor de webs. Una plataforma de API
+para consumidores externos con claves y webhooks sigue siendo ampliación posterior.
 
 Navegación prioritaria: **Dashboard / Mis prospectos / Cotizaciones / Proveedores /
 Costos y márgenes / Usuarios**. Los módulos aún no implementados se señalan pendientes;
@@ -46,7 +52,9 @@ no se construyen pantallas funcionales ficticias para simularlos.
 
 El catálogo histórico de módulos se conserva como contexto:
 
-La primera prioridad es la **interfaz web**, no la API. Módulos:
+La interfaz se entrega por recorridos sobre el contrato compartido; no se termina
+todo el frontend antes del cálculo ni se difiere toda la API hasta F6. Módulos
+históricos (las reglas vigentes de cotización excluyen instalación):
 
 | Módulo                | Contenido                                                                                                                     |
 | --------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
@@ -101,8 +109,15 @@ datos basten para una decisión técnica.
 
 Dos entradas del mismo flujo: formulario público `/embed/cfe`, embebible mediante iframe,
 y carga autenticada `/intakes/create`, creando o seleccionando un prospecto explícitamente.
-Se requieren nombre y al menos correo o teléfono para un prospecto nuevo, recibo PDF/JPEG/PNG/WebP
+Actualmente se requieren nombre y al menos correo o teléfono para un prospecto nuevo, recibo PDF/JPEG/PNG/WebP
 (hasta 10 MiB) y consentimiento con versión vigente. No se pide un proyecto.
+
+El flujo objetivo confirmado exige correo en el embebido, junto al contacto y
+recibo; no ofrece captura técnica manual. El asesor crea el prospecto y adjunta
+el archivo. Ambos ejecutan el mismo procesamiento mediante la API. La respuesta
+autorizada del asesor incluye costo de compra y precio de venta; el cliente
+solo recibe precio de venta, excluyendo costos desde servidor. Ese flujo común
+y el cambio de obligatoriedad del correo aún están pendientes de implementación.
 
 Los archivos se guardan en almacenamiento privado; la descarga exige permisos del CRM.
 La respuesta pública no muestra IDs ni datos de prospectos existentes. Una coincidencia
@@ -136,7 +151,8 @@ los equipos para la instalación: considera datos útiles y validados del recibo
 ubicación geográfica y resultados de herramientas de cálculo, catálogo y validación.
 La fuente de fórmulas Syscom no obliga a comprar equipos a Syscom. Las empresas
 usuarias pueden trabajar con otros proveedores; los contratos del dominio deben
-permitirlo desde el inicio. Los criterios de preferencia se detallarán en el
+permitir evolución sin acoplar fórmulas al cliente Syscom. No se exige implementar
+infraestructura multiproveedor ahora. Los criterios de selección se detallan en el
 [RFC-001](rfcs/001-cotizacion-ia-ubicacion-hsp.md).
 
 Primer distribuidor: **Syscom México**, siguiendo su documentación oficial vigente.
@@ -162,6 +178,11 @@ Reglas y alcance en [RFC-001](rfcs/001-cotizacion-ia-ubicacion-hsp.md).
 
 ## 7. Fases
 
+Tabla histórica. El orden de ejecución vigente es E0–E10 del
+[plan del proyecto](project-plan.md): NASA y lector preceden el recorrido
+automático; API y frontend se entregan por partes. No se amplía el alcance por
+conceptos históricos de mano de obra, markup o márgenes sin reglas aprobadas.
+
 | Fase                              | Entregable                                                                                                                                                                                                                                                     |
 | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **F1 Dashboard y fundamentos**    | Laravel+Inertia+Vue, auth, roles, configuración de empresa, clientes, proyectos, navegación y dashboard funcional, recepción privada de PDF/imagen y validación del JSON interno CFE. _Una empresa instala Helios, entra y recibe prospectos con sus recibos._ |
@@ -176,6 +197,8 @@ particulares, aplicaciones móviles nativas, billing y cuotas.
 
 ## 8. Objetivo inmediato
 
-**Helios App ejecutándose en el navegador, con dashboard del CRM, gestión de prospectos
-y recepción de recibos PDF/imagen desde el formulario público y el CRM, sin crear un
-proyecto obligatorio.** La documentación y la infraestructura dejan de ser el foco.
+E1 (contrato común, expediente y ejecución coherente) está cerrada y verificada.
+Sigue NASA y lector real para llegar a una API que calcule desde el recibo. Conectar asesor y
+embebido al mismo flujo. Cada entrega debe ser utilizable y comprobable; el
+objetivo completo incluye presupuesto, equipos, Ingeniero IA, entrega y operación,
+con los criterios del [plan del proyecto](project-plan.md).

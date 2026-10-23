@@ -1081,3 +1081,131 @@ Las entradas son acumulativas; una propuesta no equivale a una implementación.
   remota. Aviso opcional fontaine del build, no bloqueante. Sin API real, lector
   real, NASA ni Syscom; no declarar cotizador comercial completo. Commit local
   solicitado, sin push ni despliegue. Ninguna skill adicional necesaria.
+
+## 2026-10-23 — Codex — Revisión global y plan de entregas por dependencias
+
+- **Solicitud:** usuario pausa implementación aislada de API y pide revisar todo
+  el proyecto para completar alcance por partes, con dependencias y bloqueos;
+  autoriza alinear nombres RFC/ADR si resulta útil. No se inició código API.
+- **Revisado:** requisitos, arquitectura, dominio, backlog, API, RFC-001/002,
+  ADR-012/013/014, ingeniería, contrato CFE (reglas/privacidad), memoria y estado
+  del código mediante rutas, migraciones, servicios, vistas, configuración y
+  pruebas existentes. No equivale a auditoría exhaustiva ni prueba en producción.
+- **Creado:** `docs/project-plan.md`, inventario, alcance completo, exclusiones,
+  entregas E0–E10, dependencias, criterio de cierre por módulo, diagrama y
+  siguiente unidad E1. `docs/README.md` enlaza fuentes y explica precedencias.
+- **Orden recomendado, no implementación:** E1 contratos/expediente/estados/
+  auditoría/cola/runtime; E2 NASA estatal; E3 lector real; E4 API desde recibo;
+  E5 asesor/embebido/atención; E6 precios; E7 equipos/costos; E8 Ingeniero IA;
+  E9 versiones/PDF/correo; E10 cierre de frontend/CRM/operación instalable.
+  NASA y lector no dependen entre sí; proveedor no bloquea necesidades genéricas.
+  Interfaces se entregan con cada capacidad, no todas antes o después del backend.
+- **Alineado:** `docs/development-backlog.md`, `docs/product-requirements.md`,
+  `docs/architecture.md`, `docs/domain-model.md`, `docs/api-design.md`,
+  `docs/solar-engineering.md`, RFC-001/002 y ADR-012/013/014. Fases antiguas se
+  identifican como historia; lector/API dejan de esperar F5/F6. Google queda
+  pospuesto y requiere vía manual real; defaults HSP no sustituyen NASA válida.
+  RFC-001 cambia solo título, conservando ruta/número y decisiones; PDF intacto.
+- **Bloqueos registrados:** fuente de watts de panel genérico, metodología NASA,
+  entorno/hardware del lector, costo Syscom, bases monetarias para descuentos
+  por concepto y plazos configurables. Lock requiere PHP >=8.4.1, manifiesto
+  declara ^8.3 y CI usa 8.3; alineación y prueba limpia quedan en E1, sin tocar
+  runtime/dependencias/CI en esta tarea documental. No se reabren seis decisiones
+  de producto cerradas ni se aprueban tarifas, servicios pagos o acceso a PII.
+- **Validación realizada:** check global correcto (103 archivos formateados,
+  76 sin errores lint), enlaces locales y diff check correctos; aislop sin
+  hallazgos, sin atribuir puntaje PHP a Markdown. Sin nuevas pruebas de aplicación: solo docs;
+  217 pruebas es resultado del commit anterior, no ejecutado en esta revisión.
+  No aplica skill especializada a planificación técnica interna. Sin commit,
+  push, migraciones, cambios de entorno ni implementación de funcionalidades.
+
+## 2026-10-23 — Codex — E1: runtime, contrato y fundamentos del expediente
+
+- **Autorizado e implementado:** usuario inicia paso uno del plan global.
+  Composer requiere PHP ^8.4.1 y CI usa 8.4/SQLite aislada; lock actualizado sin
+  cambiar versiones. Se conservaron los cambios documentales anteriores.
+- **Persistencia:** migración aditiva para `solar_cases`,
+  `receipt_processing_runs`, `solar_case_events` y FK nullable en intakes.
+  Nuevos envíos CRM/embebido registran expediente, responsable activo si es CRM
+  y evento dentro de la transacción existente; rollback limpia archivo.
+  Recibos históricos quedan intactos, sin backfill automático. Registro repetido
+  del mismo intake no crea otro expediente ni cambia responsable.
+- **Procesamiento:** enum de estados independiente del import CFE y ejes
+  separados de ubicación/cálculo/publicación/entrega. Contrato ReceiptProcessor
+  recibe fuente privada tipada; binding bloquea con receipt_reader_unavailable.
+  Fixtures solo por sustitución explícita en pruebas y marca simulated. No se
+  despacha automáticamente desde las pantallas ni se generan resultados ficticios.
+- **Cola/reintentos:** solicitud idempotente de un run por intake, dispatch tras
+  commit con acuse persistido y recuperación si falla envío. Job database con
+  timeout 60 s, lock compartido 75 s, tres intentos/backoff 10/30; retry_after
+  debe superar 75. Evita solapamiento/efectos terminales repetidos; salidas
+  obsoletas no sobreescriben otro intento. Retry explícito autorizado reusa
+  archivo/run y audita actor; no gasta otra carga. Fallos guardan códigos, no
+  mensajes de excepción. Atención pendiente no equivale a correo enviado.
+- **Acceso:** policy exige usuario y prospecto activos/permisos; proyección de
+  cliente con campos expresos, sin contacto, archivo, bloqueo técnico ni costo.
+  Proyección asesor exige receipts.import y view además de policy. Compra/venta
+  ausentes son no disponibles, no cero. No se expusieron endpoints HTTP nuevos;
+  la autorización bearer y replay de envío HTTP se implementan con E4/E5.
+- **Documentado:** `docs/contracts/solar-processing-v1.md`, ADR-015 y
+  `docs/runtime.md`; actualizados índice, API, arquitectura, dominio y plan.
+  Contrato fija rutas previstas, entradas, errores, aislamiento público, sesión/
+  CSRF internos, idempotencia HTTP por implementar y contratos lector/HSP/cálculo/
+  precios para siguientes entregas. No altera JSON CFE v1.0 ni decisiones de RFC.
+- **Validación:** suite completa 235 pruebas, 1112 aserciones; 18 nuevas de E1
+  (85 aserciones) cubren after-commit/rollback, worker real sobre DB aislada,
+  bloqueo, simulación, reintentos/envío fallido, permisos, proyecciones, limpieza
+  de archivo al fallar auditoría y roundtrip migración preservando intakes.
+  Pint, PHPStan, Composer validate/plataforma, TypeScript, check y build correctos;
+  aislop 100 sin hallazgos en PHP soportado, formato aislop omitido por falta de
+  php-cs-fixer en PATH y cubierto con Pint. Enlaces/diff revisados al cierre.
+- **Instalación aislada:** Composer update --lock requirió red autorizada; sin
+  cambios de versiones. Descarga limpia dev en /tmp sufrió DNS en sandbox y
+  timeout GitHub aun fuera; se detuvo. Copia de caché de paquetes a /tmp permitió
+  instalación limpia --no-dev --no-scripts de 103 paquetes sin red, con arranque
+  Laravel y todas las migraciones en SQLite en memoria. No se copió .env/caché
+  de aplicación ni se tocó vendor/base de la aplicación. No afirmar instalación
+  limpia dev completada ni ejecución de GitHub Actions remota.
+- **Límites:** migración preparada y probada, no aplicada a base compartida.
+  Despliegue debe migrar antes de usar estas cargas. Quedan NASA E2, lector E3,
+  API integrada E4, interfaces E5, precios/equipos/IA/propuestas y operación final.
+  Aviso opcional fontaine del build, preexistente. Sin nuevas dependencias,
+  frontend, commit, push o despliegue. No aplica skill especializada al backend.
+
+## 2026-10-23 — Codex — Cierre efectivo de E1 antes de NASA
+
+- **Autorización explícita:** usuario exige no dejar pendientes de E1 antes del
+  siguiente módulo. Se cerraron migración local y verificación de instalación
+  dev, sustituyendo las limitaciones de la entrada E1 anterior.
+- **MySQL local:** migrate:status confirmó solo E1 pendiente; revisión del SQL
+  con --pretend mostró únicamente tablas nuevas y FK nullable. Migración aplicada
+  con --path específico y autorización de herramienta. Estado final: todas Ran,
+  E1 batch 7. Sin cambios ni borrado de contactos, recibos o archivos existentes;
+  no se ejecutaron seeders ni backfill ni migrate:fresh sobre la base local.
+- **Instalación limpia completa:** descarga PHPStan fijado al commit del lock
+  completada desde GitHub codeload tras ampliar timeout; ZIP íntegro y raíz de
+  commit verificados. Archivo añadido solo a caché temporal con clave de URL
+  del lock, sin cambiar fuente/versiones del proyecto. Composer instaló 171
+  paquetes en carpeta vacía con caché temporal, incluyendo require-dev, sin
+  copiar vendor anterior. Autoload/package discovery, arranque y migraciones
+  SQLite en memoria correctos; 235 pruebas, 1112 aserciones también en instalación
+  nueva. No se copió .env ni config cacheada; clave de prueba efímera solo en
+  proceso, sin guardar secretos. Ninguna descarga quedó ejecutándose.
+- **Validación local repetida:** 235 pruebas/1112 aserciones, Pint y PHPStan
+  pasaron. Composer install del proyecto confirmó nada por instalar/actualizar.
+  Aislop con vendor/bin en PATH: 100 y cero hallazgos, ahora con formato activo.
+  Check/formato/enlaces y diff se verificaron al cierre. Build/TypeScript ya
+  pasaron en E1, sin cambios frontend nuevos. CI remoto se ejecutará por su
+  trigger normal; no se exige publicar cambios para validar este módulo.
+- **Documentación:** plan global y backlog marcan E1 cerrada, siguiente E2;
+  runtime y requisitos reflejan instalación/migración verificadas. Se conservan
+  registros anteriores para trazabilidad. E3–E5 mantienen lector, endpoints HTTP,
+  integración de formularios y notificaciones: no son pendientes ocultos de E1.
+- **Estado:** fundamento E1 cerrado; se guarda junto al plan documental previo
+  en commit local, sin push ni despliegue externo. Sin cambios de funcionalidades
+  adicionales ni inicio de NASA. Sin skill especializada aplicable a este cierre.
+- **Limpieza de herramientas:** la comprobación de php-cs-fixer generó una
+  configuración inicial y entradas ignore automáticamente; se retiraron esos
+  artefactos de esta comprobación para conservar Pint como formato del proyecto.
+  No se cambiaron reglas aislop. Formato activo se verificó durante el escaneo;
+  el cierre usa Pint y aislop con su PATH normal, sin configuración adicional.

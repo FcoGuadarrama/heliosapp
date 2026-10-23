@@ -2,6 +2,10 @@
 
 > v0.3 · 2026-10-22 · **Single-tenant**. Supersede cualquier diseño multiempresa previo.
 
+> Orden actualizado 2026-10-23 en [plan del proyecto](project-plan.md).
+> Los contratos de esta página son objetivo salvo implementación identificada;
+> el inventario y dependencias vigentes están en ese plan.
+
 ## 1. Forma general
 
 Monolito modular Laravel. Una instalación por empresa compradora, con su propia base de
@@ -33,7 +37,7 @@ app/
 │   ├── Projects/            Proyectos solares
 │   ├── ReceiptData/         Esquema JSON CFE, validación, lectores
 │   ├── EnergyAnalysis/      Diagnóstico energético
-│   ├── SolarEngineering/    Motor determinista: dimensionamiento y producción
+│   ├── Solar/               Motor de interconexión actual; producción futura
 │   ├── Suppliers/           Contrato SupplierProvider y adaptadores
 │   ├── Catalog/             Catálogo técnico normalizado
 │   ├── Compatibility/       Validación eléctrica determinista
@@ -62,12 +66,14 @@ _Consecuencia:_ la actualización del software y las migraciones deben ser segur
 repetibles en instalaciones de clientes sin intervención del equipo.
 
 **ADR-002 — La lógica de negocio vive en servicios de aplicación.** Ni en controladores
-Inertia ni en componentes Vue. Habilita que la API pública de F6 reutilice exactamente
-los mismos casos de uso sin reescribir motores.
+Inertia ni en componentes Vue. La API compartida de asesor/embebido reutiliza
+los mismos casos de uso desde E1–E5; una API externa F6 es ampliación posterior.
 
 **ADR-003 — La IA nunca produce números.** `ReceiptReader` y `SolarEngineeringAdvisor`
 son contratos con implementación `Mock` por defecto. El motor determinista funciona y se
-prueba sin ningún modelo presente. Ollama se integra en F5.
+prueba sin ningún modelo presente. El lector real se integra en E3 y el Ingeniero
+IA en E8, no se pospone lectura hasta después de propuestas. El contrato actual
+solo ofrece fixtures y el asesor IA aún no existe.
 
 **ADR-004 — Versionado y reproducibilidad.** Todo cálculo se persiste en
 `calculation_runs` con entradas, parámetros, fuente de datos, supuestos, metodología,
@@ -76,7 +82,9 @@ resultado.
 
 **ADR-005 — Fuente de verdad de cálculos: Syscom (actualizado 2026-10-22).**
 El motor reproduce [la referencia Syscom](syscom-calculator-reverse-engineering.md),
-incluidos HSP por estado, PR y valores predeterminados documentados.
+sus fórmulas y PR. HSP estatal real proviene del catálogo NASA del ADR-014;
+los defaults de la referencia solo se usan en pruebas explícitas. Sin HSP válida
+no se activa un fallback a 5.0 ni a la tabla Syscom para el flujo real.
 `ParameterGate` comprueba únicamente los parámetros que requiere cada operación.
 Las tarifas, compensación e impuestos pendientes bloquean sus cifras dependientes,
 no el dimensionamiento de Syscom. La IA no inventa ni modifica los cálculos.
@@ -106,12 +114,12 @@ propio porque "empresa" aquí es la instalación completa, no un grupo dentro de
 
 ### Decisiones de cotización, ubicación y recurso solar (2026-10-22)
 
-El [RFC-001](rfcs/001-cotizacion-ia-ubicacion-hsp.md) reúne el flujo propuesto.
+El [RFC-001](rfcs/001-cotizacion-ia-ubicacion-hsp.md) reúne el flujo aceptado.
 [ADR-012](adrs/012-motor-syscom.md) formaliza la adopción aceptada de Syscom.
-[ADR-013](adrs/013-ubicacion-desde-recibo-cfe.md) propone resolver y confirmar
-la ubicación del suministro; [ADR-014](adrs/014-hsp-nasa-power.md) propone
-obtener HSP con NASA. Estos dos últimos no implican integración implementada.
-La fuente NASA sustituiría la entrada HSP, manteniendo las fórmulas adoptadas.
+[ADR-013](adrs/013-ubicacion-desde-recibo-cfe.md) define ubicación confirmada;
+[ADR-014](adrs/014-hsp-nasa-power.md) define catálogo estatal NASA.
+Ambas decisiones de producto están aceptadas, con metodología e implementación
+pendientes. Google/contornos se mantiene pospuesto según RFC-002 actualizado.
 
 ## 4. Contratos esenciales
 
@@ -190,8 +198,9 @@ interface ProductionEstimator {  // PVWatts V8 u otro, previa verificación
 }
 ```
 
-El dimensionamiento adoptado usa HSP por estado según Syscom, sin exigir coordenadas.
-Estas interfaces de irradiación y producción son ampliaciones futuras.
+El dimensionamiento recibe HSP estatal NASA versionada, sin requerir consulta
+por coordenadas por cada prospecto. Las interfaces por coordenadas y producción
+de arriba son ampliaciones; no representan el contrato actual del catálogo estatal.
 
 ### 4.5 Compatibilidad eléctrica
 
@@ -206,6 +215,12 @@ inspección física**. Una configuración no es viable mientras tenga verificaci
 fallidas, sin importar lo que opine el agente.
 
 ## 5. Procesos asíncronos
+
+Fundamento E1 implementado: expediente, eventos y `ProcessReceipt`, con dispatch
+explícito después del commit y sin modificar estados del import CFE. Binding
+por defecto bloquea por lector no disponible. No hay dispatch automático desde
+el formulario ni pipeline completo. Ver [ADR-015](adrs/015-expediente-y-procesamiento-compartido.md)
+y [contrato v1](contracts/solar-processing-v1.md). Lo siguiente es el objetivo:
 
 Van a cola: importación y validación de recibos, consultas a proveedores, ejecución del
 análisis completo, generación de PDF. Cada proceso largo tiene un registro de estado
@@ -264,7 +279,7 @@ modificaciones sobre precios, perfiles comerciales y cotizaciones.
 
 | #   | Decisión                                                                                                | Estado                                                                           |
 | --- | ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| D1  | Fuente de irradiación definitiva (NASA POWER / PVGIS) y condiciones de uso                              | **Ampliación futura; no bloquea Syscom**                                         |
+| D1  | Catálogo HSP estatal NASA: metodología, período, frecuencia y caducidad                                 | **Fuente aceptada; implementación pendiente E2, bloquea HSP automático real**    |
 | D2  | Uso de PVWatts V8 como referencia de producción: cobertura, límites de cuota y términos                 | **Ampliación futura; no bloquea Syscom**                                         |
 | D3  | Origen y vigencia de las tarifas CFE y del esquema de compensación                                      | **Pendiente de fuente oficial**                                                  |
 | D4  | Reglas fiscales aplicables y su vigencia (no asumir un porcentaje único)                                | **Pendiente de fuente oficial**                                                  |
@@ -272,8 +287,8 @@ modificaciones sobre precios, perfiles comerciales y cotizaciones.
 | D6  | Paquete de auditoría: `spatie/laravel-activitylog` vs tabla propia                                      | Propuesta: activitylog                                                           |
 | D7  | ¿Helios publica un catálogo técnico base curado, o cada empresa parte de cero?                          | Pendiente de producto                                                            |
 
-D1–D2 no bloquean el motor Syscom adoptado. D3–D4 condicionan únicamente
-los resultados que dependen de tarifas, compensación o impuestos.
+D1 no bloquea probar el motor con HSP manual explícita, pero sí el flujo real con
+HSP automática. D2 sigue futura. D3 condiciona ahorro/retorno; D4, cifras con IVA.
 
 ## 9. Ingreso de recibos y límites de seguridad (v0.3)
 
@@ -283,7 +298,9 @@ cotización → seguimiento. Los proyectos existentes son internos y opcionales;
 obliga al prospecto a crearlos. `ParameterGate` sigue siendo un requisito previo a emitir
 cifras: acepta la referencia Syscom y exige los datos propios de cada operación;
 no se inventan precios ni parámetros ajenos a esa referencia.
-No se implementa IA real, web manager, constructor de landings ni API pública completa.
+En la entrega histórica v0.3 no se implementaron IA real ni API compartida.
+El alcance vigente incluye lector/Ingeniero IA y API de los formularios; web
+manager, constructor de landings y plataforma de API externa no son requisitos.
 
 - GET/POST `/embed/cfe` se registran fuera de `web`: sin sesión, cookies, usuario CRM
   ni privilegios ambientales. No se exceptúa el CSRF del CRM. Un token cifrado expira en

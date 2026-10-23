@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Domain\Intake\Contracts\ReceiptReader;
 use App\Domain\Intake\MockReceiptReader;
+use App\Domain\Processing\ReceiptProcessor;
+use App\Domain\Processing\UnavailableReceiptProcessor;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -18,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(ReceiptReader::class, MockReceiptReader::class);
+        $this->app->bind(ReceiptProcessor::class, UnavailableReceiptProcessor::class);
     }
 
     /**

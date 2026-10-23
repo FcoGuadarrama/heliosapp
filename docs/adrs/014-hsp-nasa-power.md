@@ -5,6 +5,9 @@
 - Relacionado: [RFC-001](../rfcs/001-cotizacion-ia-ubicacion-hsp.md), [ADR-012](012-motor-syscom.md), [ADR-013](013-ubicacion-desde-recibo-cfe.md).
 - Sustituye: propuesta previa de consulta NASA puntual por instalación de este ADR.
 
+Orden: E2 del [plan global](../project-plan.md). NASA no depende del lector de
+recibos ni de Syscom; recibo real y catálogo válido se integran después en E4.
+
 ## Contexto
 
 Las fórmulas Syscom reciben HSP como entrada. El usuario decide obtener el recurso

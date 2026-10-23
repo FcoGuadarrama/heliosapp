@@ -1,10 +1,16 @@
-# RFC-001 — Cotización con Ingeniero de IA
+# RFC-001 — Flujo compartido de recibo a cotización solar
 
 - Fecha de consolidación: 2026-10-22.
 - Autor: Codex, con decisiones del responsable de producto.
 - Estado: definición consolidada; sin preguntas de producto pendientes (seis resueltas el 2026-10-22).
 - Implementación: parcial; motor de interconexión y pantalla interna manual de prueba. Flujo completo pendiente.
 - Alcance: interconexión CFE, catálogo Syscom, cotización automática y seguimiento.
+
+Orden de implementación, inventario y dependencias del producto completo en
+[plan del proyecto](../project-plan.md). Este RFC define comportamiento, no una
+secuencia por número de sección. Su nombre anterior era “Cotización con
+Ingeniero de IA”; se conserva la ruta para no romper referencias. Las seis
+preguntas de producto cerradas no eliminan pendientes técnicos de implementación.
 
 Este RFC reúne todas las decisiones de esta conversación y sustituye sus
 redacciones anteriores. Es la especificación vigente de este flujo. El

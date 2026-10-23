@@ -11,7 +11,10 @@
 El motor debe reproducir las fórmulas, constantes, valores predeterminados,
 redondeos y selección de equipos documentados en la referencia Syscom:
 consumo diario, HSP por estado (default 5.0), PR por tipo de sistema,
-dimensionamiento de paneles, inversor, baterías y controlador.
+dimensionamiento de paneles, inversor, baterías y controlador. La referencia
+documenta estos sistemas; solo interconexión está incluida ahora. El default
+5.0 y la tabla Syscom son referencia para pruebas: ADR-014 exige HSP NASA válida
+para el recorrido real y prohíbe sustitución silenciosa.
 Se conservan las correcciones documentadas: híbrido solo con inversor híbrido
 y microinversores según módulos admitidos por unidad.
 
@@ -35,12 +38,14 @@ Esos datos se requieren únicamente para las cifras que dependan de ellos:
 ahorro, retorno e impuestos, respectivamente. Su ausencia no bloquea el
 dimensionamiento documentado ni el cálculo de costos y márgenes configurados.
 Un futuro `ParameterGate` debe comprobar las dependencias de cada cálculo,
-aceptando las constantes y valores predeterminados de la referencia adoptada.
+aceptando sus constantes de fórmula, sin habilitar defaults HSP contrarios al
+ADR-014. El [plan global](project-plan.md) distingue prueba manual y flujo real.
 
 ## 3. Reglas de diseño del motor
 
-1. **Fidelidad a Syscom.** Usar HSP por estado y los valores predeterminados
-   documentados. Las coordenadas no son requisito para este dimensionamiento.
+1. **Fidelidad a Syscom.** Conservar fórmulas y PR; inyectar HSP estatal
+   versionada de NASA en el recorrido real. Las coordenadas no son requisito
+   de la fórmula ni justifican reemplazar HSP ausente por una cifra de prueba.
 2. **Toda cifra declara su base.** Valor, unidad, fuente, supuestos y confianza viajan
    juntos. Una cifra sin procedencia es un defecto, no un resultado.
 3. **Las verificaciones que requieren inspección física se enumeran como pendientes**, no
@@ -56,6 +61,11 @@ aceptando las constantes y valores predeterminados de la referencia adoptada.
    tiene la suya. Ambas se guardan con cada resultado.
 
 ## 4. Reglas de presupuesto que sí están definidas
+
+Las fórmulas siguientes son referencia aritmética histórica, no las modalidades
+de venta de la entrega vigente. RFC-001 §9–10 define kWp/panel/paquete y sus
+descuentos; no se necesita costo de compra para esos perfiles de venta. No
+activar markup o margen como modalidad sin una decisión de producto adicional.
 
 Son aritmética comercial, no ingeniería eléctrica, y no dependen de ninguna fuente externa.
 
