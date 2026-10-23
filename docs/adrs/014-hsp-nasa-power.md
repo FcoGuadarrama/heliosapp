@@ -1,7 +1,7 @@
 # ADR-014 — Catálogo estatal de HSP derivado de NASA POWER
 
 - Fecha: 2026-10-22
-- Estado: catálogo estatal y actualización periódica aceptados; metodología e implementación pendientes.
+- Estado: implementado E2; catálogo real de 32 entidades publicado y validado.
 - Relacionado: [RFC-001](../rfcs/001-cotizacion-ia-ubicacion-hsp.md), [ADR-012](012-motor-syscom.md), [ADR-013](013-ubicacion-desde-recibo-cfe.md).
 - Sustituye: propuesta previa de consulta NASA puntual por instalación de este ADR.
 
@@ -19,13 +19,19 @@ siguen aportando contexto y permiten resolver la entidad de la instalación.
 
 Publicar versiones de un catálogo para las 32 entidades, con procedencia NASA.
 Consultar desde procesos de actualización separados del análisis del lead.
-El parámetro candidato es `ALLSKY_SFC_SW_DWN`, comunidad `RE`; validar contrato
-y unidades con respuestas reales antes de habilitar el catálogo.
+El parámetro validado e implementado es `ALLSKY_SFC_SW_DWN`, comunidad `RE`, con
+unidades y contrato comprobados mediante respuestas reales.
 
 Definir y documentar período climatológico, puntos o malla y método de agregación
 geográfica antes de obtener valores representativos por estado. Una consulta
 puntual o a la capital no constituye por sí sola un promedio estatal.
-Frecuencia de actualización y caducidad siguen pendientes de decisión.
+La metodología implementada es `inegi-2025-ceres-1deg-area-v1`: ponderación de
+intersecciones de celdas NASA nativas de 1° por área estatal INEGI, medida en
+EPSG:6933. Período climatológico se toma de respuestas consistentes NASA (primer
+catálogo real: 2001–2025). Actualización mensual a las 03:00 UTC del día 1 y
+caducidad inicial 90 días, configurables. Son políticas técnicas de Helios.
+Detalles, fuentes, evidencia, reproducción y operación en
+[catálogo HSP](../hsp-catalog.md).
 
 Normalizar a HSP mediante conversión dimensional:
 `HSP (h/día) = irradiación diaria (kWh/m²/día) / 1 (kW/m²)`.
@@ -43,7 +49,9 @@ Validar antes de publicar una versión. Si la actualización falla, mantener la
 última válida y notificar internamente su fecha y el incidente. No alterar las
 propuestas previas. Sin valor válido para una entidad, bloquear el cálculo
 dependiente; no reemplazar silenciosamente por tabla Syscom ni default 5.0.
-Política de caducidad pendiente; no asumir vigencia ilimitada.
+Vencimiento almacenado por versión: una actualización fallida no lo extiende.
+Tras caducar, el proveedor local devuelve ausencia explícita y no habilita
+cálculos nuevos, aunque conserve la evidencia histórica.
 
 El fallo de NASA durante actualización no obliga a pedir datos otra vez al lead.
 La tabla Syscom permanece como referencia para pruebas; un modo alternativo
@@ -53,9 +61,13 @@ explícito sigue pendiente de autorización de producto.
 
 Respuesta real del contrato, conversión, método de agregación, cobertura de
 entidades, publicación versionada, snapshots y fallo de actualización.
-La integración no está implementada ni existen cifras NASA verificadas en Helios.
+Implementado: cliente/parser NASA, malla reproducible, versiones/evidencia,
+publicación transaccional, consulta local, comandos/schedule y avisos internos
+persistidos. Probados contrato real, las 32 entidades y conservación ante fallos.
+No interpreta archivos ni altera las fórmulas de interconexión.
 
 ## Fuente técnica
 
 [NASA POWER Climatology API](https://power.larc.nasa.gov/docs/services/api/temporal/climatology/).
-La investigación previa verificó documentación, no una respuesta real del endpoint.
+La verificación E2 del 2026-10-23 incluye respuestas reales y publicación local;
+sustituye la limitación anterior de solo haber leído documentación.

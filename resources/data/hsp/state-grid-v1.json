@@ -1,0 +1,2514 @@
+{
+    "methodology": "inegi-2025-ceres-1deg-area-v1",
+    "source_url": "https://gaia.inegi.org.mx/wscatgeo/v2/geo/mgee/",
+    "source_sha256": "170c3ea5ff472f08ece97970dc90ad4ba8c6f503e33859655f315091c105cc91",
+    "source_archive_sha256": "cb18a8544d71874ae6f62d72c60020b766a3aa484cbdf5c88a53b86bd6b0e6e0",
+    "source_metadata": {
+        "Fuente_informacion_vectorial": "INEGI. Marco Geoestadístico, diciembre de 2025",
+        "Fuente_informacion_estadistica": "INEGI. Censo de Población y Vivienda, 2020"
+    },
+    "grid_degrees": 1,
+    "area_crs": "EPSG:6933",
+    "tool_versions": {
+        "shapely": "2.0.7",
+        "pyproj": "3.6.1"
+    },
+    "states": [
+        {
+            "code": "01",
+            "name": "Aguascalientes",
+            "area_m2": 5615670192.885,
+            "area_partition_relative_error": 1.7996123635400557e-10,
+            "cells": [
+                {
+                    "longitude": -102.5,
+                    "latitude": 21.5,
+                    "weight": 0.478967055721
+                },
+                {
+                    "longitude": -102.5,
+                    "latitude": 22.5,
+                    "weight": 0.467456579533
+                },
+                {
+                    "longitude": -101.5,
+                    "latitude": 21.5,
+                    "weight": 0.02919080791
+                },
+                {
+                    "longitude": -101.5,
+                    "latitude": 22.5,
+                    "weight": 0.024385556836
+                }
+            ]
+        },
+        {
+            "code": "02",
+            "name": "Baja California",
+            "area_m2": 73053792268.574,
+            "area_partition_relative_error": 3.12608264899679e-10,
+            "cells": [
+                {
+                    "longitude": -118.5,
+                    "latitude": 28.5,
+                    "weight": 0.001078640779
+                },
+                {
+                    "longitude": -118.5,
+                    "latitude": 29.5,
+                    "weight": 0.002287593595
+                },
+                {
+                    "longitude": -117.5,
+                    "latitude": 32.5,
+                    "weight": 0.003391405112
+                },
+                {
+                    "longitude": -116.5,
+                    "latitude": 30.5,
+                    "weight": 0.008124660924
+                },
+                {
+                    "longitude": -116.5,
+                    "latitude": 31.5,
+                    "weight": 0.078092695846
+                },
+                {
+                    "longitude": -116.5,
+                    "latitude": 32.5,
+                    "weight": 0.080094288124
+                },
+                {
+                    "longitude": -115.5,
+                    "latitude": 28.5,
+                    "weight": 0.004887226584
+                },
+                {
+                    "longitude": -115.5,
+                    "latitude": 29.5,
+                    "weight": 0.046497633265
+                },
+                {
+                    "longitude": -115.5,
+                    "latitude": 30.5,
+                    "weight": 0.134164428308
+                },
+                {
+                    "longitude": -115.5,
+                    "latitude": 31.5,
+                    "weight": 0.144188855564
+                },
+                {
+                    "longitude": -115.5,
+                    "latitude": 32.5,
+                    "weight": 0.094455482994
+                },
+                {
+                    "longitude": -114.5,
+                    "latitude": 28.5,
+                    "weight": 0.030040790009
+                },
+                {
+                    "longitude": -114.5,
+                    "latitude": 29.5,
+                    "weight": 0.115404449774
+                },
+                {
+                    "longitude": -114.5,
+                    "latitude": 30.5,
+                    "weight": 0.04870432768
+                },
+                {
+                    "longitude": -114.5,
+                    "latitude": 31.5,
+                    "weight": 0.02124557355
+                },
+                {
+                    "longitude": -114.5,
+                    "latitude": 32.5,
+                    "weight": 0.008708159605
+                },
+                {
+                    "longitude": -113.5,
+                    "latitude": 27.5,
+                    "weight": 1.342e-9
+                },
+                {
+                    "longitude": -113.5,
+                    "latitude": 28.5,
+                    "weight": 0.128886869453
+                },
+                {
+                    "longitude": -113.5,
+                    "latitude": 29.5,
+                    "weight": 0.037623014172
+                },
+                {
+                    "longitude": -112.5,
+                    "latitude": 27.5,
+                    "weight": 5.67e-10
+                },
+                {
+                    "longitude": -112.5,
+                    "latitude": 28.5,
+                    "weight": 0.012123902751
+                }
+            ]
+        },
+        {
+            "code": "03",
+            "name": "Baja California Sur",
+            "area_m2": 72023936355.43,
+            "area_partition_relative_error": 3.60303623378477e-10,
+            "cells": [
+                {
+                    "longitude": -115.5,
+                    "latitude": 24.5,
+                    "weight": 3.7788e-8
+                },
+                {
+                    "longitude": -115.5,
+                    "latitude": 27.5,
+                    "weight": 0.000881277918
+                },
+                {
+                    "longitude": -114.5,
+                    "latitude": 26.5,
+                    "weight": 7.6590215e-5
+                },
+                {
+                    "longitude": -114.5,
+                    "latitude": 27.5,
+                    "weight": 0.069654128248
+                },
+                {
+                    "longitude": -114.5,
+                    "latitude": 28.5,
+                    "weight": 7.33e-10
+                },
+                {
+                    "longitude": -113.5,
+                    "latitude": 26.5,
+                    "weight": 0.029061810347
+                },
+                {
+                    "longitude": -113.5,
+                    "latitude": 27.5,
+                    "weight": 0.151060746333
+                },
+                {
+                    "longitude": -113.5,
+                    "latitude": 28.5,
+                    "weight": 2.292e-9
+                },
+                {
+                    "longitude": -112.5,
+                    "latitude": 24.5,
+                    "weight": 0.007800860493
+                },
+                {
+                    "longitude": -112.5,
+                    "latitude": 25.5,
+                    "weight": 0.018274669573
+                },
+                {
+                    "longitude": -112.5,
+                    "latitude": 26.5,
+                    "weight": 0.116382051719
+                },
+                {
+                    "longitude": -112.5,
+                    "latitude": 27.5,
+                    "weight": 0.090938029374
+                },
+                {
+                    "longitude": -112.5,
+                    "latitude": 28.5,
+                    "weight": 1e-12
+                },
+                {
+                    "longitude": -111.5,
+                    "latitude": 24.5,
+                    "weight": 0.096887495265
+                },
+                {
+                    "longitude": -111.5,
+                    "latitude": 25.5,
+                    "weight": 0.136400149724
+                },
+                {
+                    "longitude": -111.5,
+                    "latitude": 26.5,
+                    "weight": 0.066724298801
+                },
+                {
+                    "longitude": -111.5,
+                    "latitude": 27.5,
+                    "weight": 0.000423184847
+                },
+                {
+                    "longitude": -110.5,
+                    "latitude": 22.5,
+                    "weight": 0.000882867961
+                },
+                {
+                    "longitude": -110.5,
+                    "latitude": 23.5,
+                    "weight": 0.061742694055
+                },
+                {
+                    "longitude": -110.5,
+                    "latitude": 24.5,
+                    "weight": 0.074290141669
+                },
+                {
+                    "longitude": -110.5,
+                    "latitude": 25.5,
+                    "weight": 0.007456745136
+                },
+                {
+                    "longitude": -109.5,
+                    "latitude": 22.5,
+                    "weight": 0.003616663327
+                },
+                {
+                    "longitude": -109.5,
+                    "latitude": 23.5,
+                    "weight": 0.064213708094
+                },
+                {
+                    "longitude": -109.5,
+                    "latitude": 24.5,
+                    "weight": 0.003231846089
+                }
+            ]
+        },
+        {
+            "code": "04",
+            "name": "Campeche",
+            "area_m2": 57507969588.138,
+            "area_partition_relative_error": 6.399033779359707e-9,
+            "cells": [
+                {
+                    "longitude": -92.5,
+                    "latitude": 18.5,
+                    "weight": 0.032099931087
+                },
+                {
+                    "longitude": -91.5,
+                    "latitude": 17.5,
+                    "weight": 0.004805851625
+                },
+                {
+                    "longitude": -91.5,
+                    "latitude": 18.5,
+                    "weight": 0.15960323069
+                },
+                {
+                    "longitude": -91.5,
+                    "latitude": 19.5,
+                    "weight": 0.002079997562
+                },
+                {
+                    "longitude": -91.5,
+                    "latitude": 20.5,
+                    "weight": 2.589565e-6
+                },
+                {
+                    "longitude": -90.5,
+                    "latitude": 17.5,
+                    "weight": 0.03730344221
+                },
+                {
+                    "longitude": -90.5,
+                    "latitude": 18.5,
+                    "weight": 0.203251646138
+                },
+                {
+                    "longitude": -90.5,
+                    "latitude": 19.5,
+                    "weight": 0.147113547807
+                },
+                {
+                    "longitude": -90.5,
+                    "latitude": 20.5,
+                    "weight": 0.052673859637
+                },
+                {
+                    "longitude": -89.5,
+                    "latitude": 17.5,
+                    "weight": 0.031412997354
+                },
+                {
+                    "longitude": -89.5,
+                    "latitude": 18.5,
+                    "weight": 0.172589424492
+                },
+                {
+                    "longitude": -89.5,
+                    "latitude": 19.5,
+                    "weight": 0.138986368404
+                },
+                {
+                    "longitude": -89.5,
+                    "latitude": 20.5,
+                    "weight": 0.018077113429
+                }
+            ]
+        },
+        {
+            "code": "05",
+            "name": "Coahuila de Zaragoza",
+            "area_m2": 151594761757.688,
+            "area_partition_relative_error": 1.1208233842389248e-8,
+            "cells": [
+                {
+                    "longitude": -103.5,
+                    "latitude": 24.5,
+                    "weight": 0.002581036297
+                },
+                {
+                    "longitude": -103.5,
+                    "latitude": 25.5,
+                    "weight": 0.028434384946
+                },
+                {
+                    "longitude": -103.5,
+                    "latitude": 26.5,
+                    "weight": 0.035030546622
+                },
+                {
+                    "longitude": -103.5,
+                    "latitude": 27.5,
+                    "weight": 0.06216237535
+                },
+                {
+                    "longitude": -103.5,
+                    "latitude": 28.5,
+                    "weight": 0.045173383894
+                },
+                {
+                    "longitude": -103.5,
+                    "latitude": 29.5,
+                    "weight": 0.000744401659
+                },
+                {
+                    "longitude": -102.5,
+                    "latitude": 24.5,
+                    "weight": 0.003648425442
+                },
+                {
+                    "longitude": -102.5,
+                    "latitude": 25.5,
+                    "weight": 0.069423762971
+                },
+                {
+                    "longitude": -102.5,
+                    "latitude": 26.5,
+                    "weight": 0.072859342946
+                },
+                {
+                    "longitude": -102.5,
+                    "latitude": 27.5,
+                    "weight": 0.07222793442
+                },
+                {
+                    "longitude": -102.5,
+                    "latitude": 28.5,
+                    "weight": 0.071574615332
+                },
+                {
+                    "longitude": -102.5,
+                    "latitude": 29.5,
+                    "weight": 0.047847178027
+                },
+                {
+                    "longitude": -101.5,
+                    "latitude": 24.5,
+                    "weight": 0.0146062436
+                },
+                {
+                    "longitude": -101.5,
+                    "latitude": 25.5,
+                    "weight": 0.073075505072
+                },
+                {
+                    "longitude": -101.5,
+                    "latitude": 26.5,
+                    "weight": 0.069834200062
+                },
+                {
+                    "longitude": -101.5,
+                    "latitude": 27.5,
+                    "weight": 0.07222793442
+                },
+                {
+                    "longitude": -101.5,
+                    "latitude": 28.5,
+                    "weight": 0.071574615332
+                },
+                {
+                    "longitude": -101.5,
+                    "latitude": 29.5,
+                    "weight": 0.04853409061
+                },
+                {
+                    "longitude": -100.5,
+                    "latitude": 24.5,
+                    "weight": 0.006702472861
+                },
+                {
+                    "longitude": -100.5,
+                    "latitude": 25.5,
+                    "weight": 0.023163626833
+                },
+                {
+                    "longitude": -100.5,
+                    "latitude": 26.5,
+                    "weight": 0.011939964899
+                },
+                {
+                    "longitude": -100.5,
+                    "latitude": 27.5,
+                    "weight": 0.042916306696
+                },
+                {
+                    "longitude": -100.5,
+                    "latitude": 28.5,
+                    "weight": 0.045353518395
+                },
+                {
+                    "longitude": -100.5,
+                    "latitude": 29.5,
+                    "weight": 0.005844936035
+                },
+                {
+                    "longitude": -99.5,
+                    "latitude": 27.5,
+                    "weight": 0.002517479804
+                },
+                {
+                    "longitude": -99.5,
+                    "latitude": 28.5,
+                    "weight": 1.71747e-6
+                }
+            ]
+        },
+        {
+            "code": "06",
+            "name": "Colima",
+            "area_m2": 5783368621.469,
+            "area_partition_relative_error": 2.021007683741403e-12,
+            "cells": [
+                {
+                    "longitude": -114.5,
+                    "latitude": 18.5,
+                    "weight": 0.003323605211
+                },
+                {
+                    "longitude": -112.5,
+                    "latitude": 18.5,
+                    "weight": 4.091801e-6
+                },
+                {
+                    "longitude": -111.5,
+                    "latitude": 18.5,
+                    "weight": 0.00539787111
+                },
+                {
+                    "longitude": -110.5,
+                    "latitude": 18.5,
+                    "weight": 0.017201407653
+                },
+                {
+                    "longitude": -110.5,
+                    "latitude": 19.5,
+                    "weight": 0.000962556536
+                },
+                {
+                    "longitude": -104.5,
+                    "latitude": 18.5,
+                    "weight": 0.02902085897
+                },
+                {
+                    "longitude": -104.5,
+                    "latitude": 19.5,
+                    "weight": 0.308746857827
+                },
+                {
+                    "longitude": -103.5,
+                    "latitude": 18.5,
+                    "weight": 0.190907199148
+                },
+                {
+                    "longitude": -103.5,
+                    "latitude": 19.5,
+                    "weight": 0.444435551744
+                }
+            ]
+        },
+        {
+            "code": "07",
+            "name": "Chiapas",
+            "area_m2": 73316324975.946,
+            "area_partition_relative_error": 1.0965961572821677e-8,
+            "cells": [
+                {
+                    "longitude": -94.5,
+                    "latitude": 16.5,
+                    "weight": 0.009121710632
+                },
+                {
+                    "longitude": -93.5,
+                    "latitude": 15.5,
+                    "weight": 0.048297660473
+                },
+                {
+                    "longitude": -93.5,
+                    "latitude": 16.5,
+                    "weight": 0.159956558378
+                },
+                {
+                    "longitude": -93.5,
+                    "latitude": 17.5,
+                    "weight": 0.081474354053
+                },
+                {
+                    "longitude": -92.5,
+                    "latitude": 14.5,
+                    "weight": 0.023375277647
+                },
+                {
+                    "longitude": -92.5,
+                    "latitude": 15.5,
+                    "weight": 0.143390128971
+                },
+                {
+                    "longitude": -92.5,
+                    "latitude": 16.5,
+                    "weight": 0.161148157648
+                },
+                {
+                    "longitude": -92.5,
+                    "latitude": 17.5,
+                    "weight": 0.095452332386
+                },
+                {
+                    "longitude": -91.5,
+                    "latitude": 15.5,
+                    "weight": 0.006919770277
+                },
+                {
+                    "longitude": -91.5,
+                    "latitude": 16.5,
+                    "weight": 0.150573205819
+                },
+                {
+                    "longitude": -91.5,
+                    "latitude": 17.5,
+                    "weight": 0.066064457879
+                },
+                {
+                    "longitude": -90.5,
+                    "latitude": 16.5,
+                    "weight": 0.054226385836
+                }
+            ]
+        },
+        {
+            "code": "08",
+            "name": "Chihuahua",
+            "area_m2": 247412621292.875,
+            "area_partition_relative_error": 1.0311884119897728e-9,
+            "cells": [
+                {
+                    "longitude": -109.5,
+                    "latitude": 27.5,
+                    "weight": 2.163824e-6
+                },
+                {
+                    "longitude": -109.5,
+                    "latitude": 28.5,
+                    "weight": 0.000672728763
+                },
+                {
+                    "longitude": -108.5,
+                    "latitude": 26.5,
+                    "weight": 0.001670434505
+                },
+                {
+                    "longitude": -108.5,
+                    "latitude": 27.5,
+                    "weight": 0.031763019499
+                },
+                {
+                    "longitude": -108.5,
+                    "latitude": 28.5,
+                    "weight": 0.030988790642
+                },
+                {
+                    "longitude": -108.5,
+                    "latitude": 29.5,
+                    "weight": 0.028853306882
+                },
+                {
+                    "longitude": -108.5,
+                    "latitude": 30.5,
+                    "weight": 0.031372380751
+                },
+                {
+                    "longitude": -108.5,
+                    "latitude": 31.5,
+                    "weight": 0.015304085676
+                },
+                {
+                    "longitude": -107.5,
+                    "latitude": 25.5,
+                    "weight": 0.002460448732
+                },
+                {
+                    "longitude": -107.5,
+                    "latitude": 26.5,
+                    "weight": 0.038794600165
+                },
+                {
+                    "longitude": -107.5,
+                    "latitude": 27.5,
+                    "weight": 0.044255529299
+                },
+                {
+                    "longitude": -107.5,
+                    "latitude": 28.5,
+                    "weight": 0.043855227363
+                },
+                {
+                    "longitude": -107.5,
+                    "latitude": 29.5,
+                    "weight": 0.043441601205
+                },
+                {
+                    "longitude": -107.5,
+                    "latitude": 30.5,
+                    "weight": 0.043014755607
+                },
+                {
+                    "longitude": -107.5,
+                    "latitude": 31.5,
+                    "weight": 0.03340299382
+                },
+                {
+                    "longitude": -106.5,
+                    "latitude": 25.5,
+                    "weight": 0.008017505518
+                },
+                {
+                    "longitude": -106.5,
+                    "latitude": 26.5,
+                    "weight": 0.033561649395
+                },
+                {
+                    "longitude": -106.5,
+                    "latitude": 27.5,
+                    "weight": 0.044255529299
+                },
+                {
+                    "longitude": -106.5,
+                    "latitude": 28.5,
+                    "weight": 0.043855227363
+                },
+                {
+                    "longitude": -106.5,
+                    "latitude": 29.5,
+                    "weight": 0.043441601205
+                },
+                {
+                    "longitude": -106.5,
+                    "latitude": 30.5,
+                    "weight": 0.043014755607
+                },
+                {
+                    "longitude": -106.5,
+                    "latitude": 31.5,
+                    "weight": 0.028672004395
+                },
+                {
+                    "longitude": -105.5,
+                    "latitude": 26.5,
+                    "weight": 0.01850552501
+                },
+                {
+                    "longitude": -105.5,
+                    "latitude": 27.5,
+                    "weight": 0.044255529299
+                },
+                {
+                    "longitude": -105.5,
+                    "latitude": 28.5,
+                    "weight": 0.043855227363
+                },
+                {
+                    "longitude": -105.5,
+                    "latitude": 29.5,
+                    "weight": 0.043441601205
+                },
+                {
+                    "longitude": -105.5,
+                    "latitude": 30.5,
+                    "weight": 0.03872815739
+                },
+                {
+                    "longitude": -105.5,
+                    "latitude": 31.5,
+                    "weight": 0.003830550893
+                },
+                {
+                    "longitude": -104.5,
+                    "latitude": 26.5,
+                    "weight": 0.018771829811
+                },
+                {
+                    "longitude": -104.5,
+                    "latitude": 27.5,
+                    "weight": 0.044255529299
+                },
+                {
+                    "longitude": -104.5,
+                    "latitude": 28.5,
+                    "weight": 0.043855227363
+                },
+                {
+                    "longitude": -104.5,
+                    "latitude": 29.5,
+                    "weight": 0.030347278571
+                },
+                {
+                    "longitude": -104.5,
+                    "latitude": 30.5,
+                    "weight": 0.005725881675
+                },
+                {
+                    "longitude": -103.5,
+                    "latitude": 26.5,
+                    "weight": 0.002349297091
+                },
+                {
+                    "longitude": -103.5,
+                    "latitude": 27.5,
+                    "weight": 0.006167373439
+                },
+                {
+                    "longitude": -103.5,
+                    "latitude": 28.5,
+                    "weight": 0.016050875535
+                },
+                {
+                    "longitude": -103.5,
+                    "latitude": 29.5,
+                    "weight": 0.005189776541
+                }
+            ]
+        },
+        {
+            "code": "09",
+            "name": "Ciudad de México",
+            "area_m2": 1485154081.317,
+            "area_partition_relative_error": 5.282879468478669e-9,
+            "cells": [
+                {
+                    "longitude": -99.5,
+                    "latitude": 19.5,
+                    "weight": 0.923621495192
+                },
+                {
+                    "longitude": -98.5,
+                    "latitude": 19.5,
+                    "weight": 0.076378504808
+                }
+            ]
+        },
+        {
+            "code": "10",
+            "name": "Durango",
+            "area_m2": 123364043225.657,
+            "area_partition_relative_error": 5.399529632171287e-9,
+            "cells": [
+                {
+                    "longitude": -107.5,
+                    "latitude": 24.5,
+                    "weight": 0.000261044618
+                },
+                {
+                    "longitude": -107.5,
+                    "latitude": 25.5,
+                    "weight": 0.00786641762
+                },
+                {
+                    "longitude": -106.5,
+                    "latitude": 24.5,
+                    "weight": 0.047141087205
+                },
+                {
+                    "longitude": -106.5,
+                    "latitude": 25.5,
+                    "weight": 0.07400945677
+                },
+                {
+                    "longitude": -106.5,
+                    "latitude": 26.5,
+                    "weight": 0.022222999605
+                },
+                {
+                    "longitude": -105.5,
+                    "latitude": 22.5,
+                    "weight": 0.001844936184
+                },
+                {
+                    "longitude": -105.5,
+                    "latitude": 23.5,
+                    "weight": 0.068847901415
+                },
+                {
+                    "longitude": -105.5,
+                    "latitude": 24.5,
+                    "weight": 0.090818783548
+                },
+                {
+                    "longitude": -105.5,
+                    "latitude": 25.5,
+                    "weight": 0.090281310245
+                },
+                {
+                    "longitude": -105.5,
+                    "latitude": 26.5,
+                    "weight": 0.052418793315
+                },
+                {
+                    "longitude": -104.5,
+                    "latitude": 22.5,
+                    "weight": 0.036170298713
+                },
+                {
+                    "longitude": -104.5,
+                    "latitude": 23.5,
+                    "weight": 0.086006234108
+                },
+                {
+                    "longitude": -104.5,
+                    "latitude": 24.5,
+                    "weight": 0.091002786379
+                },
+                {
+                    "longitude": -104.5,
+                    "latitude": 25.5,
+                    "weight": 0.090281310245
+                },
+                {
+                    "longitude": -104.5,
+                    "latitude": 26.5,
+                    "weight": 0.051884706015
+                },
+                {
+                    "longitude": -103.5,
+                    "latitude": 23.5,
+                    "weight": 0.006529958046
+                },
+                {
+                    "longitude": -103.5,
+                    "latitude": 24.5,
+                    "weight": 0.064476882148
+                },
+                {
+                    "longitude": -103.5,
+                    "latitude": 25.5,
+                    "weight": 0.055339979701
+                },
+                {
+                    "longitude": -103.5,
+                    "latitude": 26.5,
+                    "weight": 0.041773935743
+                },
+                {
+                    "longitude": -102.5,
+                    "latitude": 24.5,
+                    "weight": 0.020564330187
+                },
+                {
+                    "longitude": -102.5,
+                    "latitude": 25.5,
+                    "weight": 0.000256848189
+                }
+            ]
+        },
+        {
+            "code": "11",
+            "name": "Guanajuato",
+            "area_m2": 30606673981.175,
+            "area_partition_relative_error": 3.1583953268994254e-9,
+            "cells": [
+                {
+                    "longitude": -102.5,
+                    "latitude": 20.5,
+                    "weight": 0.00746550997
+                },
+                {
+                    "longitude": -101.5,
+                    "latitude": 19.5,
+                    "weight": 1.8730219e-5
+                },
+                {
+                    "longitude": -101.5,
+                    "latitude": 20.5,
+                    "weight": 0.305657912649
+                },
+                {
+                    "longitude": -101.5,
+                    "latitude": 21.5,
+                    "weight": 0.204801883565
+                },
+                {
+                    "longitude": -100.5,
+                    "latitude": 19.5,
+                    "weight": 0.010054462573
+                },
+                {
+                    "longitude": -100.5,
+                    "latitude": 20.5,
+                    "weight": 0.215827815168
+                },
+                {
+                    "longitude": -100.5,
+                    "latitude": 21.5,
+                    "weight": 0.22921652387
+                },
+                {
+                    "longitude": -99.5,
+                    "latitude": 21.5,
+                    "weight": 0.026957161986
+                }
+            ]
+        },
+        {
+            "code": "12",
+            "name": "Guerrero",
+            "area_m2": 63603731999.576,
+            "area_partition_relative_error": 1.2227552478461168e-9,
+            "cells": [
+                {
+                    "longitude": -102.5,
+                    "latitude": 17.5,
+                    "weight": 0.000681523655
+                },
+                {
+                    "longitude": -102.5,
+                    "latitude": 18.5,
+                    "weight": 0.00622076445
+                },
+                {
+                    "longitude": -101.5,
+                    "latitude": 17.5,
+                    "weight": 0.070504885454
+                },
+                {
+                    "longitude": -101.5,
+                    "latitude": 18.5,
+                    "weight": 0.092251534312
+                },
+                {
+                    "longitude": -100.5,
+                    "latitude": 16.5,
+                    "weight": 0.002111478222
+                },
+                {
+                    "longitude": -100.5,
+                    "latitude": 17.5,
+                    "weight": 0.167264956543
+                },
+                {
+                    "longitude": -100.5,
+                    "latitude": 18.5,
+                    "weight": 0.106701660139
+                },
+                {
+                    "longitude": -99.5,
+                    "latitude": 16.5,
+                    "weight": 0.055777542473
+                },
+                {
+                    "longitude": -99.5,
+                    "latitude": 17.5,
+                    "weight": 0.184791820607
+                },
+                {
+                    "longitude": -99.5,
+                    "latitude": 18.5,
+                    "weight": 0.10447309138
+                },
+                {
+                    "longitude": -98.5,
+                    "latitude": 16.5,
+                    "weight": 0.081874985013
+                },
+                {
+                    "longitude": -98.5,
+                    "latitude": 17.5,
+                    "weight": 0.121812775336
+                },
+                {
+                    "longitude": -98.5,
+                    "latitude": 18.5,
+                    "weight": 0.005532982417
+                }
+            ]
+        },
+        {
+            "code": "13",
+            "name": "Hidalgo",
+            "area_m2": 20821443211.042,
+            "area_partition_relative_error": 1.0356863078139034e-12,
+            "cells": [
+                {
+                    "longitude": -99.5,
+                    "latitude": 19.5,
+                    "weight": 0.023332466016
+                },
+                {
+                    "longitude": -99.5,
+                    "latitude": 20.5,
+                    "weight": 0.344565782117
+                },
+                {
+                    "longitude": -99.5,
+                    "latitude": 21.5,
+                    "weight": 0.032223941091
+                },
+                {
+                    "longitude": -98.5,
+                    "latitude": 19.5,
+                    "weight": 0.105131235546
+                },
+                {
+                    "longitude": -98.5,
+                    "latitude": 20.5,
+                    "weight": 0.395457990594
+                },
+                {
+                    "longitude": -98.5,
+                    "latitude": 21.5,
+                    "weight": 0.099121602534
+                },
+                {
+                    "longitude": -97.5,
+                    "latitude": 20.5,
+                    "weight": 0.000166982102
+                }
+            ]
+        },
+        {
+            "code": "14",
+            "name": "Jalisco",
+            "area_m2": 78601341074.846,
+            "area_partition_relative_error": 2.3721964811504257e-11,
+            "cells": [
+                {
+                    "longitude": -105.5,
+                    "latitude": 19.5,
+                    "weight": 0.022477099241
+                },
+                {
+                    "longitude": -105.5,
+                    "latitude": 20.5,
+                    "weight": 0.056998257963
+                },
+                {
+                    "longitude": -104.5,
+                    "latitude": 19.5,
+                    "weight": 0.104964311617
+                },
+                {
+                    "longitude": -104.5,
+                    "latitude": 20.5,
+                    "weight": 0.135052574186
+                },
+                {
+                    "longitude": -104.5,
+                    "latitude": 21.5,
+                    "weight": 0.012707165195
+                },
+                {
+                    "longitude": -104.5,
+                    "latitude": 22.5,
+                    "weight": 0.021616360589
+                },
+                {
+                    "longitude": -103.5,
+                    "latitude": 18.5,
+                    "weight": 0.00165005916
+                },
+                {
+                    "longitude": -103.5,
+                    "latitude": 19.5,
+                    "weight": 0.114267890359
+                },
+                {
+                    "longitude": -103.5,
+                    "latitude": 20.5,
+                    "weight": 0.146230418824
+                },
+                {
+                    "longitude": -103.5,
+                    "latitude": 21.5,
+                    "weight": 0.061708573991
+                },
+                {
+                    "longitude": -103.5,
+                    "latitude": 22.5,
+                    "weight": 0.050427144625
+                },
+                {
+                    "longitude": -102.5,
+                    "latitude": 19.5,
+                    "weight": 0.033910048907
+                },
+                {
+                    "longitude": -102.5,
+                    "latitude": 20.5,
+                    "weight": 0.104339175876
+                },
+                {
+                    "longitude": -102.5,
+                    "latitude": 21.5,
+                    "weight": 0.085548856689
+                },
+                {
+                    "longitude": -101.5,
+                    "latitude": 20.5,
+                    "weight": 0.001437122723
+                },
+                {
+                    "longitude": -101.5,
+                    "latitude": 21.5,
+                    "weight": 0.046311924857
+                },
+                {
+                    "longitude": -101.5,
+                    "latitude": 22.5,
+                    "weight": 0.0003530152
+                }
+            ]
+        },
+        {
+            "code": "15",
+            "name": "México",
+            "area_m2": 22351753007.909,
+            "area_partition_relative_error": 1.2129888314132651e-10,
+            "cells": [
+                {
+                    "longitude": -100.5,
+                    "latitude": 18.5,
+                    "weight": 0.132385371741
+                },
+                {
+                    "longitude": -100.5,
+                    "latitude": 19.5,
+                    "weight": 0.133115905647
+                },
+                {
+                    "longitude": -100.5,
+                    "latitude": 20.5,
+                    "weight": 0.003196344492
+                },
+                {
+                    "longitude": -99.5,
+                    "latitude": 18.5,
+                    "weight": 0.099965278287
+                },
+                {
+                    "longitude": -99.5,
+                    "latitude": 19.5,
+                    "weight": 0.421869471766
+                },
+                {
+                    "longitude": -99.5,
+                    "latitude": 20.5,
+                    "weight": 0.053005857596
+                },
+                {
+                    "longitude": -98.5,
+                    "latitude": 18.5,
+                    "weight": 0.004894060548
+                },
+                {
+                    "longitude": -98.5,
+                    "latitude": 19.5,
+                    "weight": 0.150232538981
+                },
+                {
+                    "longitude": -98.5,
+                    "latitude": 20.5,
+                    "weight": 0.001335170942
+                }
+            ]
+        },
+        {
+            "code": "16",
+            "name": "Michoacán de Ocampo",
+            "area_m2": 58603866082.065,
+            "area_partition_relative_error": 1.7109285702494645e-11,
+            "cells": [
+                {
+                    "longitude": -103.5,
+                    "latitude": 18.5,
+                    "weight": 0.087622654376
+                },
+                {
+                    "longitude": -103.5,
+                    "latitude": 19.5,
+                    "weight": 0.00116515079
+                },
+                {
+                    "longitude": -103.5,
+                    "latitude": 20.5,
+                    "weight": 0.000929453539
+                },
+                {
+                    "longitude": -102.5,
+                    "latitude": 17.5,
+                    "weight": 0.002344670584
+                },
+                {
+                    "longitude": -102.5,
+                    "latitude": 18.5,
+                    "weight": 0.184052001064
+                },
+                {
+                    "longitude": -102.5,
+                    "latitude": 19.5,
+                    "weight": 0.152803077131
+                },
+                {
+                    "longitude": -102.5,
+                    "latitude": 20.5,
+                    "weight": 0.05321633579
+                },
+                {
+                    "longitude": -101.5,
+                    "latitude": 18.5,
+                    "weight": 0.099328730492
+                },
+                {
+                    "longitude": -101.5,
+                    "latitude": 19.5,
+                    "weight": 0.198274514912
+                },
+                {
+                    "longitude": -101.5,
+                    "latitude": 20.5,
+                    "weight": 0.035496715146
+                },
+                {
+                    "longitude": -100.5,
+                    "latitude": 18.5,
+                    "weight": 0.033153453659
+                },
+                {
+                    "longitude": -100.5,
+                    "latitude": 19.5,
+                    "weight": 0.14226226773
+                },
+                {
+                    "longitude": -100.5,
+                    "latitude": 20.5,
+                    "weight": 0.009350974787
+                }
+            ]
+        },
+        {
+            "code": "17",
+            "name": "Morelos",
+            "area_m2": 4888056650.612,
+            "area_partition_relative_error": 1.6014589386418873e-9,
+            "cells": [
+                {
+                    "longitude": -99.5,
+                    "latitude": 18.5,
+                    "weight": 0.558455265386
+                },
+                {
+                    "longitude": -99.5,
+                    "latitude": 19.5,
+                    "weight": 0.068159665308
+                },
+                {
+                    "longitude": -98.5,
+                    "latitude": 18.5,
+                    "weight": 0.35505047768
+                },
+                {
+                    "longitude": -98.5,
+                    "latitude": 19.5,
+                    "weight": 0.018334591626
+                }
+            ]
+        },
+        {
+            "code": "18",
+            "name": "Nayarit",
+            "area_m2": 28102344695.279,
+            "area_partition_relative_error": 2.8190143197606304e-8,
+            "cells": [
+                {
+                    "longitude": -106.5,
+                    "latitude": 21.5,
+                    "weight": 0.008432616861
+                },
+                {
+                    "longitude": -105.5,
+                    "latitude": 20.5,
+                    "weight": 0.034979521766
+                },
+                {
+                    "longitude": -105.5,
+                    "latitude": 21.5,
+                    "weight": 0.147012856844
+                },
+                {
+                    "longitude": -105.5,
+                    "latitude": 22.5,
+                    "weight": 0.229142044592
+                },
+                {
+                    "longitude": -105.5,
+                    "latitude": 23.5,
+                    "weight": 0.002151385868
+                },
+                {
+                    "longitude": -104.5,
+                    "latitude": 20.5,
+                    "weight": 0.033202323854
+                },
+                {
+                    "longitude": -104.5,
+                    "latitude": 21.5,
+                    "weight": 0.372718268197
+                },
+                {
+                    "longitude": -104.5,
+                    "latitude": 22.5,
+                    "weight": 0.136971724542
+                },
+                {
+                    "longitude": -103.5,
+                    "latitude": 21.5,
+                    "weight": 0.035389257476
+                }
+            ]
+        },
+        {
+            "code": "19",
+            "name": "Nuevo León",
+            "area_m2": 64156205980.166,
+            "area_partition_relative_error": 3.3297742044391e-9,
+            "cells": [
+                {
+                    "longitude": -101.5,
+                    "latitude": 26.5,
+                    "weight": 0.007148113074
+                },
+                {
+                    "longitude": -100.5,
+                    "latitude": 23.5,
+                    "weight": 0.06403003274
+                },
+                {
+                    "longitude": -100.5,
+                    "latitude": 24.5,
+                    "weight": 0.121569054443
+                },
+                {
+                    "longitude": -100.5,
+                    "latitude": 25.5,
+                    "weight": 0.11886586577
+                },
+                {
+                    "longitude": -100.5,
+                    "latitude": 26.5,
+                    "weight": 0.143946457872
+                },
+                {
+                    "longitude": -100.5,
+                    "latitude": 27.5,
+                    "weight": 0.06926047377
+                },
+                {
+                    "longitude": -99.5,
+                    "latitude": 23.5,
+                    "weight": 0.024537606466
+                },
+                {
+                    "longitude": -99.5,
+                    "latitude": 24.5,
+                    "weight": 0.086413370644
+                },
+                {
+                    "longitude": -99.5,
+                    "latitude": 25.5,
+                    "weight": 0.171264237074
+                },
+                {
+                    "longitude": -99.5,
+                    "latitude": 26.5,
+                    "weight": 0.100636324716
+                },
+                {
+                    "longitude": -99.5,
+                    "latitude": 27.5,
+                    "weight": 0.028557731831
+                },
+                {
+                    "longitude": -98.5,
+                    "latitude": 25.5,
+                    "weight": 0.061755703617
+                },
+                {
+                    "longitude": -98.5,
+                    "latitude": 26.5,
+                    "weight": 0.002015027984
+                }
+            ]
+        },
+        {
+            "code": "20",
+            "name": "Oaxaca",
+            "area_m2": 93765689643.513,
+            "area_partition_relative_error": 7.616163643599743e-9,
+            "cells": [
+                {
+                    "longitude": -98.5,
+                    "latitude": 16.5,
+                    "weight": 0.02640507911
+                },
+                {
+                    "longitude": -98.5,
+                    "latitude": 17.5,
+                    "weight": 0.037442644433
+                },
+                {
+                    "longitude": -97.5,
+                    "latitude": 15.5,
+                    "weight": 0.006703318216
+                },
+                {
+                    "longitude": -97.5,
+                    "latitude": 16.5,
+                    "weight": 0.124543336049
+                },
+                {
+                    "longitude": -97.5,
+                    "latitude": 17.5,
+                    "weight": 0.123609912018
+                },
+                {
+                    "longitude": -97.5,
+                    "latitude": 18.5,
+                    "weight": 0.016819244228
+                },
+                {
+                    "longitude": -96.5,
+                    "latitude": 15.5,
+                    "weight": 0.035496967512
+                },
+                {
+                    "longitude": -96.5,
+                    "latitude": 16.5,
+                    "weight": 0.126003346643
+                },
+                {
+                    "longitude": -96.5,
+                    "latitude": 17.5,
+                    "weight": 0.125349149335
+                },
+                {
+                    "longitude": -96.5,
+                    "latitude": 18.5,
+                    "weight": 0.044116471924
+                },
+                {
+                    "longitude": -95.5,
+                    "latitude": 15.5,
+                    "weight": 0.007059484399
+                },
+                {
+                    "longitude": -95.5,
+                    "latitude": 16.5,
+                    "weight": 0.11882022689
+                },
+                {
+                    "longitude": -95.5,
+                    "latitude": 17.5,
+                    "weight": 0.079383546539
+                },
+                {
+                    "longitude": -95.5,
+                    "latitude": 18.5,
+                    "weight": 0.003164824415
+                },
+                {
+                    "longitude": -94.5,
+                    "latitude": 16.5,
+                    "weight": 0.099197613541
+                },
+                {
+                    "longitude": -94.5,
+                    "latitude": 17.5,
+                    "weight": 0.023086368003
+                },
+                {
+                    "longitude": -93.5,
+                    "latitude": 16.5,
+                    "weight": 0.000930349901
+                },
+                {
+                    "longitude": -93.5,
+                    "latitude": 17.5,
+                    "weight": 0.001868116845
+                }
+            ]
+        },
+        {
+            "code": "21",
+            "name": "Puebla",
+            "area_m2": 34309646377.256,
+            "area_partition_relative_error": 2.6130556447797295e-12,
+            "cells": [
+                {
+                    "longitude": -99.5,
+                    "latitude": 18.5,
+                    "weight": 0.002318613109
+                },
+                {
+                    "longitude": -98.5,
+                    "latitude": 17.5,
+                    "weight": 0.014423551157
+                },
+                {
+                    "longitude": -98.5,
+                    "latitude": 18.5,
+                    "weight": 0.276650285705
+                },
+                {
+                    "longitude": -98.5,
+                    "latitude": 19.5,
+                    "weight": 0.083851689414
+                },
+                {
+                    "longitude": -98.5,
+                    "latitude": 20.5,
+                    "weight": 0.023158459128
+                },
+                {
+                    "longitude": -97.5,
+                    "latitude": 17.5,
+                    "weight": 0.004753205108
+                },
+                {
+                    "longitude": -97.5,
+                    "latitude": 18.5,
+                    "weight": 0.25041940312
+                },
+                {
+                    "longitude": -97.5,
+                    "latitude": 19.5,
+                    "weight": 0.218569733452
+                },
+                {
+                    "longitude": -97.5,
+                    "latitude": 20.5,
+                    "weight": 0.10527026074
+                },
+                {
+                    "longitude": -96.5,
+                    "latitude": 18.5,
+                    "weight": 0.020507854402
+                },
+                {
+                    "longitude": -96.5,
+                    "latitude": 19.5,
+                    "weight": 7.6944663e-5
+                }
+            ]
+        },
+        {
+            "code": "22",
+            "name": "Querétaro",
+            "area_m2": 11690581454.276,
+            "area_partition_relative_error": 8.270292914281832e-9,
+            "cells": [
+                {
+                    "longitude": -100.5,
+                    "latitude": 20.5,
+                    "weight": 0.369798359598
+                },
+                {
+                    "longitude": -100.5,
+                    "latitude": 21.5,
+                    "weight": 0.003849400283
+                },
+                {
+                    "longitude": -99.5,
+                    "latitude": 20.5,
+                    "weight": 0.272804728056
+                },
+                {
+                    "longitude": -99.5,
+                    "latitude": 21.5,
+                    "weight": 0.353547512062
+                }
+            ]
+        },
+        {
+            "code": "23",
+            "name": "Quintana Roo",
+            "area_m2": 44841174561.921,
+            "area_partition_relative_error": 3.2002527089442535e-9,
+            "cells": [
+                {
+                    "longitude": -89.5,
+                    "latitude": 17.5,
+                    "weight": 0.001338303744
+                },
+                {
+                    "longitude": -89.5,
+                    "latitude": 18.5,
+                    "weight": 0.03930834574
+                },
+                {
+                    "longitude": -89.5,
+                    "latitude": 19.5,
+                    "weight": 0.030774748924
+                },
+                {
+                    "longitude": -88.5,
+                    "latitude": 17.5,
+                    "weight": 0.003530254029
+                },
+                {
+                    "longitude": -88.5,
+                    "latitude": 18.5,
+                    "weight": 0.187565571307
+                },
+                {
+                    "longitude": -88.5,
+                    "latitude": 19.5,
+                    "weight": 0.251118387939
+                },
+                {
+                    "longitude": -88.5,
+                    "latitude": 20.5,
+                    "weight": 0.043393295134
+                },
+                {
+                    "longitude": -87.5,
+                    "latitude": 18.5,
+                    "weight": 0.058986958373
+                },
+                {
+                    "longitude": -87.5,
+                    "latitude": 19.5,
+                    "weight": 0.114575059943
+                },
+                {
+                    "longitude": -87.5,
+                    "latitude": 20.5,
+                    "weight": 0.162691835116
+                },
+                {
+                    "longitude": -87.5,
+                    "latitude": 21.5,
+                    "weight": 0.066589010844
+                },
+                {
+                    "longitude": -86.5,
+                    "latitude": 20.5,
+                    "weight": 0.018385425439
+                },
+                {
+                    "longitude": -86.5,
+                    "latitude": 21.5,
+                    "weight": 0.02174280347
+                }
+            ]
+        },
+        {
+            "code": "24",
+            "name": "San Luis Potosí",
+            "area_m2": 61137950674.703,
+            "area_partition_relative_error": 2.1136208666131014e-8,
+            "cells": [
+                {
+                    "longitude": -102.5,
+                    "latitude": 22.5,
+                    "weight": 0.008793654608
+                },
+                {
+                    "longitude": -102.5,
+                    "latitude": 23.5,
+                    "weight": 0.017930170547
+                },
+                {
+                    "longitude": -101.5,
+                    "latitude": 21.5,
+                    "weight": 0.016557948966
+                },
+                {
+                    "longitude": -101.5,
+                    "latitude": 22.5,
+                    "weight": 0.111313666115
+                },
+                {
+                    "longitude": -101.5,
+                    "latitude": 23.5,
+                    "weight": 0.126490740461
+                },
+                {
+                    "longitude": -101.5,
+                    "latitude": 24.5,
+                    "weight": 0.008509204229
+                },
+                {
+                    "longitude": -100.5,
+                    "latitude": 21.5,
+                    "weight": 0.072172853019
+                },
+                {
+                    "longitude": -100.5,
+                    "latitude": 22.5,
+                    "weight": 0.182915766126
+                },
+                {
+                    "longitude": -100.5,
+                    "latitude": 23.5,
+                    "weight": 0.111207590898
+                },
+                {
+                    "longitude": -100.5,
+                    "latitude": 24.5,
+                    "weight": 0.030017529666
+                },
+                {
+                    "longitude": -99.5,
+                    "latitude": 21.5,
+                    "weight": 0.095584876376
+                },
+                {
+                    "longitude": -99.5,
+                    "latitude": 22.5,
+                    "weight": 0.11300626299
+                },
+                {
+                    "longitude": -98.5,
+                    "latitude": 21.5,
+                    "weight": 0.065597748713
+                },
+                {
+                    "longitude": -98.5,
+                    "latitude": 22.5,
+                    "weight": 0.039901987287
+                }
+            ]
+        },
+        {
+            "code": "25",
+            "name": "Sinaloa",
+            "area_m2": 57382466097.9,
+            "area_partition_relative_error": 8.423288311843689e-9,
+            "cells": [
+                {
+                    "longitude": -109.5,
+                    "latitude": 25.5,
+                    "weight": 0.034097856192
+                },
+                {
+                    "longitude": -109.5,
+                    "latitude": 26.5,
+                    "weight": 0.022005828174
+                },
+                {
+                    "longitude": -108.5,
+                    "latitude": 24.5,
+                    "weight": 0.006959045291
+                },
+                {
+                    "longitude": -108.5,
+                    "latitude": 25.5,
+                    "weight": 0.149927095095
+                },
+                {
+                    "longitude": -108.5,
+                    "latitude": 26.5,
+                    "weight": 0.146440678526
+                },
+                {
+                    "longitude": -108.5,
+                    "latitude": 27.5,
+                    "weight": 0.001536987614
+                },
+                {
+                    "longitude": -107.5,
+                    "latitude": 23.5,
+                    "weight": 0.000383814121
+                },
+                {
+                    "longitude": -107.5,
+                    "latitude": 24.5,
+                    "weight": 0.135221723294
+                },
+                {
+                    "longitude": -107.5,
+                    "latitude": 25.5,
+                    "weight": 0.166571584598
+                },
+                {
+                    "longitude": -107.5,
+                    "latitude": 26.5,
+                    "weight": 0.025213643038
+                },
+                {
+                    "longitude": -106.5,
+                    "latitude": 22.5,
+                    "weight": 0.003600471152
+                },
+                {
+                    "longitude": -106.5,
+                    "latitude": 23.5,
+                    "weight": 0.125230161578
+                },
+                {
+                    "longitude": -106.5,
+                    "latitude": 24.5,
+                    "weight": 0.094296340342
+                },
+                {
+                    "longitude": -106.5,
+                    "latitude": 25.5,
+                    "weight": 0.000413533623
+                },
+                {
+                    "longitude": -105.5,
+                    "latitude": 22.5,
+                    "weight": 0.039637475326
+                },
+                {
+                    "longitude": -105.5,
+                    "latitude": 23.5,
+                    "weight": 0.048068182435
+                },
+                {
+                    "longitude": -105.5,
+                    "latitude": 24.5,
+                    "weight": 0.000395579603
+                }
+            ]
+        },
+        {
+            "code": "26",
+            "name": "Sonora",
+            "area_m2": 180399487738.864,
+            "area_partition_relative_error": 2.1343220802821057e-9,
+            "cells": [
+                {
+                    "longitude": -115.5,
+                    "latitude": 32.5,
+                    "weight": 0.000190964087
+                },
+                {
+                    "longitude": -114.5,
+                    "latitude": 31.5,
+                    "weight": 0.018385442553
+                },
+                {
+                    "longitude": -114.5,
+                    "latitude": 32.5,
+                    "weight": 0.021989123389
+                },
+                {
+                    "longitude": -113.5,
+                    "latitude": 30.5,
+                    "weight": 0.002286696731
+                },
+                {
+                    "longitude": -113.5,
+                    "latitude": 31.5,
+                    "weight": 0.037359535865
+                },
+                {
+                    "longitude": -113.5,
+                    "latitude": 32.5,
+                    "weight": 0.005677315718
+                },
+                {
+                    "longitude": -112.5,
+                    "latitude": 28.5,
+                    "weight": 0.004569084562
+                },
+                {
+                    "longitude": -112.5,
+                    "latitude": 29.5,
+                    "weight": 0.028475410884
+                },
+                {
+                    "longitude": -112.5,
+                    "latitude": 30.5,
+                    "weight": 0.053317294949
+                },
+                {
+                    "longitude": -112.5,
+                    "latitude": 31.5,
+                    "weight": 0.045726022355
+                },
+                {
+                    "longitude": -111.5,
+                    "latitude": 27.5,
+                    "weight": 0.000409386602
+                },
+                {
+                    "longitude": -111.5,
+                    "latitude": 28.5,
+                    "weight": 0.039095450423
+                },
+                {
+                    "longitude": -111.5,
+                    "latitude": 29.5,
+                    "weight": 0.059578885517
+                },
+                {
+                    "longitude": -111.5,
+                    "latitude": 30.5,
+                    "weight": 0.058993479262
+                },
+                {
+                    "longitude": -111.5,
+                    "latitude": 31.5,
+                    "weight": 0.027474773057
+                },
+                {
+                    "longitude": -110.5,
+                    "latitude": 27.5,
+                    "weight": 0.031114025146
+                },
+                {
+                    "longitude": -110.5,
+                    "latitude": 28.5,
+                    "weight": 0.060146161695
+                },
+                {
+                    "longitude": -110.5,
+                    "latitude": 29.5,
+                    "weight": 0.059578885517
+                },
+                {
+                    "longitude": -110.5,
+                    "latitude": 30.5,
+                    "weight": 0.058993479262
+                },
+                {
+                    "longitude": -110.5,
+                    "latitude": 31.5,
+                    "weight": 0.019527658091
+                },
+                {
+                    "longitude": -109.5,
+                    "latitude": 26.5,
+                    "weight": 0.022624720374
+                },
+                {
+                    "longitude": -109.5,
+                    "latitude": 27.5,
+                    "weight": 0.060508700815
+                },
+                {
+                    "longitude": -109.5,
+                    "latitude": 28.5,
+                    "weight": 0.059223533872
+                },
+                {
+                    "longitude": -109.5,
+                    "latitude": 29.5,
+                    "weight": 0.059578885517
+                },
+                {
+                    "longitude": -109.5,
+                    "latitude": 30.5,
+                    "weight": 0.058993479262
+                },
+                {
+                    "longitude": -109.5,
+                    "latitude": 31.5,
+                    "weight": 0.019563288354
+                },
+                {
+                    "longitude": -108.5,
+                    "latitude": 26.5,
+                    "weight": 0.012354141984
+                },
+                {
+                    "longitude": -108.5,
+                    "latitude": 27.5,
+                    "weight": 0.016644218308
+                },
+                {
+                    "longitude": -108.5,
+                    "latitude": 28.5,
+                    "weight": 0.017645941658
+                },
+                {
+                    "longitude": -108.5,
+                    "latitude": 29.5,
+                    "weight": 0.020007419001
+                },
+                {
+                    "longitude": -108.5,
+                    "latitude": 30.5,
+                    "weight": 0.01596717661
+                },
+                {
+                    "longitude": -108.5,
+                    "latitude": 31.5,
+                    "weight": 0.003999418576
+                }
+            ]
+        },
+        {
+            "code": "27",
+            "name": "Tabasco",
+            "area_m2": 24738063980.594,
+            "area_partition_relative_error": 1.7536366863520114e-10,
+            "cells": [
+                {
+                    "longitude": -94.5,
+                    "latitude": 17.5,
+                    "weight": 0.005585410209
+                },
+                {
+                    "longitude": -94.5,
+                    "latitude": 18.5,
+                    "weight": 0.010967611051
+                },
+                {
+                    "longitude": -93.5,
+                    "latitude": 17.5,
+                    "weight": 0.141467214407
+                },
+                {
+                    "longitude": -93.5,
+                    "latitude": 18.5,
+                    "weight": 0.182543899229
+                },
+                {
+                    "longitude": -92.5,
+                    "latitude": 17.5,
+                    "weight": 0.192223417983
+                },
+                {
+                    "longitude": -92.5,
+                    "latitude": 18.5,
+                    "weight": 0.211923814844
+                },
+                {
+                    "longitude": -91.5,
+                    "latitude": 17.5,
+                    "weight": 0.234602746415
+                },
+                {
+                    "longitude": -91.5,
+                    "latitude": 18.5,
+                    "weight": 0.016685364034
+                },
+                {
+                    "longitude": -90.5,
+                    "latitude": 17.5,
+                    "weight": 0.00400052183
+                }
+            ]
+        },
+        {
+            "code": "28",
+            "name": "Tamaulipas",
+            "area_m2": 80270642469.159,
+            "area_partition_relative_error": 2.574552075553324e-9,
+            "cells": [
+                {
+                    "longitude": -100.5,
+                    "latitude": 22.5,
+                    "weight": 0.002631002002
+                },
+                {
+                    "longitude": -100.5,
+                    "latitude": 23.5,
+                    "weight": 0.005047388853
+                },
+                {
+                    "longitude": -99.5,
+                    "latitude": 22.5,
+                    "weight": 0.055877414675
+                },
+                {
+                    "longitude": -99.5,
+                    "latitude": 23.5,
+                    "weight": 0.121312665355
+                },
+                {
+                    "longitude": -99.5,
+                    "latitude": 24.5,
+                    "weight": 0.070791979374
+                },
+                {
+                    "longitude": -99.5,
+                    "latitude": 25.5,
+                    "weight": 0.001866233834
+                },
+                {
+                    "longitude": -99.5,
+                    "latitude": 26.5,
+                    "weight": 0.038840044528
+                },
+                {
+                    "longitude": -99.5,
+                    "latitude": 27.5,
+                    "weight": 0.025187287773
+                },
+                {
+                    "longitude": -98.5,
+                    "latitude": 22.5,
+                    "weight": 0.085075474916
+                },
+                {
+                    "longitude": -98.5,
+                    "latitude": 23.5,
+                    "weight": 0.140924315222
+                },
+                {
+                    "longitude": -98.5,
+                    "latitude": 24.5,
+                    "weight": 0.139857752812
+                },
+                {
+                    "longitude": -98.5,
+                    "latitude": 25.5,
+                    "weight": 0.089390785936
+                },
+                {
+                    "longitude": -98.5,
+                    "latitude": 26.5,
+                    "weight": 0.027416242773
+                },
+                {
+                    "longitude": -97.5,
+                    "latitude": 22.5,
+                    "weight": 0.019322190692
+                },
+                {
+                    "longitude": -97.5,
+                    "latitude": 23.5,
+                    "weight": 0.034737374317
+                },
+                {
+                    "longitude": -97.5,
+                    "latitude": 24.5,
+                    "weight": 0.047445273267
+                },
+                {
+                    "longitude": -97.5,
+                    "latitude": 25.5,
+                    "weight": 0.09199745256
+                },
+                {
+                    "longitude": -97.5,
+                    "latitude": 26.5,
+                    "weight": 0.002279121113
+                }
+            ]
+        },
+        {
+            "code": "29",
+            "name": "Tlaxcala",
+            "area_m2": 3996634200.124,
+            "area_partition_relative_error": 1.1191248235345642e-13,
+            "cells": [
+                {
+                    "longitude": -98.5,
+                    "latitude": 19.5,
+                    "weight": 0.748956597175
+                },
+                {
+                    "longitude": -97.5,
+                    "latitude": 19.5,
+                    "weight": 0.251043402825
+                }
+            ]
+        },
+        {
+            "code": "30",
+            "name": "Veracruz de Ignacio de la Llave",
+            "area_m2": 71829828183.611,
+            "area_partition_relative_error": 2.0738683416835477e-10,
+            "cells": [
+                {
+                    "longitude": -98.5,
+                    "latitude": 20.5,
+                    "weight": 0.034664826734
+                },
+                {
+                    "longitude": -98.5,
+                    "latitude": 21.5,
+                    "weight": 0.075159454865
+                },
+                {
+                    "longitude": -98.5,
+                    "latitude": 22.5,
+                    "weight": 0.029593535185
+                },
+                {
+                    "longitude": -97.5,
+                    "latitude": 18.5,
+                    "weight": 0.021157231221
+                },
+                {
+                    "longitude": -97.5,
+                    "latitude": 19.5,
+                    "weight": 0.043406027203
+                },
+                {
+                    "longitude": -97.5,
+                    "latitude": 20.5,
+                    "weight": 0.094407726516
+                },
+                {
+                    "longitude": -97.5,
+                    "latitude": 21.5,
+                    "weight": 0.087310000597
+                },
+                {
+                    "longitude": -97.5,
+                    "latitude": 22.5,
+                    "weight": 0.009361560213
+                },
+                {
+                    "longitude": -96.5,
+                    "latitude": 18.5,
+                    "weight": 0.095341462048
+                },
+                {
+                    "longitude": -96.5,
+                    "latitude": 19.5,
+                    "weight": 0.111098432236
+                },
+                {
+                    "longitude": -96.5,
+                    "latitude": 20.5,
+                    "weight": 0.01648917662
+                },
+                {
+                    "longitude": -95.5,
+                    "latitude": 17.5,
+                    "weight": 0.0600028784
+                },
+                {
+                    "longitude": -95.5,
+                    "latitude": 18.5,
+                    "weight": 0.11662115296
+                },
+                {
+                    "longitude": -95.5,
+                    "latitude": 19.5,
+                    "weight": 0.00031972839
+                },
+                {
+                    "longitude": -94.5,
+                    "latitude": 17.5,
+                    "weight": 0.131568851274
+                },
+                {
+                    "longitude": -94.5,
+                    "latitude": 18.5,
+                    "weight": 0.044188976214
+                },
+                {
+                    "longitude": -93.5,
+                    "latitude": 17.5,
+                    "weight": 0.029308979325
+                }
+            ]
+        },
+        {
+            "code": "31",
+            "name": "Yucatán",
+            "area_m2": 39761197619.305,
+            "area_partition_relative_error": 1.2990835618187818e-8,
+            "cells": [
+                {
+                    "longitude": -92.5,
+                    "latitude": 20.5,
+                    "weight": 0.000150347632
+                },
+                {
+                    "longitude": -92.5,
+                    "latitude": 21.5,
+                    "weight": 1.525823e-6
+                },
+                {
+                    "longitude": -91.5,
+                    "latitude": 22.5,
+                    "weight": 3.801509e-6
+                },
+                {
+                    "longitude": -90.5,
+                    "latitude": 20.5,
+                    "weight": 0.056588430058
+                },
+                {
+                    "longitude": -90.5,
+                    "latitude": 21.5,
+                    "weight": 0.010423298723
+                },
+                {
+                    "longitude": -89.5,
+                    "latitude": 19.5,
+                    "weight": 0.056523112676
+                },
+                {
+                    "longitude": -89.5,
+                    "latitude": 20.5,
+                    "weight": 0.264297836487
+                },
+                {
+                    "longitude": -89.5,
+                    "latitude": 21.5,
+                    "weight": 0.088050027931
+                },
+                {
+                    "longitude": -89.5,
+                    "latitude": 22.5,
+                    "weight": 0.005869904489
+                },
+                {
+                    "longitude": -88.5,
+                    "latitude": 19.5,
+                    "weight": 0.009048593637
+                },
+                {
+                    "longitude": -88.5,
+                    "latitude": 20.5,
+                    "weight": 0.241506062424
+                },
+                {
+                    "longitude": -88.5,
+                    "latitude": 21.5,
+                    "weight": 0.148910544088
+                },
+                {
+                    "longitude": -87.5,
+                    "latitude": 20.5,
+                    "weight": 0.045114072051
+                },
+                {
+                    "longitude": -87.5,
+                    "latitude": 21.5,
+                    "weight": 0.073512442472
+                }
+            ]
+        },
+        {
+            "code": "32",
+            "name": "Zacatecas",
+            "area_m2": 75275346830.091,
+            "area_partition_relative_error": 2.9714445258075898e-8,
+            "cells": [
+                {
+                    "longitude": -104.5,
+                    "latitude": 22.5,
+                    "weight": 0.01838412607
+                },
+                {
+                    "longitude": -104.5,
+                    "latitude": 23.5,
+                    "weight": 0.009325875865
+                },
+                {
+                    "longitude": -103.5,
+                    "latitude": 21.5,
+                    "weight": 0.074767635436
+                },
+                {
+                    "longitude": -103.5,
+                    "latitude": 22.5,
+                    "weight": 0.098712877814
+                },
+                {
+                    "longitude": -103.5,
+                    "latitude": 23.5,
+                    "weight": 0.139574558447
+                },
+                {
+                    "longitude": -103.5,
+                    "latitude": 24.5,
+                    "weight": 0.038273768702
+                },
+                {
+                    "longitude": -102.5,
+                    "latitude": 21.5,
+                    "weight": 0.027353996733
+                },
+                {
+                    "longitude": -102.5,
+                    "latitude": 22.5,
+                    "weight": 0.109352924336
+                },
+                {
+                    "longitude": -102.5,
+                    "latitude": 23.5,
+                    "weight": 0.135713375893
+                },
+                {
+                    "longitude": -102.5,
+                    "latitude": 24.5,
+                    "weight": 0.108089712122
+                },
+                {
+                    "longitude": -102.5,
+                    "latitude": 25.5,
+                    "weight": 0.00772501018
+                },
+                {
+                    "longitude": -101.5,
+                    "latitude": 21.5,
+                    "weight": 0.005158774944
+                },
+                {
+                    "longitude": -101.5,
+                    "latitude": 22.5,
+                    "weight": 0.058772351816
+                },
+                {
+                    "longitude": -101.5,
+                    "latitude": 23.5,
+                    "weight": 0.047541470375
+                },
+                {
+                    "longitude": -101.5,
+                    "latitude": 24.5,
+                    "weight": 0.112812583441
+                },
+                {
+                    "longitude": -101.5,
+                    "latitude": 25.5,
+                    "weight": 0.000791808744
+                },
+                {
+                    "longitude": -100.5,
+                    "latitude": 24.5,
+                    "weight": 0.007649149084
+                }
+            ]
+        }
+    ]
+}

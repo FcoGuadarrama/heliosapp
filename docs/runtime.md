@@ -2,6 +2,10 @@
 
 E1 — 2026-10-23.
 
+E2: migración `2026_10_23_000002_create_hsp_catalog` aplicada localmente;
+configuración cacheada reconstruida y primer catálogo real de 32 entidades
+publicado. Consulta/actualización y frecuencia en [operación HSP](hsp-catalog.md).
+
 Cierre verificado: migración E1 aplicada en MySQL local, sin migraciones
 pendientes. Instalación vacía con 171 paquetes (incluidas dependencias dev),
 scripts de autoload/discovery, migraciones aisladas y 235 pruebas correctos.

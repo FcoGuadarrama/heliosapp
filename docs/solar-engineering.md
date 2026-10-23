@@ -27,9 +27,10 @@ es la evidencia para resolver detalles de las fórmulas resumidas.
 NASA POWER se adopta como origen de un catálogo HSP por estado, actualizado
 periódicamente, sin consulta por cada instalación. Usar la entidad de ubicación
 para resolver su valor y congelar versión y procedencia en la propuesta.
-La ubicación continúa aportando contexto al Ingeniero de IA. Período, agregación
-geográfica, frecuencia y caducidad quedan pendientes; no tratar una capital como
-promedio estatal. Mantener la última versión válida si falla una actualización,
+La ubicación continúa aportando contexto al Ingeniero de IA. E2 implementa
+ponderación de área INEGI/celdas NASA de 1°, período de fuente trazable,
+actualización mensual y caducidad configurable de 90 días. No tratar una capital
+como promedio estatal. Mantener la última versión válida si falla una actualización,
 con aviso interno; si no hay valor válido, señalar el bloqueo sin fallback silencioso.
 El diseño vigente se detalla en [ADR-014](adrs/014-hsp-nasa-power.md).
 PVWatts sigue siendo una posible ampliación futura.
@@ -126,7 +127,11 @@ retira el resultado anterior hasta volver a calcular. Se identifican la base de
 consumo, cobertura histórica y versión del motor. No habilita cotizaciones reales
 desde HSP o entradas de prueba.
 
-Pendientes: catálogo Syscom, HSP estatal NASA validado, validadores eléctricos,
+E2 ya ofrece `HspProvider` y catálogo NASA real. El formulario manual conserva
+captura HSP de prueba hasta la integración de recibo/HSP/motor en E4.
+Ver [catálogo y operación](hsp-catalog.md).
+
+Pendientes: catálogo Syscom, integración HSP E4, validadores eléctricos,
 Ingeniero IA, perfiles comerciales, snapshots, publicación y entrega del RFC-001.
 Precios configurados forman parte del objetivo comercial, aunque esta primera
 entrega técnica aún no los calcule.

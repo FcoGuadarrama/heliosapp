@@ -1,0 +1,128 @@
+{
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [-100.5, 20.5, 2029.51]
+            },
+            "properties": {
+                "parameter": {
+                    "ALLSKY_SFC_SW_DWN": {
+                        "JAN": 4.8432,
+                        "FEB": 5.7641,
+                        "MAR": 6.7279,
+                        "APR": 7.2144,
+                        "MAY": 6.9821,
+                        "JUN": 6.3394,
+                        "JUL": 6.1306,
+                        "AUG": 6.1253,
+                        "SEP": 5.4526,
+                        "OCT": 5.3796,
+                        "NOV": 4.9987,
+                        "DEC": 4.7105,
+                        "ANN": 5.8886
+                    }
+                }
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [-99.5, 20.5, 1984.68]
+            },
+            "properties": {
+                "parameter": {
+                    "ALLSKY_SFC_SW_DWN": {
+                        "JAN": 4.6039,
+                        "FEB": 5.4578,
+                        "MAR": 6.3456,
+                        "APR": 6.774,
+                        "MAY": 6.6502,
+                        "JUN": 6.1733,
+                        "JUL": 6.0362,
+                        "AUG": 6.0024,
+                        "SEP": 5.1854,
+                        "OCT": 5.0666,
+                        "NOV": 4.6538,
+                        "DEC": 4.5002,
+                        "ANN": 5.6213
+                    }
+                }
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [-100.5, 21.5, 1950.34]
+            },
+            "properties": {
+                "parameter": {
+                    "ALLSKY_SFC_SW_DWN": {
+                        "JAN": 4.5367,
+                        "FEB": 5.5013,
+                        "MAR": 6.5119,
+                        "APR": 7.0505,
+                        "MAY": 6.979,
+                        "JUN": 6.5383,
+                        "JUL": 6.2974,
+                        "AUG": 6.2784,
+                        "SEP": 5.3554,
+                        "OCT": 5.1826,
+                        "NOV": 4.6409,
+                        "DEC": 4.4028,
+                        "ANN": 5.7737
+                    }
+                }
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [-99.5, 21.5, 1042.68]
+            },
+            "properties": {
+                "parameter": {
+                    "ALLSKY_SFC_SW_DWN": {
+                        "JAN": 3.8935,
+                        "FEB": 4.7364,
+                        "MAR": 5.634,
+                        "APR": 6.1778,
+                        "MAY": 6.1966,
+                        "JUN": 6.1642,
+                        "JUL": 5.9376,
+                        "AUG": 5.9681,
+                        "SEP": 5.0016,
+                        "OCT": 4.6762,
+                        "NOV": 4.0514,
+                        "DEC": 3.8374,
+                        "ANN": 5.1912
+                    }
+                }
+            }
+        }
+    ],
+    "header": {
+        "title": "NASA/POWER Source Native Resolution Climatology Climatologies",
+        "api": { "version": "v2.10.1", "name": "POWER Climatology API" },
+        "sources": ["SYN1DEG"],
+        "fill_value": -999.0,
+        "time_standard": "LST",
+        "start": "20010101",
+        "end": "20251231"
+    },
+    "messages": [
+        "The requested parameters are retrieved from a pre-computed climatological period (January 2001 - December 2025)"
+    ],
+    "parameters": {
+        "ALLSKY_SFC_SW_DWN": {
+            "units": "kW-hr/m^2/day",
+            "longname": "All Sky Surface Shortwave Downward Irradiance"
+        }
+    },
+    "times": { "data": 0.04, "process": 0.01 },
+    "type": "FeatureCollection"
+}

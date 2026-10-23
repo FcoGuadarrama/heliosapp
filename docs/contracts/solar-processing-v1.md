@@ -170,7 +170,8 @@ reales y sus snapshots; E1 no tiene fuente económica.
   ilegible, incompleto y fallo técnico. Reutiliza validación existente sin
   sobrescribir el original. `ReceiptProcessor` es el límite de ejecución E1,
   no una sustitución del JSON CFE ni del futuro contrato específico del lector.
-- HSP E2: consulta local por entidad normalizada; resultado disponible contiene
+- HSP E2 implementado mediante `HspProvider`: consulta local por clave INEGI;
+  resultado disponible contiene
   HSP, unidad h/día, fuente, período y versión de catálogo/metodología. Resultado
   no disponible incluye motivo, nunca default. Actualizador NASA separado.
 - Cálculo E4: consumo/histórico validado, HSP versionada, potencia por panel

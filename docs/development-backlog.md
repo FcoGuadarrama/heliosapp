@@ -14,8 +14,9 @@ ejecución y sus dependencias; las fases F1–F6 de abajo son historial de
 planificación, no una instrucción de posponer el lector o la API compartida.
 
 E1 cerrada: runtime/CI, contratos, expediente, estados, auditoría y cola;
-instalación limpia y migración local verificadas. Siguiente:
-E2 (NASA estatal), E3 (lector real), E4 (API integrada sin proveedor), E5
+instalación limpia y migración local verificadas. E2 cerrada: catálogo NASA
+real para 32 entidades, pesos INEGI, versiones/actualización/caducidad y fallos
+probados. Siguiente: E3 (lector real), E4 (API integrada sin proveedor), E5
 (asesor/embebido), E6 (venta), E7 (equipos/costos), E8 (Ingeniero IA), E9
 (propuestas/entrega) y E10 (cierre operativo). NASA y lector son independientes;
 ver dependencias concretas y criterios de cierre antes de iniciar cada entrega.

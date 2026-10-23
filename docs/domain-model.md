@@ -130,10 +130,19 @@ Historial normalizado que consume el motor.
 
 ## Ingeniería _(F2)_
 
-Diseño histórico a adaptar. Falta el catálogo HSP por entidad/versión con
+Diseño histórico a adaptar. E2 implementa catálogo HSP por entidad/versión con
 metodología, valores y evidencia NASA (ADR-014); `irradiance_samples` por
 coordenadas no sustituye ese catálogo. El motor puro `Domain/Solar` ya existe,
 pero ninguna de las tablas de ingeniería descritas aquí está implementada.
+
+### Catálogo HSP **[E2 — implementado]**
+
+`hsp_catalog_versions` guarda metodología/manifiesto, período, fuente, publicación,
+caducidad y fallo; `hsp_catalog_entries`, anual/mensuales/pesos de 32 entidades;
+`hsp_catalog_sources`, respuesta original y hash por tesela; singleton
+`hsp_catalog_publications`, versión activa; `hsp_refresh_alerts`, fallos internos.
+Versiones antiguas y evidencia se conservan. Detalles en
+[catálogo HSP](hsp-catalog.md). Las tablas históricas siguientes siguen propuestas.
 
 ### `energy_diagnoses`
 

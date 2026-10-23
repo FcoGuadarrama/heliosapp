@@ -44,26 +44,27 @@ pruebas y documentación. No es una auditoría exhaustiva de seguridad ni prueba
 actual de producción. El último cierre registrado pasó 217 pruebas; no se
 repitieron para esta actualización documental.
 
-| Área           | Existe                                                               | Falta para cerrar                                                                                                               |
-| -------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| Identidad      | Fortify, 2FA/passkeys, roles, usuarios y protección del último owner | Revisar registro público de usuarios CRM, cuentas inactivas con sesión/passkey y permisos de nuevos módulos                     |
-| Empresa y tema | Configuración, vigencia de propuestas, tema azul/Instrument Sans     | Conectar identidad configurable donde corresponda, configuración operativa y comercial                                          |
-| CRM            | CRUD de prospectos/proyectos, aviso interno de duplicados            | Responsable del expediente, bandeja, historial y seguimiento; dashboard de actividad real                                       |
-| Recepción      | Embebido y CRM, consentimiento, archivo privado, token y límites     | Correo obligatorio público, dos cargas en mismo expediente, progreso, recuperación e integración común                          |
-| Datos CFE      | DTO v1.0, validadores, fixtures y JSON original de simulación        | Lector de archivo real, normalización para cálculo, correcciones y aceptación auditadas                                         |
-| Ingeniería     | Motor `Domain/Solar`, pruebas y pantalla manual                      | API JSON, entradas desde recibo, parámetros trazables, snapshots y reglas de faltantes                                          |
-| Geografía      | Domicilio en contrato y coordenadas en proyecto opcional             | Estado/ubicación del expediente, aceptación/corrección manual y semáforo simulado; geocodificador real pospuesto                |
-| NASA           | Decisión estatal documentada                                         | Respuesta real, metodología, catálogo de 32 entidades, versión, actualización y caducidad                                       |
-| Equipos        | Referencia externa de fórmulas y catálogo                            | Adaptador Syscom, atributos, costos, stock, validación y selección IA                                                           |
-| Economía       | Decisiones funcionales y vigencia comercial                          | Perfiles/versiones, IVA, descuentos, redondeo, costo separado de venta y configuración CRM                                      |
-| Propuestas     | Especificación y PDF estático de junta                               | Versiones de producto, publicación, PDF privado, correo y acciones del cliente                                                  |
-| Operación      | Migraciones base, tablas de colas, scripts y workflow CI             | Instalación/actualización documentada, workers/scheduler, respaldos/restauración, monitoreo, retención y pruebas de instalación |
+| Área           | Existe                                                                            | Falta para cerrar                                                                                                               |
+| -------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| Identidad      | Fortify, 2FA/passkeys, roles, usuarios y protección del último owner              | Revisar registro público de usuarios CRM, cuentas inactivas con sesión/passkey y permisos de nuevos módulos                     |
+| Empresa y tema | Configuración, vigencia de propuestas, tema azul/Instrument Sans                  | Conectar identidad configurable donde corresponda, configuración operativa y comercial                                          |
+| CRM            | CRUD de prospectos/proyectos, aviso interno de duplicados                         | Responsable del expediente, bandeja, historial y seguimiento; dashboard de actividad real                                       |
+| Recepción      | Embebido y CRM, consentimiento, archivo privado, token y límites                  | Correo obligatorio público, dos cargas en mismo expediente, progreso, recuperación e integración común                          |
+| Datos CFE      | DTO v1.0, validadores, fixtures y JSON original de simulación                     | Lector de archivo real, normalización para cálculo, correcciones y aceptación auditadas                                         |
+| Ingeniería     | Motor `Domain/Solar`, pruebas y pantalla manual                                   | API JSON, entradas desde recibo, parámetros trazables, snapshots y reglas de faltantes                                          |
+| Geografía      | Domicilio en contrato y coordenadas en proyecto opcional                          | Estado/ubicación del expediente, aceptación/corrección manual y semáforo simulado; geocodificador real pospuesto                |
+| NASA           | Catálogo real de 32 entidades, consulta local, evidencia/versiones y actualizador | Integrar HSP y snapshot al flujo de cálculo E4                                                                                  |
+| Equipos        | Referencia externa de fórmulas y catálogo                                         | Adaptador Syscom, atributos, costos, stock, validación y selección IA                                                           |
+| Economía       | Decisiones funcionales y vigencia comercial                                       | Perfiles/versiones, IVA, descuentos, redondeo, costo separado de venta y configuración CRM                                      |
+| Propuestas     | Especificación y PDF estático de junta                                            | Versiones de producto, publicación, PDF privado, correo y acciones del cliente                                                  |
+| Operación      | Migraciones base, tablas de colas, scripts y workflow CI                          | Instalación/actualización documentada, workers/scheduler, respaldos/restauración, monitoreo, retención y pruebas de instalación |
 
 Actualización E1: existen expediente, eventos y job de procesamiento con binding
 bloqueado por ausencia de lector, sin dispatch automático desde las pantallas.
 Ver [contrato](contracts/solar-processing-v1.md), [ADR-015](adrs/015-expediente-y-procesamiento-compartido.md)
 y [runtime/migración](runtime.md). No existen aún endpoints de API compartida,
-lector real, catálogo NASA, perfiles comerciales ni generador de propuestas.
+lector real, perfiles comerciales ni generador de propuestas. E2 aporta el
+catálogo NASA real y consulta local, sin conectarlo aún al flujo de recibos.
 Las tablas y job de E1 no equivalen al recorrido automático E4/E5.
 
 ## Orden recomendado
@@ -119,6 +120,10 @@ ni PII en respuestas públicas, runtime/CI coherentes y migraciones probadas en
 base aislada. Las fixtures no habilitan propuesta comercial.
 
 ### E2 — NASA antes del recorrido automático
+
+Estado: cerrada y publicada localmente el 2026-10-23. 32 entidades, valores
+reales NASA, pesos territoriales INEGI, evidencia/versiones, actualización,
+caducidad y pruebas de fallos. Ver [metodología y operación](hsp-catalog.md).
 
 Implementar como servicio separado del lector y del formulario. Primero validar
 una respuesta real y las unidades; después metodología estatal, catálogo y
@@ -301,6 +306,6 @@ ni venta de equipos según perfiles. No prometer ahorro ni retorno sin fuentes.
 
 E1 está cerrada: runtime/CI, contrato, expediente y ejecución probados, incluida
 instalación limpia de desarrollo y migración local aplicada.
-Siguiente módulo E2: metodología y catálogo NASA real, con su
-actualizador; E3 queda listo para avanzar sin depender de NASA. No implementar
+E2 implementada: catálogo NASA real publicado, consulta local y actualizador.
+Siguiente módulo E3: lector real y normalización del recibo. No implementar
 ahora una API que solo recibe y devuelve “pendiente” como sustituto del cálculo.

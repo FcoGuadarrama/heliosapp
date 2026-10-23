@@ -279,7 +279,7 @@ modificaciones sobre precios, perfiles comerciales y cotizaciones.
 
 | #   | Decisión                                                                                                | Estado                                                                           |
 | --- | ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| D1  | Catálogo HSP estatal NASA: metodología, período, frecuencia y caducidad                                 | **Fuente aceptada; implementación pendiente E2, bloquea HSP automático real**    |
+| D1  | Catálogo HSP estatal NASA                                                                               | Implementado E2; integración con cálculo pendiente E4                            |
 | D2  | Uso de PVWatts V8 como referencia de producción: cobertura, límites de cuota y términos                 | **Ampliación futura; no bloquea Syscom**                                         |
 | D3  | Origen y vigencia de las tarifas CFE y del esquema de compensación                                      | **Pendiente de fuente oficial**                                                  |
 | D4  | Reglas fiscales aplicables y su vigencia (no asumir un porcentaje único)                                | **Pendiente de fuente oficial**                                                  |
@@ -287,8 +287,9 @@ modificaciones sobre precios, perfiles comerciales y cotizaciones.
 | D6  | Paquete de auditoría: `spatie/laravel-activitylog` vs tabla propia                                      | Propuesta: activitylog                                                           |
 | D7  | ¿Helios publica un catálogo técnico base curado, o cada empresa parte de cero?                          | Pendiente de producto                                                            |
 
-D1 no bloquea probar el motor con HSP manual explícita, pero sí el flujo real con
-HSP automática. D2 sigue futura. D3 condiciona ahorro/retorno; D4, cifras con IVA.
+D1 se implementó en E2: pesos territoriales INEGI, climatología NASA uniforme,
+catálogo versionado, actualización y caducidad. Falta integrarlo al cálculo E4.
+D2 sigue futura. D3 condiciona ahorro/retorno; D4, cifras con IVA.
 
 ## 9. Ingreso de recibos y límites de seguridad (v0.3)
 

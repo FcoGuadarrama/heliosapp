@@ -3,7 +3,7 @@
 - Fecha de consolidación: 2026-10-22.
 - Autor: Codex, con decisiones del responsable de producto.
 - Estado: definición consolidada; sin preguntas de producto pendientes (seis resueltas el 2026-10-22).
-- Implementación: parcial; motor de interconexión y pantalla interna manual de prueba. Flujo completo pendiente.
+- Implementación: parcial; motor/manual, fundamentos E1 y catálogo NASA E2. Flujo automático completo pendiente.
 - Alcance: interconexión CFE, catálogo Syscom, cotización automática y seguimiento.
 
 Orden de implementación, inventario y dependencias del producto completo en
@@ -223,8 +223,8 @@ actualización periódica. **No consultar NASA por cada lead.** La ubicación
 resuelve entidad y aporta contexto; el recurso utilizado se identifica como
 estatal, no como radiación medida en el techo.
 
-Consultar NASA desde un proceso de actualización separado. Parámetro candidato:
-`ALLSKY_SFC_SW_DWN`, comunidad `RE`. Validar contrato y unidades con respuesta real.
+Consultar NASA desde un proceso de actualización separado. Parámetro validado
+en E2: `ALLSKY_SFC_SW_DWN`, comunidad `RE`, con contrato y unidades comprobados.
 
 ```text
 HSP (h/día) = irradiación diaria (kWh/m²/día) / 1 (kW/m²)
@@ -239,8 +239,11 @@ unidades originales, método/versiones, HSP, fecha y evidencia. Cada cálculo
 congela entidad, HSP y versión. Validar nueva versión antes de publicar; una
 actualización fallida conserva última versión válida y notifica internamente.
 Sin entrada válida, bloquear cifras dependientes; no sustituir silenciosamente
-por 5.0 o tabla Syscom. Frecuencia/caducidad y metodología son trabajo técnico
-pendiente, no nuevas decisiones ya aceptadas. Ver [ADR-014](../adrs/014-hsp-nasa-power.md).
+por 5.0 o tabla Syscom. Metodología y política implementadas en E2: pesos de área
+INEGI sobre celdas NASA de 1°, actualización mensual y caducidad inicial de
+90 días configurable. Catálogo real de 32 entidades, comandos y consulta local
+disponibles. Ver [ADR-014](../adrs/014-hsp-nasa-power.md) y
+[operación/metodología](../hsp-catalog.md).
 
 ## 8. Catálogo Syscom y reglas de disponibilidad
 
@@ -469,7 +472,8 @@ propio de agentes. El dominio no depende de controladores ni del cliente Syscom.
 simularse. Se implementó motor puro de interconexión y pantalla interna de
 dimensionamiento manual de prueba, sin IA, catálogo ni precios. Ver
 [guía de uso y límites](../solar-engineering.md#5-primera-entrega-de-dimensionamiento).
-Siguen pendientes Ingeniero IA, catálogo Syscom/HSP, validación eléctrica completa,
+E1 incorpora expediente/cola/auditoría y E2 el catálogo HSP NASA real versionado.
+Siguen pendientes Ingeniero IA, catálogo Syscom, validación eléctrica completa,
 presupuestos, versiones, correo/PDF de producto, bandeja y acciones públicas.
 
 | Área        | Validación necesaria                                                                                              |
@@ -508,7 +512,7 @@ indicación del usuario.
 
 - Verificar fórmulas detalladas en bundle y escribir pruebas de valores independientes.
 - Revalidar contrato/cobertura Syscom y definir caché, reintentos y frescura de stock.
-- Proponer y documentar metodología NASA, período y actualización/caducidad estatal.
+- NASA E2 implementada; integrar consulta local y snapshot en cálculo E4.
 - Implementar lector/geocodificación mock y estados asíncronos del formulario.
 - Implementar autenticación de enlace, permisos, idempotencia, PDF y correo.
 - Configurar reglas fiscales verificadas, redondeo, plazos de aviso y responsables
@@ -536,5 +540,5 @@ indicación del usuario.
   y [Microblink](https://docs.microblink.com/verify/verdict).
 
 Son referencias de diseño, no reglas CFE, tarifas mexicanas ni requisitos
-universales. No se han validado aún respuesta NASA ni contrato Syscom real en esta
-implementación. No se enviaron datos privados ni correos al investigar/documentar.
+universales. NASA se validó con respuestas reales en E2; contrato Syscom real
+sigue pendiente. No se enviaron datos privados ni correos al investigar/documentar.

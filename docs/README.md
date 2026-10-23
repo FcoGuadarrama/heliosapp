@@ -33,6 +33,9 @@ Fundamentos E1: [ADR-015](adrs/015-expediente-y-procesamiento-compartido.md),
 [contrato v1](contracts/solar-processing-v1.md) y
 [runtime/migración](runtime.md).
 
+E2: [catálogo HSP NASA](hsp-catalog.md), metodología, fuentes, reproducción,
+consulta local y comandos de actualización.
+
 Las instrucciones explícitas del usuario y decisiones aceptadas posteriores
 prevalecen sobre diseños históricos. RFC-001 consolida comportamiento; el plan
 ordena implementación sin cambiar las decisiones aceptadas. Los ADR no implican

@@ -1209,3 +1209,62 @@ Las entradas son acumulativas; una propuesta no equivale a una implementación.
   artefactos de esta comprobación para conservar Pint como formato del proyecto.
   No se cambiaron reglas aislop. Formato activo se verificó durante el escaneo;
   el cierre usa Pint y aislop con su PATH normal, sin configuración adicional.
+
+## 2026-10-23 — Codex — E2 cerrada: HSP estatal NASA real
+
+- **Autorizado e implementado:** usuario continúa E2. Cliente/parser NASA,
+  proveedor HSP local tipado, pesos territoriales, versiones/evidencia,
+  publicación atómica, caducidad, actualización y avisos internos. No se inició
+  lector E3, API HTTP E4 ni cambios frontend; fórmulas solares intactas.
+- **Fuentes reales verificadas:** NASA Climatology Regional RE,
+  ALLSKY_SFC_SW_DWN, unidades kW-hr/m^2/day, API v2.10.1/SYN1DEG y período
+  2001-01-01 a 2025-12-31. Respuesta solar real es malla 1°, aunque texto
+  regional histórico menciona 0.5°. INEGI servicio vectorial: 32 entidades,
+  Marco Geoestadístico diciembre 2025. Sin datos de prospectos ni credenciales.
+- **Metodología:** inegi-2025-ceres-1deg-area-v1. Geometrías originales (islas y
+  huecos), intersección celdas 1° y áreas EPSG:6933; 264 celdas únicas, 448
+  intersecciones y 23 teselas NASA de 5°. Conservación de área con error relativo
+  máximo 2.97145e-8; pesos por estado suman 1. Promedio ponderado de ANN y 12
+  meses, usando ANN NASA directamente; conversión dimensional a h/día conserva
+  valor numérico. No promedio de capital, corrección de techo o garantía física.
+- **Datos/reproducción:** original INEGI comprimido y metadatos/atribución en
+  resources/data/hsp; SHA original 170c3ea5ff472f08ece97970dc90ad4ba8c6f503e33859655f315091c105cc91.
+  Generador scripts/hsp con Shapely 2.0.7, pyproj 3.6.1 y numpy 1.26.4 en venv
+  temporal Python 3.9; PHP no depende de estas herramientas. Malla regenerada
+  y formateada reproduce exactamente SHA del JSON publicado. Ruff/compilación
+  Python correctos; caché Python dirigida a /tmp. No se reparan polígonos en silencio.
+- **Persistencia:** cinco tablas hsp_catalog_versions/entries/sources/publications
+  y hsp_refresh_alerts. Manifiesto completo, metadatos NASA, respuesta original
+  y hash por tesela, pesos/valores, publicación/expiración por versión. Lectura
+  local por clave INEGI 01–32 con valor/snapshot o ausencia explícita, sin red.
+- **Política técnica:** publicación solo de cobertura completa, fuente/período
+  uniformes, sin fill/unidades desconocidas/celdas faltantes ni regresión de
+  período. Lock de actualización 3600 s, consultas secuenciales y dos intentos.
+  Refresh mensual día 1 03:00 UTC y edad inicial 90 días configurables (1–365).
+  Fallo conserva versión previa y vencimiento, persiste alerta interna y log;
+  catálogo vencido se conserva como evidencia y bloquea datos para cálculos
+  nuevos. No hay fallback a 5.0/tabla Syscom, correo al lead ni avisos externos.
+- **Operado localmente:** migración aditiva revisada con pretend y aplicada en
+  MySQL, batch 8; todas las migraciones Ran. Cache de configuración reconstruida.
+  helios:hsp:refresh publicó 32 valores con 23 respuestas reales. Status verificó
+  fuente, valores, publicación UTC y caducidad; schedule:list confirmó cron
+  0 3 1 * *. Ejecución permanente del scheduler sigue perteneciendo a operación
+  E10, no se instaló cron/daemon de sistema; actualizador ya ejecutado manualmente.
+- **Áreas:** app/Domain/Hsp, Infrastructure/Hsp, Application/RefreshHspCatalog,
+  modelos Hsp*, comandos consola, config/hsp.php, .env.example, provider,
+  routes/console.php, migración E2, scripts/datos/fixtures y pruebas. Documentados
+  metodología/operación en docs/hsp-catalog.md y datos/README; alineados ADR-014,
+  RFC-001, plan, backlog, arquitectura, dominio, ingeniería, API/contrato y runtime.
+- **Validación:** suite 269 pruebas/1261 aserciones (34 nuevas E2), PHPStan, Pint,
+  TypeScript, check y build pasaron. Nuevas pruebas: ponderación independiente,
+  respuesta NASA real grabada, unidades/fill/malla, cobertura, consulta sin red,
+  snapshots/versiones, rollback, locks, 429, caducidad exacta, período mezclado/
+  regresivo y fallos visibles. Enlaces, formato y diff verificados al cierre.
+- **Aislop:** 100; único aviso no fixable de hardcoded-url en el default NASA
+  de config/hsp.php. Falso positivo: URL pública canónica en configuración con
+  override de operador, no URL específica de despliegue ni secreto. Se conserva
+  legible, sin obfuscar ni desactivar reglas. PHP/Python revisados con Pint/Ruff.
+- **Estado:** E2 cerrada con catálogo real disponible; siguiente E3 lector real
+  y normalización. Sin nuevas dependencias Composer/npm, archivos/personas
+  reales de clientes ni cambios de estado de sus expedientes. Commit local al
+  cierre, sin push ni despliegue externo. Ninguna skill especializada aplica.
