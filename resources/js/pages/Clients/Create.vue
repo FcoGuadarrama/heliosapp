@@ -46,7 +46,7 @@ defineOptions({
             class="max-w-2xl space-y-6"
             v-slot="{ errors, processing }"
         >
-            <div class="rounded-lg border p-6">
+            <div class="surface-panel">
                 <h3 class="mb-4 text-lg font-semibold">Información general</h3>
                 <div class="space-y-4">
                     <div class="grid gap-2">
@@ -105,7 +105,7 @@ defineOptions({
                 </div>
             </div>
 
-            <div class="rounded-lg border p-6">
+            <div class="surface-panel">
                 <h3 class="mb-4 text-lg font-semibold">Dirección</h3>
                 <div class="space-y-4">
                     <div class="grid gap-2">
@@ -160,7 +160,7 @@ defineOptions({
                 </div>
             </div>
 
-            <div class="rounded-lg border p-6">
+            <div class="surface-panel">
                 <h3 class="mb-4 text-lg font-semibold">Notas</h3>
                 <div class="grid gap-2">
                     <Label for="notes">Notas adicionales</Label>

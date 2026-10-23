@@ -5,7 +5,7 @@ import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
 import IntakeController from '@/actions/App/Http/Controllers/IntakeController';
 import { create as intakeCreate, file as intakeFile } from '@/routes/intakes';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import {
@@ -108,9 +108,8 @@ defineOptions({
     <Head :title="`Prospecto - ${client.name}`" />
 
     <div class="flex flex-col space-y-6">
-        <div class="flex items-center justify-between">
+        <div class="page-header">
             <Heading
-                variant="small"
                 :title="client.name"
                 :description="typeLabels[client.type ?? ''] ?? 'Sin clasificar'"
             />
@@ -119,7 +118,7 @@ defineOptions({
                 v-if="permissions.includes('clients.update')"
                 :href="`/clients/${client.id}/edit`"
                 as="button"
-                class="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow hover:bg-primary/90"
+                :class="buttonVariants()"
             >
                 Editar prospecto
             </Link>
@@ -149,7 +148,7 @@ defineOptions({
         </Alert>
 
         <section
-            class="space-y-4 rounded-lg border p-6"
+            class="surface-panel space-y-4"
             aria-labelledby="receipts-heading"
         >
             <div class="flex flex-wrap items-center justify-between gap-3">
@@ -280,7 +279,7 @@ defineOptions({
         </section>
 
         <div class="grid gap-6">
-            <div class="rounded-lg border p-6">
+            <div class="surface-panel">
                 <h3 class="mb-4 text-lg font-semibold">Información general</h3>
                 <div class="grid gap-4 md:grid-cols-2">
                     <div>
@@ -312,7 +311,7 @@ defineOptions({
                 </div>
             </div>
 
-            <div class="rounded-lg border p-6">
+            <div class="surface-panel">
                 <h3 class="mb-4 text-lg font-semibold">Dirección</h3>
                 <div class="grid gap-4 md:grid-cols-2">
                     <div>
@@ -366,16 +365,16 @@ defineOptions({
                 </div>
             </div>
 
-            <div v-if="client.notes" class="rounded-lg border p-6">
+            <div v-if="client.notes" class="surface-panel">
                 <h3 class="mb-4 text-lg font-semibold">Notas</h3>
                 <p class="text-sm">{{ client.notes }}</p>
             </div>
 
             <div
                 v-if="permissions.includes('projects.view')"
-                class="rounded-lg border p-6"
+                class="surface-panel"
             >
-                <div class="flex items-center justify-between">
+                <div class="page-header">
                     <h3 class="text-lg font-semibold">
                         Proyectos internos (opcionales)
                     </h3>
@@ -383,7 +382,9 @@ defineOptions({
                         v-if="permissions.includes('projects.create')"
                         :href="projectsCreate()"
                         as="button"
-                        class="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-3 text-sm font-medium shadow-sm hover:bg-accent"
+                        :class="
+                            buttonVariants({ variant: 'outline', size: 'sm' })
+                        "
                     >
                         Nuevo proyecto
                     </Link>

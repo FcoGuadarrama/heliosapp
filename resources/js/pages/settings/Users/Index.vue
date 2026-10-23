@@ -70,7 +70,7 @@ const roleLabel = (role: string | null) =>
     <Head title="Usuarios" />
 
     <div class="flex flex-col space-y-6">
-        <div class="flex items-center justify-between">
+        <div class="page-header">
             <Heading
                 variant="small"
                 title="Usuarios"
@@ -168,7 +168,7 @@ const roleLabel = (role: string | null) =>
             </Dialog>
         </div>
 
-        <div class="w-full overflow-x-auto rounded-lg border">
+        <div class="data-table">
             <table class="w-full min-w-[46rem] text-left text-sm">
                 <thead class="bg-muted/50">
                     <tr>

@@ -14,7 +14,7 @@ defineProps<{
     items: NavItem[];
 }>();
 
-const { isCurrentUrl } = useCurrentUrl();
+const { isCurrentOrParentUrl } = useCurrentUrl();
 </script>
 
 <template>
@@ -25,16 +25,23 @@ const { isCurrentUrl } = useCurrentUrl();
                 <SidebarMenuButton
                     v-if="!item.disabled"
                     as-child
-                    :is-active="isCurrentUrl(item.href)"
+                    :is-active="isCurrentOrParentUrl(item.href)"
                     :tooltip="item.title"
+                    class="h-10"
                 >
-                    <Link :href="item.href">
+                    <Link
+                        :href="item.href"
+                        :aria-current="
+                            isCurrentOrParentUrl(item.href) ? 'page' : undefined
+                        "
+                    >
                         <component :is="item.icon" />
                         <span>{{ item.title }}</span>
                     </Link>
                 </SidebarMenuButton>
                 <SidebarMenuButton
                     v-else
+                    class="h-10"
                     disabled
                     :tooltip="`${item.title}: próximamente`"
                 >

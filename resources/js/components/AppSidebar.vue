@@ -52,6 +52,15 @@ const mainNavItems = computed<NavItem[]>(() => {
               ]
             : []),
         { title: 'Cotizaciones', href: '#', icon: FileText, disabled: true },
+        ...(permissions.includes('receipts.import')
+            ? [
+                  {
+                      title: 'Dimensionador',
+                      href: '/engineering/interconnection',
+                      icon: Calculator,
+                  },
+              ]
+            : []),
         { title: 'Proveedores', href: '#', icon: Truck, disabled: true },
         {
             title: 'Costos y márgenes',
@@ -89,8 +98,10 @@ const footerNavItems: NavItem[] = [
 </script>
 
 <template>
-    <Sidebar collapsible="icon" variant="inset">
-        <SidebarHeader>
+    <Sidebar collapsible="icon" variant="sidebar">
+        <SidebarHeader
+            class="h-16 justify-center border-b border-sidebar-border"
+        >
             <SidebarMenu>
                 <SidebarMenuItem>
                     <SidebarMenuButton size="lg" as-child>
@@ -106,7 +117,7 @@ const footerNavItems: NavItem[] = [
             <NavMain :items="mainNavItems" />
         </SidebarContent>
 
-        <SidebarFooter>
+        <SidebarFooter class="border-t border-sidebar-border">
             <NavFooter :items="footerNavItems" />
             <NavUser />
         </SidebarFooter>

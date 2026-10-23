@@ -6,8 +6,9 @@
 - **Documentado aquí:** 2026-10-21
 - **Proyecto donde se ejecutó:** `~/projects/ml-syscom-panel`
 
-> Las fórmulas de esta página son la referencia validada para el motor de
-> cálculo de Helios App. El `CLAUDE.md` del proyecto prohíbe inventar cálculos
+> Las fórmulas de esta página son la fuente de verdad para el motor de
+> cálculo de Helios App, por decisión del responsable del producto (2026-10-22).
+> Prevalecen sobre requisitos anteriores contradictorios de otras guías del proyecto. El `CLAUDE.md` del proyecto prohíbe inventar cálculos
 > eléctricos o financieros: esto documenta de dónde salen los números.
 
 ---
@@ -40,11 +41,11 @@ estado con `useReducer`, autenticación con NextAuth. **Sin sourcemaps**
 
 ## 3. Endpoints internos
 
-| Endpoint | Contrato observado |
-|---|---|
-| `POST /api/energia/recibo-cfe` | multipart, campo `file` (`.pdf/.jpg/.png/.webp`) → `{kwh_periodo, dias_periodo, tarifa, total_pagado, historico:[{kwh, etiqueta}]}`. Extracción del recibo CFE del lado servidor. |
-| `GET /api/energia/productos?tipo=…&limit=60` | Catálogo filtrado por rol. **Responde 200 sin sesión**, con `precio1: null`. |
-| `POST /api/carrito/producto` | `{producto_id, cantidad, asterisco:""}` con `credentials:"include"`. |
+| Endpoint                                     | Contrato observado                                                                                                                                                                |
+| -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `POST /api/energia/recibo-cfe`               | multipart, campo `file` (`.pdf/.jpg/.png/.webp`) → `{kwh_periodo, dias_periodo, tarifa, total_pagado, historico:[{kwh, etiqueta}]}`. Extracción del recibo CFE del lado servidor. |
+| `GET /api/energia/productos?tipo=…&limit=60` | Catálogo filtrado por rol. **Responde 200 sin sesión**, con `precio1: null`.                                                                                                      |
+| `POST /api/carrito/producto`                 | `{producto_id, cantidad, asterisco:""}` con `credentials:"include"`.                                                                                                              |
 
 `/api/energia/productos` devuelve los atributos técnicos **ya normalizados** —
 `potencia_w`, `voc_v`, `vmp_v`, `isc_a`, `capacidad_ah`, `dod_pct`, `ciclos`,
@@ -96,7 +97,7 @@ Híbrido             PR interpolado
   inversorMin = ceil(max(1.25 × demandaSim, 1.25 × cargasCríticas, arregloW / 1.2))
 ```
 
-El detalle fino del híbrido: el *performance ratio* se degrada linealmente de
+El detalle fino del híbrido: el _performance ratio_ se degrada linealmente de
 0.77 a 0.70 según qué fracción del consumo diario va a respaldo.
 
 **Banco serie/paralelo** (`calc_pretty.js:59`): redondea el número de series al
@@ -116,7 +117,7 @@ Filtra `existencia > 0 || bajoPedido`, luego ordena por:
   tolerancia 8%.
 - **Controlador:** solo MPPT, con `voc_max_v ≥ 2 × Voc × 1.15`.
 
-La propia UI de Syscom lo advierte: *"el más barato no siempre es el mejor"*.
+La propia UI de Syscom lo advierte: _"el más barato no siempre es el mejor"_.
 
 ## 6. Defectos encontrados
 
@@ -149,13 +150,13 @@ Las fórmulas ya están portadas a PHP en `~/projects/ml-syscom-panel`
 esperados se calcularon a mano — si alguien cambia un performance ratio, se nota.
 Archivos a reutilizar como punto de partida para Helios:
 
-| Archivo en `ml-syscom-panel` | Qué hace |
-|---|---|
-| `app/Support/DimensionadorSolar.php` | Las fórmulas, puras — sin red ni BD |
-| `app/Support/AtributosSolares.php` | Texto libre → atributos técnicos |
-| `app/Support/SelectorEquipos.php` | Ranking del catálogo |
-| `app/Services/CatalogoSolarService.php` | Catálogo por rol, caché 30 min |
-| `app/Services/CotizadorSolar.php` | Orquesta; única fuente de números |
+| Archivo en `ml-syscom-panel`            | Qué hace                            |
+| --------------------------------------- | ----------------------------------- |
+| `app/Support/DimensionadorSolar.php`    | Las fórmulas, puras — sin red ni BD |
+| `app/Support/AtributosSolares.php`      | Texto libre → atributos técnicos    |
+| `app/Support/SelectorEquipos.php`       | Ranking del catálogo                |
+| `app/Services/CatalogoSolarService.php` | Catálogo por rol, caché 30 min      |
+| `app/Services/CotizadorSolar.php`       | Orquesta; única fuente de números   |
 
 Resumen vigente de ese lado en `ml-syscom-panel/MEMORY.md`.
 
@@ -163,9 +164,9 @@ Resumen vigente de ese lado en `ml-syscom-panel/MEMORY.md`.
 
 Conservada en `docs/reference/syscom-calculator/`:
 
-| Archivo | Qué es |
-|---|---|
-| `calc_pretty.js` | Bundle del calculador formateado, 3 430 líneas — la fuente de todas las fórmulas de arriba |
+| Archivo                    | Qué es                                                                                                        |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `calc_pretty.js`           | Bundle del calculador formateado, 3 430 líneas — la fuente de todas las fórmulas de arriba                    |
 | `rea-browser-capture.json` | Captura de REA: 295 eventos (87 requests, 34 console, 36 fallidos), incluido el 403 del documento en headless |
 
 Evidencia adicional, **en directorios temporales que se van a borrar**:

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\IntakeController;
+use App\Http\Controllers\InterconnectionController;
 use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
 
@@ -9,6 +10,9 @@ Route::inertia('/', 'Welcome')->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'Dashboard')->name('dashboard');
+
+    Route::get('engineering/interconnection', [InterconnectionController::class, 'index'])->middleware('permission:receipts.import')->name('engineering.interconnection');
+    Route::post('engineering/interconnection', [InterconnectionController::class, 'calculate'])->middleware(['permission:receipts.import', 'throttle:30,1'])->name('engineering.interconnection.calculate');
 
     Route::get('intakes/create', [IntakeController::class, 'create'])->middleware('permission:receipts.import')->name('intakes.create');
     Route::post('intakes', [IntakeController::class, 'store'])->middleware(['permission:receipts.import', 'throttle:10,1'])->name('intakes.store');

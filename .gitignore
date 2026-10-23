@@ -37,6 +37,7 @@ yarn-error.log
 /.kiro
 /.pi
 /.mcp.json
+/.playwright-mcp/
 /AGENTS.md
 /CLAUDE.md
 /boost.json

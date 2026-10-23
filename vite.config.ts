@@ -44,6 +44,7 @@ export default defineConfig({
     },
     lint: {
         ignorePatterns: [
+            'docs/reference/syscom-calculator/**',
             'vendor/**',
             'node_modules/**',
             'public/**',
@@ -68,6 +69,7 @@ export default defineConfig({
         htmlWhitespaceSensitivity: 'css',
         ignorePatterns: [
             '.github/**',
+            'docs/reference/syscom-calculator/**',
             'composer.json',
             'resources/js/components/ui/*',
             'resources/views/mail/*',

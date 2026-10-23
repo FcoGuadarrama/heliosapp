@@ -10,7 +10,7 @@ import Heading from '@/components/Heading.vue';
 import PaginationLinks from '@/components/PaginationLinks.vue';
 import InputError from '@/components/InputError.vue';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
@@ -91,9 +91,8 @@ const createOpen = ref(false);
     <Head title="Mis prospectos" />
 
     <div class="flex flex-col space-y-6">
-        <div class="flex items-center justify-between">
+        <div class="page-header">
             <Heading
-                variant="small"
                 title="Mis prospectos"
                 description="Gestiona tus clientes y sus datos de contacto"
             />
@@ -233,7 +232,7 @@ const createOpen = ref(false);
             búsqueda.
         </p>
 
-        <div class="w-full overflow-x-auto rounded-lg border">
+        <div class="data-table">
             <table class="w-full min-w-[56rem] text-left text-sm">
                 <thead class="bg-muted/50">
                     <tr>
@@ -283,7 +282,12 @@ const createOpen = ref(false);
                                 <Link
                                     :href="`/clients/${client.id}`"
                                     as="button"
-                                    class="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-3 text-sm font-medium shadow-sm hover:bg-accent hover:text-accent-foreground"
+                                    :class="
+                                        buttonVariants({
+                                            variant: 'outline',
+                                            size: 'sm',
+                                        })
+                                    "
                                 >
                                     Ver
                                 </Link>
@@ -293,7 +297,12 @@ const createOpen = ref(false);
                                     "
                                     :href="`/clients/${client.id}/edit`"
                                     as="button"
-                                    class="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-3 text-sm font-medium shadow-sm hover:bg-accent hover:text-accent-foreground"
+                                    :class="
+                                        buttonVariants({
+                                            variant: 'outline',
+                                            size: 'sm',
+                                        })
+                                    "
                                 >
                                     Editar
                                 </Link>

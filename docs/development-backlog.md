@@ -108,7 +108,7 @@ _Depende de:_ F1.4
 - CRUD con páginas Inertia; el detalle del proyecto es la pantalla central del producto:
   pestañas de datos generales, datos energéticos y (más adelante) análisis.
 - Campos de ubicación con latitud y longitud, marcando explícitamente en la interfaz que
-  **sin coordenadas no habrá dimensionamiento**.
+  las coordenadas son opcionales para el dimensionamiento Syscom, que usa HSP por estado.
 - `objectives` y `property_data` como formularios estructurados guardados en JSON.
 
 **Aceptación:** crear un proyecto asociado a un cliente, editarlo y verlo listado; el
@@ -229,11 +229,11 @@ REST versionada · autenticación de consumidores · OpenAPI · límites de uso 
 
 ## Riesgos abiertos
 
-| #   | Riesgo                                                            | Mitigación                                                                       |
-| --- | ----------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| R1  | Parámetros CFE y fotovoltaicos sin fuente verificada              | `ParameterGate` impide emitir cifras; se construye todo lo demás                 |
-| R2  | La API de Syscom puede no exponer todo lo que el motor necesita   | `capabilities()` por proveedor y marcado explícito de datos no disponibles       |
-| R3  | Precios y existencias cambian entre cotización y compra           | Congelado de insumos y re-verificación obligatoria antes de liberar orden        |
-| R4  | Actualizar Helios en instalaciones de clientes puede romper datos | Migraciones y seeders idempotentes, comando de instalación, respaldo documentado |
-| R5  | Confundir markup con margen bruto falsea la utilidad              | Fórmulas separadas, validadas y con pruebas unitarias propias                    |
-| R6  | El agente IA podría emitir cifras propias                         | Las cifras sólo provienen del `ToolRegistry`; se valida la salida del agente     |
+| #   | Riesgo                                                            | Mitigación                                                                                |
+| --- | ----------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| R1  | Parámetros CFE y fotovoltaicos sin fuente verificada              | Referencia Syscom adoptada para dimensionamiento; validar fuentes de cálculos adicionales |
+| R2  | La API de Syscom puede no exponer todo lo que el motor necesita   | `capabilities()` por proveedor y marcado explícito de datos no disponibles                |
+| R3  | Precios y existencias cambian entre cotización y compra           | Congelado de insumos y re-verificación obligatoria antes de liberar orden                 |
+| R4  | Actualizar Helios en instalaciones de clientes puede romper datos | Migraciones y seeders idempotentes, comando de instalación, respaldo documentado          |
+| R5  | Confundir markup con margen bruto falsea la utilidad              | Fórmulas separadas, validadas y con pruebas unitarias propias                             |
+| R6  | El agente IA podría emitir cifras propias                         | Las cifras sólo provienen del `ToolRegistry`; se valida la salida del agente              |

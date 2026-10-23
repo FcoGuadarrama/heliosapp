@@ -1,0 +1,513 @@
+%PDF-1.3
+%âãÏÓ
+1 0 obj
+<<
+/Producer (pypdf)
+/Title (Helios \055 Cotizaci\363n con Ingeniero de IA \055 Acuerdos para junta)
+/Author (Helios \057 Codex)
+/Subject (Alcance\054 reglas acordadas\054 pendientes y continuidad \055 2026\05510\05522)
+>>
+endobj
+2 0 obj
+<<
+/Type /Pages
+/Count 8
+/Kids [ 6 0 R 8 0 R 10 0 R 12 0 R 14 0 R 16 0 R 18 0 R 20 0 R ]
+>>
+endobj
+3 0 obj
+<<
+/Type /Catalog
+/Pages 2 0 R
+>>
+endobj
+4 0 obj
+<<
+/Type /Font
+/Subtype /Type1
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+>>
+endobj
+5 0 obj
+<<
+/Type /Font
+/Subtype /Type1
+/BaseFont /Helvetica-Bold
+/Encoding /WinAnsiEncoding
+>>
+endobj
+6 0 obj
+<<
+/Type /Page
+/Resources <<
+/Font <<
+/F1 4 0 R
+/F2 5 0 R
+>>
+>>
+/MediaBox [ 0.0 0.0 595.28 841.89 ]
+/Parent 2 0 R
+/Contents 7 0 R
+>>
+endobj
+7 0 obj
+<<
+/Length 3505
+>>
+stream
+0.98 0.984 0.992 rg 0 0 595.28 841.89 re f
+0.09 0.16 0.32 rg 0 732 595.28 110 re f
+0.75 0.83 0.97 rg BT /F2 9 Tf 1 0 0 1 42 802 Tm (HELIOS / ACUERDOS DE PRODUCTO) Tj ET
+1 1 1 rg BT /F2 18 Tf 1 0 0 1 42 771 Tm (Helios | Cotización con Ingeniero de IA) Tj ET
+0.86 0.91 0.98 rg BT /F1 9 Tf 1 0 0 1 42 748 Tm (Documento para junta · 22 de octubre de 2026) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 704 Tm (PROPÓSITO) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 687 Tm (Acordar el flujo que convierte un recibo CFE en una cotización de equipos, mediante un Ingeniero de) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 673.7 Tm (IA que analiza el caso y utiliza herramientas de cálculo y validación.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 645.4000000000001 Tm (DECISIÓN CENTRAL) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 628.4000000000001 Tm (La instalación NO está incluida. Se cotiza por separado. Los precios capturados por la empresa son) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 615.1000000000001 Tm (SIN IVA y SIN INSTALACIÓN. La cotización muestra subtotal, IVA y total.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 586.8000000000002 Tm (PRIMERA ENTREGA) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 569.8000000000002 Tm (Solo interconexión CFE, dimensionada al 100% del consumo diario calculado según Syscom. Equipos de) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 556.5000000000002 Tm (Syscom inicialmente. Aislado, híbrido, proveedores adicionales e inventario propio son posibilidades) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 543.2000000000003 Tm (posteriores.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 514.9000000000003 Tm (DOS ENTRADAS, UN ANÁLISIS) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 497.9000000000003 Tm (Oficina: asesor registra o selecciona al lead, carga el recibo y obtiene cotización en CRM. Embebido:) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 484.6000000000003 Tm (lead registra sus datos y recibo, se guarda en CRM y el análisis inicia automáticamente.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 456.3000000000003 Tm (ESTADO REAL) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 439.3000000000003 Tm (Esta conversación produjo definición de dominio, RFC y ADR. No implementó el cotizador, el Ingeniero) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 426.0000000000003 Tm (IA real, el catálogo HSP, la entrega de propuestas ni la geocodificación simulada. La lectura de) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 412.7000000000003 Tm (archivos existente continúa siendo mock.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 384.40000000000026 Tm (CÓMO LEER ESTE DOCUMENTO) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 367.40000000000026 Tm (Las reglas indicadas como acordadas provienen de respuestas explícitas del usuario. Las) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 354.10000000000025 Tm (recomendaciones y preguntas abiertas se identifican como pendientes. El RFC-001 ya está consolidado) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 340.80000000000024 Tm (con todas las decisiones vigentes y seis preguntas de producto pendientes; es la especificación del) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 327.5000000000002 Tm (flujo.) Tj ET
+0.78 0.82 0.89 RG 0.5 w 42 44 m 553 44 l S
+0.35 0.40 0.48 rg BT /F1 8 Tf 1 0 0 1 42 28 Tm (22 OCT 2026 | Definición acordada; implementación pendiente) Tj ET
+0.12 0.28 0.60 rg BT /F2 8 Tf 1 0 0 1 510 28 Tm (1 / 8) Tj ET
+endstream
+endobj
+8 0 obj
+<<
+/Type /Page
+/Resources <<
+/Font <<
+/F1 4 0 R
+/F2 5 0 R
+>>
+>>
+/MediaBox [ 0.0 0.0 595.28 841.89 ]
+/Parent 2 0 R
+/Contents 9 0 R
+>>
+endobj
+9 0 obj
+<<
+/Length 4048
+>>
+stream
+0.98 0.984 0.992 rg 0 0 595.28 841.89 re f
+0.09 0.16 0.32 rg 0 732 595.28 110 re f
+0.75 0.83 0.97 rg BT /F2 9 Tf 1 0 0 1 42 802 Tm (HELIOS / ACUERDOS DE PRODUCTO) Tj ET
+1 1 1 rg BT /F2 18 Tf 1 0 0 1 42 771 Tm (01 | Alcance del producto) Tj ET
+0.86 0.91 0.98 rg BT /F1 9 Tf 1 0 0 1 42 748 Tm (Producto completo y límites de la primera entrega) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 704 Tm (HELIOS COMPLETO) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 687 Tm (Aplicación B2B para instaladoras solares en México, con web y API; una instancia por empresa. CRM de) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 673.7 Tm (prospectos/clientes, proyectos, recibos privados, ingeniería, proveedores, presupuestos) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 660.4000000000001 Tm (configurables, cotizaciones/PDF, seguimiento, auditoría, usuarios y permisos.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 632.1000000000001 Tm (PAPEL DEL INGENIERO DE IA) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 615.1000000000001 Tm (Es el responsable principal del análisis contextual y de escoger los equipos adecuados. Consulta) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 601.8000000000002 Tm (recibo, histórico, tarifa, fases, tensión, demanda y demás campos útiles disponibles; considera) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 588.5000000000002 Tm (ubicación, recurso solar y condiciones conocidas. Identifica faltantes, compara candidatos y) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 575.2000000000003 Tm (justifica decisiones.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 546.9000000000003 Tm (AUTORIDAD DE LAS HERRAMIENTAS) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 529.9000000000003 Tm (El motor calcula números y cantidades; los validadores deciden compatibilidad. La IA no inventa) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 516.6000000000004 Tm (fórmulas, precios, productos ni especificaciones. Los equipos elegidos deben existir en el catálogo) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 503.30000000000035 Tm (consultado. Dirección y recibo no acreditan por sí solos techo, sombras, estructura o acometida.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 475.00000000000034 Tm (MOTOR NUEVO) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 458.00000000000034 Tm (Construir desde cero en Helios a partir de docs/syscom-calculator-reverse-engineering.md y su bundle) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 444.70000000000033 Tm (de evidencia. No copiar ni adaptar el PHP de ml-syscom-panel. Las 110 pruebas reportadas del otro) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 431.4000000000003 Tm (proyecto no validan una implementación nueva.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 403.1000000000003 Tm (SYSCOM INICIALMENTE) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 386.1000000000003 Tm (Usar su endpoint interno de productos, documentado como accesible sin sesión y sin precios. No) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 372.8000000000003 Tm (requiere credenciales de precios. Contrato y cobertura deben revalidarse al integrar; aún no se) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 359.5000000000003 Tm (reconsultó en esta conversación. Aislar el acceso fuera del motor.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 331.2000000000003 Tm (FUERA DE ESTA ENTREGA) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 314.2000000000003 Tm (Aislado/híbrido, múltiples proveedores, inventario por usuario, pagos, firma contractual y reserva de) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 300.90000000000026 Tm (stock no están implementados ni comprometidos aquí. El diseño ejecutivo requiere verificaciones) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 287.60000000000025 Tm (físicas y profesionales.) Tj ET
+0.78 0.82 0.89 RG 0.5 w 42 44 m 553 44 l S
+0.35 0.40 0.48 rg BT /F1 8 Tf 1 0 0 1 42 28 Tm (22 OCT 2026 | Definición acordada; implementación pendiente) Tj ET
+0.12 0.28 0.60 rg BT /F2 8 Tf 1 0 0 1 510 28 Tm (2 / 8) Tj ET
+endstream
+endobj
+10 0 obj
+<<
+/Type /Page
+/Resources <<
+/Font <<
+/F1 4 0 R
+/F2 5 0 R
+>>
+>>
+/MediaBox [ 0.0 0.0 595.28 841.89 ]
+/Parent 2 0 R
+/Contents 11 0 R
+>>
+endobj
+11 0 obj
+<<
+/Length 3969
+>>
+stream
+0.98 0.984 0.992 rg 0 0 595.28 841.89 re f
+0.09 0.16 0.32 rg 0 732 595.28 110 re f
+0.75 0.83 0.97 rg BT /F2 9 Tf 1 0 0 1 42 802 Tm (HELIOS / ACUERDOS DE PRODUCTO) Tj ET
+1 1 1 rg BT /F2 18 Tf 1 0 0 1 42 771 Tm (02 | Reglas del lead embebido) Tj ET
+0.86 0.91 0.98 rg BT /F1 9 Tf 1 0 0 1 42 748 Tm (Correcciones en el formulario; propuesta por correo) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 704 Tm (REGISTRO E INICIO) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 687 Tm (Guardar lead y recibo en CRM e iniciar análisis automáticamente. Correo obligatorio en el recorrido) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 673.7 Tm (futuro. No exigir un botón posterior de generar propuesta ni revisión previa universal por asesor.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 645.4000000000001 Tm (PRIMERA IMAGEN ILEGIBLE) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 628.4000000000001 Tm (Informar el motivo directamente en el mismo formulario. Pedir otra foto o PDF original y permitir una) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 615.1000000000001 Tm (segunda carga en el mismo expediente. No enviar correo para esta corrección normal.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 586.8000000000002 Tm (SEGUNDA IMAGEN ILEGIBLE) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 569.8000000000002 Tm (Cerrar recaptura automática y derivar a asesor. Avisar al lead que su caso requiere revisión.) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 556.5000000000002 Tm (Conservar ambos archivos e historial; no crear otro lead. Son dos cargas en total.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 528.2000000000003 Tm (UBICACIÓN DUDOSA) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 511.2000000000003 Tm (Mostrar el mapa en el mismo formulario para confirmar, mover o colocar el punto y corregir la) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 497.90000000000026 Tm (dirección. No enviar correo para esta acción normal. Al confirmar, reanudar el proceso) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 484.60000000000025 Tm (automáticamente.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 456.30000000000024 Tm (RESULTADO DISPONIBLE) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 439.30000000000024 Tm (Si existe configuración completa, compatible y con stock suficiente, generar propuesta. Enviar correo) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 426.0000000000002 Tm (con identidad de la empresa y botón Ver mi propuesta: enlace privado, sin cuenta, para consultar la) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 412.7000000000002 Tm (versión y descargar PDF. No adjuntar PDF inicialmente.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 384.4000000000002 Tm (FALLO TÉCNICO BLOQUEANTE) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 367.4000000000002 Tm (Si requiere traspaso humano, informar en el formulario si continúa abierto y por correo que su caso) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 354.1000000000002 Tm (pasó a un asesor. Internamente notificar etapa fallida y diagnóstico. Un fallo técnico no consume) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 340.8000000000002 Tm (cargas ni obliga a fotografiar otra vez.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 312.50000000000017 Tm (NO INVENTAR PARA COMPLETAR) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 295.50000000000017 Tm (Distinguir mala calidad de imagen, datos ausentes en recibo legible y error del servicio. No rellenar) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 282.20000000000016 Tm (campos con IA ni publicar cifras/compatibilidades sin sustento. Recuperación tras abandonar) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 268.90000000000015 Tm (formulario sigue pendiente.) Tj ET
+0.78 0.82 0.89 RG 0.5 w 42 44 m 553 44 l S
+0.35 0.40 0.48 rg BT /F1 8 Tf 1 0 0 1 42 28 Tm (22 OCT 2026 | Definición acordada; implementación pendiente) Tj ET
+0.12 0.28 0.60 rg BT /F2 8 Tf 1 0 0 1 510 28 Tm (3 / 8) Tj ET
+endstream
+endobj
+12 0 obj
+<<
+/Type /Page
+/Resources <<
+/Font <<
+/F1 4 0 R
+/F2 5 0 R
+>>
+>>
+/MediaBox [ 0.0 0.0 595.28 841.89 ]
+/Parent 2 0 R
+/Contents 13 0 R
+>>
+endobj
+13 0 obj
+<<
+/Length 4465
+>>
+stream
+0.98 0.984 0.992 rg 0 0 595.28 841.89 re f
+0.09 0.16 0.32 rg 0 732 595.28 110 re f
+0.75 0.83 0.97 rg BT /F2 9 Tf 1 0 0 1 42 802 Tm (HELIOS / ACUERDOS DE PRODUCTO) Tj ET
+1 1 1 rg BT /F2 18 Tf 1 0 0 1 42 771 Tm (03 | Ubicación, HSP y cálculo) Tj ET
+0.86 0.91 0.98 rg BT /F1 9 Tf 1 0 0 1 42 748 Tm (Semáforo geográfico y catálogo estatal NASA) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 704 Tm (SEMÁFORO ACORDADO) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 687 Tm (Verde: ubicación con señales suficientes, continúa automáticamente. Amarillo: aproximada o ambigua,) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 673.7 Tm (confirmar en formulario. Rojo: sin resultado utilizable, corregir dirección o colocar punto. Usar) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 660.4000000000001 Tm (texto además de color; no porcentajes inventados por IA.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 632.1000000000001 Tm (GOOGLE SIMULADO POR AHORA) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 615.1000000000001 Tm (Mientras lectura de archivos sea mock, simular también geocodificación: fixtures verde, amarillo,) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 601.8000000000002 Tm (rojo y fallo técnico. No exigir API key ni facturación. Servicio real y costos se revisan junto con) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 588.5000000000002 Tm (lectura real con IA. No usar fixtures como ubicación verificada.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 560.2000000000003 Tm (PRIVACIDAD DE UBICACIÓN) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 543.2000000000003 Tm (Usar domicilio del suministro, no domicilio fiscal ni ubicación actual del teléfono. Conservar) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 529.9000000000003 Tm (evidencia y correcciones. La geocodificación externa real y tratamiento de domicilio no quedaron) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 516.6000000000004 Tm (habilitados. Coordenadas y archivos siguen siendo privados.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 488.30000000000035 Tm (NASA POR ESTADO) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 471.30000000000035 Tm (Consultar NASA para construir catálogo HSP de las 32 entidades de México, actualizado periódicamente.) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 458.00000000000034 Tm (No consultar NASA por cada lead. La ubicación permite resolver entidad y aporta contexto al Ingeniero) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 444.70000000000033 Tm (IA. El valor debe identificarse como estatal.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 416.4000000000003 Tm (MÉTODO AÚN PENDIENTE) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 399.4000000000003 Tm (Definir período climatológico, puntos o malla, agregación geográfica, conversión de unidades,) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 386.1000000000003 Tm (frecuencia y caducidad. Una capital no representa automáticamente al estado. Sin cifras NASA) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 372.8000000000003 Tm (verificadas ni catálogo implementado todavía.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 344.5000000000003 Tm (VERSIONADO DEL RECURSO) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 327.5000000000003 Tm (Guardar HSP, entidad, fuente, metodología y versión usados en la propuesta. Si falla la) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 314.2000000000003 Tm (actualización, conservar última versión válida y avisar internamente. Sin valor válido, bloquear) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 300.90000000000026 Tm (cálculo dependiente; no usar default silencioso.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 272.60000000000025 Tm (FÓRMULA DE INTERCONEXIÓN) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 255.60000000000025 Tm (kWp requeridos = consumo diario / \(0.77 x HSP\). Históricos de al menos 330 días usan promedio diario) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 242.30000000000024 Tm (en interconexión. Detalles de históricos menores deben seguir el bundle. Redondear a módulos) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 229.00000000000023 Tm (completos puede superar potencia objetivo; cubrir energía no elimina todo el recibo.) Tj ET
+0.78 0.82 0.89 RG 0.5 w 42 44 m 553 44 l S
+0.35 0.40 0.48 rg BT /F1 8 Tf 1 0 0 1 42 28 Tm (22 OCT 2026 | Definición acordada; implementación pendiente) Tj ET
+0.12 0.28 0.60 rg BT /F2 8 Tf 1 0 0 1 510 28 Tm (4 / 8) Tj ET
+endstream
+endobj
+14 0 obj
+<<
+/Type /Page
+/Resources <<
+/Font <<
+/F1 4 0 R
+/F2 5 0 R
+>>
+>>
+/MediaBox [ 0.0 0.0 595.28 841.89 ]
+/Parent 2 0 R
+/Contents 15 0 R
+>>
+endobj
+15 0 obj
+<<
+/Length 4057
+>>
+stream
+0.98 0.984 0.992 rg 0 0 595.28 841.89 re f
+0.09 0.16 0.32 rg 0 732 595.28 110 re f
+0.75 0.83 0.97 rg BT /F2 9 Tf 1 0 0 1 42 802 Tm (HELIOS / ACUERDOS DE PRODUCTO) Tj ET
+1 1 1 rg BT /F2 18 Tf 1 0 0 1 42 771 Tm (04 | Equipos y disponibilidad) Tj ET
+0.86 0.91 0.98 rg BT /F1 9 Tf 1 0 0 1 42 748 Tm (Reglas distintas por canal y tipo de publicación) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 704 Tm (ASESOR QUE CARGA EN CRM) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 687 Tm (El asesor registra al lead y su recibo; el Ingeniero IA genera su cotización interna. SÍ puede) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 673.7 Tm (contener equipos bajo pedido, identificados como tales. Esto también aplica a alternativas mostradas) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 660.4000000000001 Tm (en CRM.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 632.1000000000001 Tm (ENTREGA AUTOMÁTICA AL LEAD) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 615.1000000000001 Tm (Solo equipos disponibles en cantidad suficiente para completar la configuración. Stock desconocido o) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 601.8000000000002 Tm (insuficiente no equivale a disponible. Buscar alternativas compatibles antes de derivar el caso.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 573.5000000000002 Tm (SIN COMBINACIÓN DISPONIBLE) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 556.5000000000002 Tm (No enviar automáticamente una cotización incompleta o con equipo bajo pedido. Pasar al asesor para) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 543.2000000000003 Tm (revisión y avisar al lead. No ocultar renglones faltantes ni declarar completo el sistema.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 514.9000000000003 Tm (EXCEPCIÓN MANUAL APROBADA) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 497.9000000000003 Tm (El asesor SÍ puede publicar y enviar manualmente una nueva cotización al lead con equipos bajo) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 484.6000000000003 Tm (pedido, claramente identificados. No inventar plazos de entrega. No convertir esa excepción en envío) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 471.3000000000003 Tm (automático.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 443.0000000000003 Tm (DATOS DEL CATÁLOGO) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 426.0000000000003 Tm (Conservar ID de producto, fabricante/modelo, atributos, cantidades, disponibilidad, fecha y fuente.) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 412.7000000000003 Tm (Verificar cobertura por rol: limit=60 no prueba catálogo completo. Falta de atributos puede impedir) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 399.40000000000026 Tm (validar una selección.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 371.10000000000025 Tm (SELECCIÓN Y COMPATIBILIDAD) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 354.10000000000025 Tm (El Ingeniero IA compara candidatos utilizando herramientas. El precio no es criterio de ranking) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 340.80000000000024 Tm (mientras no haya datos de costo. La preferencia técnica exacta de mejores equipos aún debe cerrarse.) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 327.5000000000002 Tm (Conservar corrección de módulos por microinversor.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 299.2000000000002 Tm (STOCK Y VERSIONES) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 282.2000000000002 Tm (La disponibilidad consultada no reserva existencias. Falta definir vigencia/reconsulta antes de) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 268.9000000000002 Tm (entregar. Cada versión conserva su snapshot; actualizaciones posteriores de catálogo no reescriben) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 255.6000000000002 Tm (una propuesta enviada.) Tj ET
+0.78 0.82 0.89 RG 0.5 w 42 44 m 553 44 l S
+0.35 0.40 0.48 rg BT /F1 8 Tf 1 0 0 1 42 28 Tm (22 OCT 2026 | Definición acordada; implementación pendiente) Tj ET
+0.12 0.28 0.60 rg BT /F2 8 Tf 1 0 0 1 510 28 Tm (5 / 8) Tj ET
+endstream
+endobj
+16 0 obj
+<<
+/Type /Page
+/Resources <<
+/Font <<
+/F1 4 0 R
+/F2 5 0 R
+>>
+>>
+/MediaBox [ 0.0 0.0 595.28 841.89 ]
+/Parent 2 0 R
+/Contents 17 0 R
+>>
+endobj
+17 0 obj
+<<
+/Length 4377
+>>
+stream
+0.98 0.984 0.992 rg 0 0 595.28 841.89 re f
+0.09 0.16 0.32 rg 0 732 595.28 110 re f
+0.75 0.83 0.97 rg BT /F2 9 Tf 1 0 0 1 42 802 Tm (HELIOS / ACUERDOS DE PRODUCTO) Tj ET
+1 1 1 rg BT /F2 18 Tf 1 0 0 1 42 771 Tm (05 | Precio, IVA e instalación) Tj ET
+0.86 0.91 0.98 rg BT /F1 9 Tf 1 0 0 1 42 748 Tm (Tarifas de venta configuradas por cada empresa) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 704 Tm (TRES MODALIDADES ACEPTADAS) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 687 Tm (Por kWp, por panel y por paquete. Seleccionar según condiciones configuradas por empresa; ejemplo:) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 673.7 Tm (paquete aplicable y, si existe regla expresa, tarifa por kWp como alternativa. Una base por cálculo,) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 660.4000000000001 Tm (sin duplicar cobros.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 632.1000000000001 Tm (UN SOLO PRECIO) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 615.1000000000001 Tm (El usuario pide un importe real o muy cercano a la realidad, no un rango ni una estimación libre.) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 601.8000000000002 Tm (Debe proceder de tarifas vigentes y reglas completas de la empresa, aunque todavía no tenga precios) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 588.5000000000002 Tm (de compra Syscom. Precio de venta no equivale a costo de adquisición.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 560.2000000000003 Tm (CONFIGURADOR OBLIGATORIO) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 543.2000000000003 Tm (Mostrar: Captura precios sin IVA y sin instalación. El IVA se calcula por separado. La instalación se) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 529.9000000000003 Tm (cotiza por separado. Etiquetar así todas las modalidades; no permitir que el Ingeniero IA omita la) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 516.6000000000004 Tm (exclusión.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 488.30000000000035 Tm (COTIZACIÓN OBLIGATORIA) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 471.30000000000035 Tm (Desglosar subtotal, IVA y total. Mostrar de forma visible: La instalación no está incluida. Se cotiza) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 458.00000000000034 Tm (por separado. Aplica a CRM, página de propuesta, PDF y cualquier resumen económico del correo. No) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 444.70000000000033 Tm (mostrar instalación como cero ni total instalado.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 416.4000000000003 Tm (IVA Y CONFIGURACIÓN INCOMPLETA) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 399.4000000000003 Tm (Aplicar regla fiscal configurada y guardar base, tasa y resultado. No se acordó una tasa específica) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 386.1000000000003 Tm (en esta conversación. Sin tarifas válidas o regla necesaria, no inventar precio o IVA cero. La) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 372.8000000000003 Tm (entrega pública en ese caso queda por definir.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 344.5000000000003 Tm (DESCUENTOS) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 327.5000000000003 Tm (Asesor decide descuento por porcentaje o monto fijo, con auditoría. No se acordó aprobación comercial) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 314.2000000000003 Tm (adicional. Validar que no produzca importes inválidos. Base del descuento y posible combinación de) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 300.90000000000026 Tm (ambos tipos siguen pendientes.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 272.60000000000025 Tm (ETAPAS DE ENTREGA) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 255.60000000000025 Tm (El desarrollo inmediato puede validar equipos sin precios reales de proveedor. El objetivo comercial) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 242.30000000000024 Tm (acordado incorpora importe calculado desde perfiles de empresa. No confundir esa falta de integración) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 229.00000000000023 Tm (con una decisión permanente de cotizar sin precio.) Tj ET
+0.78 0.82 0.89 RG 0.5 w 42 44 m 553 44 l S
+0.35 0.40 0.48 rg BT /F1 8 Tf 1 0 0 1 42 28 Tm (22 OCT 2026 | Definición acordada; implementación pendiente) Tj ET
+0.12 0.28 0.60 rg BT /F2 8 Tf 1 0 0 1 510 28 Tm (6 / 8) Tj ET
+endstream
+endobj
+18 0 obj
+<<
+/Type /Page
+/Resources <<
+/Font <<
+/F1 4 0 R
+/F2 5 0 R
+>>
+>>
+/MediaBox [ 0.0 0.0 595.28 841.89 ]
+/Parent 2 0 R
+/Contents 19 0 R
+>>
+endobj
+19 0 obj
+<<
+/Length 4065
+>>
+stream
+0.98 0.984 0.992 rg 0 0 595.28 841.89 re f
+0.09 0.16 0.32 rg 0 732 595.28 110 re f
+0.75 0.83 0.97 rg BT /F2 9 Tf 1 0 0 1 42 802 Tm (HELIOS / ACUERDOS DE PRODUCTO) Tj ET
+1 1 1 rg BT /F2 18 Tf 1 0 0 1 42 771 Tm (06 | Asesor, versiones y seguimiento) Tj ET
+0.86 0.91 0.98 rg BT /F1 9 Tf 1 0 0 1 42 748 Tm (Control humano después de la automatización) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 704 Tm (EDICIÓN DE COTIZACIÓN) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 687 Tm (Asesor puede cambiar equipos/cantidades y aplicar descuentos. Recalcular importes y validar) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 673.7 Tm (compatibilidad en cada modificación; no ocultar pérdida de cobertura ni incompatibilidades. Conservar) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 660.4000000000001 Tm (actor, fecha y cambios.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 632.1000000000001 Tm (BORRADOR Y ENVÍO) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 615.1000000000001 Tm (Editar borrador sin correos por cada ajuste. Botón Enviar actualización al lead publica nueva versión) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 601.8000000000002 Tm (y notifica por correo. Mantener versión anterior y su enlace; separar publicación de envío para) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 588.5000000000002 Tm (reintentar correo sin duplicar versiones.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 560.2000000000003 Tm (ATENCIÓN DE EXCEPCIONES) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 543.2000000000003 Tm (Si existe asesor responsable activo y autorizado, mantenerlo. Si no, enviar a Pendientes de atención.) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 529.9000000000003 Tm (Un asesor pulsa Tomar caso y queda como único responsable; evitar doble toma simultánea.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 501.60000000000036 Tm (CASO SIN TOMAR) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 484.60000000000036 Tm (Avisar al administrador tras plazo configurable, aún sin duración acordada. No se incluye reparto) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 471.30000000000035 Tm (rotativo en esta primera entrega. Reasignación por asesor inactivo o sin permisos queda por) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 458.00000000000034 Tm (concretar.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 429.70000000000033 Tm (ACCIONES DEL LEAD) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 412.70000000000033 Tm (Solicitar contacto, pedir cambios y aceptar para continuar con asesor. Registrar versión, fecha y) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 399.4000000000003 Tm (solicitud; notificar responsable o bandeja. Pedir cambios no modifica automáticamente lo publicado.) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 386.1000000000003 Tm (Aceptar no implica pago, firma, reserva ni contratación de instalación.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 357.8000000000003 Tm (VIGENCIA) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 340.8000000000003 Tm (Configurable por empresa; existe proposal_validity_days y debe reutilizarse si corresponde. Registrar) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 327.5000000000003 Tm (vencimiento por versión. Expiración de enlace, vigencia comercial y fecha de stock son diferentes.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 299.2000000000003 Tm (PREGUNTA DONDE SE PAUSÓ) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 282.2000000000003 Tm (Al vencer: propuesta de conservar consulta con aviso Vencida y sustituir Aceptar por Solicitar) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 268.90000000000026 Tm (actualización. EL USUARIO TODAVÍA NO LO CONFIRMÓ. Retomar exactamente esa pregunta antes de fijar) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 255.60000000000025 Tm (comportamiento.) Tj ET
+0.78 0.82 0.89 RG 0.5 w 42 44 m 553 44 l S
+0.35 0.40 0.48 rg BT /F1 8 Tf 1 0 0 1 42 28 Tm (22 OCT 2026 | Definición acordada; implementación pendiente) Tj ET
+0.12 0.28 0.60 rg BT /F2 8 Tf 1 0 0 1 510 28 Tm (7 / 8) Tj ET
+endstream
+endobj
+20 0 obj
+<<
+/Type /Page
+/Resources <<
+/Font <<
+/F1 4 0 R
+/F2 5 0 R
+>>
+>>
+/MediaBox [ 0.0 0.0 595.28 841.89 ]
+/Parent 2 0 R
+/Contents 21 0 R
+>>
+endobj
+21 0 obj
+<<
+/Length 4659
+>>
+stream
+0.98 0.984 0.992 rg 0 0 595.28 841.89 re f
+0.09 0.16 0.32 rg 0 732 595.28 110 re f
+0.75 0.83 0.97 rg BT /F2 9 Tf 1 0 0 1 42 802 Tm (HELIOS / ACUERDOS DE PRODUCTO) Tj ET
+1 1 1 rg BT /F2 18 Tf 1 0 0 1 42 771 Tm (07 | Avance y continuidad) Tj ET
+0.86 0.91 0.98 rg BT /F1 9 Tf 1 0 0 1 42 748 Tm (Pendientes para la siguiente sesión o agente) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 704 Tm (ARTEFACTOS EXISTENTES) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 687 Tm (RFC-001: docs/rfcs/001-cotizacion-ia-ubicacion-hsp.md. ADR-012: motor Syscom. ADR-013: ubicación.) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 673.7 Tm (ADR-014: catálogo HSP estatal. Requisitos e ingeniería solar también recibieron ajustes. MEMORY.md) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 660.4000000000001 Tm (contiene historial acumulativo obligatorio.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 632.1000000000001 Tm (NO IMPLEMENTADO EN ESTA CONVERSACIÓN) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 615.1000000000001 Tm (Motor nuevo, selección real del Ingeniero IA, adaptador Syscom, catálogo estatal NASA, mock de) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 601.8000000000002 Tm (geocodificación, configurador económico, propuestas versionadas, PDF de producto, entrega por correo,) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 588.5000000000002 Tm (bandeja y acciones del lead. Este PDF es material de junta, no evidencia de esas funciones.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 560.2000000000003 Tm (PENDIENTES DE PRODUCTO) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 543.2000000000003 Tm (Seis preguntas en RFC-001: vencimiento/versiones sustituidas; base y combinación de descuentos;) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 529.9000000000003 Tm (alcance de tarifas y falta de precio; prioridades entre equipos; expiración/renovación de enlace;) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 516.6000000000004 Tm (recuperación del formulario y datos faltantes.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 488.30000000000035 Tm (PENDIENTES TÉCNICOS) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 471.30000000000035 Tm (Verificar bundle para ramas no resumidas; fixtures y pruebas independientes; contrato real/cobertura) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 458.00000000000034 Tm (Syscom; metodología y datos NASA; conectar estados asíncronos sin romper correcciones en formulario;) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 444.70000000000033 Tm (confidencialidad y permisos; idempotencia y trazabilidad.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 416.4000000000003 Tm (ORDEN SUGERIDO, NO APROBADO) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 399.4000000000003 Tm (RFC ya consolidado. Cerrar reglas indispensables; implementar motor puro de interconexión; integrar) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 386.1000000000003 Tm (catálogo; probar recorridos con lector/geocodificación mock; implementar precios configurados y) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 372.8000000000003 Tm (versiones; entrega y seguimiento; luego evaluar lectura IA/geocodificación reales.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 344.5000000000003 Tm (PUNTO DE CONTINUACIÓN) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 327.5000000000003 Tm (RFC-001 reescrito y consolidado: contiene todas las decisiones vigentes, seis preguntas de producto y) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 314.2000000000003 Tm (tareas técnicas separadas. Continuar desde ese RFC y la memoria. No reabrir reglas aceptadas ni) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 300.90000000000026 Tm (interpretar propuestas pendientes como aprobadas.) Tj ET
+0.12 0.28 0.60 rg BT /F2 10 Tf 1 0 0 1 42 272.60000000000025 Tm (FUENTES) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 255.60000000000025 Tm (Base de cálculo: reverse engineering Syscom y bundle local. Referencias comparativas documentadas en) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 242.30000000000024 Tm (RFC: OpenSolar y Aurora \(perfiles\), Shopify y Merchant Center \(stock\), Salesforce y HubSpot) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 229.00000000000023 Tm (\(asignación\), Google/Mapbox \(ubicación\), Entrust/Microblink \(recaptura\). No son tarifas mexicanas ni) Tj ET
+0.12 0.16 0.23 rg BT /F1 9.4 Tf 1 0 0 1 42 215.70000000000022 Tm (políticas universales.) Tj ET
+0.78 0.82 0.89 RG 0.5 w 42 44 m 553 44 l S
+0.35 0.40 0.48 rg BT /F1 8 Tf 1 0 0 1 42 28 Tm (22 OCT 2026 | Definición acordada; implementación pendiente) Tj ET
+0.12 0.28 0.60 rg BT /F2 8 Tf 1 0 0 1 510 28 Tm (8 / 8) Tj ET
+endstream
+endobj
+xref
+0 22
+0000000000 65535 f 
+0000000015 00000 n 
+0000000253 00000 n 
+0000000360 00000 n 
+0000000409 00000 n 
+0000000506 00000 n 
+0000000608 00000 n 
+0000000756 00000 n 
+0000004313 00000 n 
+0000004461 00000 n 
+0000008561 00000 n 
+0000008711 00000 n 
+0000012733 00000 n 
+0000012883 00000 n 
+0000017401 00000 n 
+0000017551 00000 n 
+0000021661 00000 n 
+0000021811 00000 n 
+0000026241 00000 n 
+0000026391 00000 n 
+0000030509 00000 n 
+0000030659 00000 n 
+trailer
+<<
+/Size 22
+/Root 3 0 R
+/Info 1 0 R
+>>
+startxref
+35371
+%%EOF

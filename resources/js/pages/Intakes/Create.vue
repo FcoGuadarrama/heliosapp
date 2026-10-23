@@ -74,7 +74,7 @@ defineOptions({
                 :disabled="processing || !intakeEnabled"
                 class="space-y-6"
             >
-                <div class="space-y-3 rounded-lg border p-6">
+                <div class="surface-panel space-y-3">
                     <h2 class="mb-3 font-semibold">Prospecto</h2>
                     <div class="flex flex-wrap gap-4">
                         <label class="flex items-center gap-2"
@@ -161,7 +161,7 @@ defineOptions({
                     :error="errors.receipt"
                     :max-size-mb="(maxFileKb ?? 10240) / 1024"
                 />
-                <div class="space-y-3 rounded-lg border p-4">
+                <div class="surface-panel space-y-3">
                     <p class="text-sm whitespace-pre-line">
                         {{ privacyNotice.text }}
                     </p>
@@ -211,7 +211,7 @@ defineOptions({
             </fieldset>
         </Form>
         <section
-            class="space-y-3 rounded-lg border p-4"
+            class="surface-panel space-y-3"
             aria-labelledby="embed-heading"
         >
             <h2 id="embed-heading" class="font-medium">

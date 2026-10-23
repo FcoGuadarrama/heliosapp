@@ -1,43 +1,46 @@
 # Helios App — Ingeniería solar: parámetros y fuentes
 
-> v0.2 · 2026-10-21
-> **Este documento no contiene todavía ninguna fórmula ni constante verificada, y es
-> intencional.** Helios no puede inventar parámetros fotovoltaicos ni reglas de CFE.
-> Aquí se registra qué hace falta, de dónde debe venir y qué bloquea mientras no exista.
+> v0.3 · 2026-10-22
+> **Fuente de verdad para los cálculos:**
+> [reverse engineering del calculador Syscom](syscom-calculator-reverse-engineering.md).
+> Decisión confirmada por el responsable del producto. Sustituye los requisitos
+> anteriores que impedían dimensionar sin coordenadas o sin NASA POWER/PVWatts.
 
-## 1. Parámetros que bloquean el cálculo
+## 1. Base de cálculo adoptada
 
-El servicio `ParameterGate` comprueba estos conjuntos antes de permitir cualquier cálculo.
-Si falta alguno o no está marcado como verificado, el análisis **no entrega la cifra que
-dependería de él** y el resultado baja a `conditioned` o `requires_professional_review`,
-nombrando explícitamente el parámetro ausente.
+El motor debe reproducir las fórmulas, constantes, valores predeterminados,
+redondeos y selección de equipos documentados en la referencia Syscom:
+consumo diario, HSP por estado (default 5.0), PR por tipo de sistema,
+dimensionamiento de paneles, inversor, baterías y controlador.
+Se conservan las correcciones documentadas: híbrido solo con inversor híbrido
+y microinversores según módulos admitidos por unidad.
 
-| #   | Parámetro                               | Qué bloquea si falta                                | Origen requerido                                  |
-| --- | --------------------------------------- | --------------------------------------------------- | ------------------------------------------------- |
-| P1  | Irradiación por coordenadas             | Estimación de producción y todo el dimensionamiento | Fuente externa verificada (candidata: NASA POWER) |
-| P2  | Metodología de estimación de producción | Producción anual y mensual, ahorro, retorno         | Referencia documentada (candidata: PVWatts V8)    |
-| P3  | Modelo de pérdidas del sistema          | Producción realista                                 | Fuente técnica reconocida y citada                |
-| P4  | Tarifas CFE vigentes y su estructura    | Costo actual, ahorro, retorno de inversión          | Publicación oficial de CFE / DOF                  |
-| P5  | Esquema de compensación aplicable       | Cálculo del ahorro real                             | Normativa oficial vigente                         |
-| P6  | Reglas fiscales y su vigencia           | Total de la cotización                              | Fuente fiscal oficial                             |
+La IA utiliza este motor determinista; no genera fórmulas ni altera constantes.
+El bundle conservado en `docs/reference/syscom-calculator/calc_pretty.js`
+es la evidencia para resolver detalles de las fórmulas resumidas.
 
-**Ninguno de estos valores debe tomarse de la memoria de un modelo de lenguaje.**
+## 2. Alcance de los parámetros pendientes
 
-## 2. Candidatas a verificar
-
-Antes de integrarse, cada fuente requiere revisión de: cobertura geográfica para México,
-resolución espacial y temporal, latencia y límites de uso, condiciones de licencia para
-uso comercial, estabilidad de la API y política de versiones.
-
-- **NASA POWER** — propuesta como fuente inicial de irradiación.
-- **PVWatts V8 (NREL)** — propuesta como referencia de estimación de producción.
-
-Hasta completar esa revisión, ambas quedan como _candidatas_, no como decisión tomada.
+NASA POWER se adopta como origen de un catálogo HSP por estado, actualizado
+periódicamente, sin consulta por cada instalación. Usar la entidad de ubicación
+para resolver su valor y congelar versión y procedencia en la propuesta.
+La ubicación continúa aportando contexto al Ingeniero de IA. Período, agregación
+geográfica, frecuencia y caducidad quedan pendientes; no tratar una capital como
+promedio estatal. Mantener la última versión válida si falla una actualización,
+con aviso interno; si no hay valor válido, señalar el bloqueo sin fallback silencioso.
+El diseño vigente se detalla en [ADR-014](adrs/014-hsp-nasa-power.md).
+PVWatts sigue siendo una posible ampliación futura.
+La referencia no define tarifas CFE vigentes, compensación ni reglas fiscales.
+Esos datos se requieren únicamente para las cifras que dependan de ellos:
+ahorro, retorno e impuestos, respectivamente. Su ausencia no bloquea el
+dimensionamiento documentado ni el cálculo de costos y márgenes configurados.
+Un futuro `ParameterGate` debe comprobar las dependencias de cada cálculo,
+aceptando las constantes y valores predeterminados de la referencia adoptada.
 
 ## 3. Reglas de diseño del motor
 
-1. **Coordenadas, no promedios regionales.** No se sustituye la irradiación de un sitio
-   por un valor genérico por estado. Sin coordenadas, no hay estimación.
+1. **Fidelidad a Syscom.** Usar HSP por estado y los valores predeterminados
+   documentados. Las coordenadas no son requisito para este dimensionamiento.
 2. **Toda cifra declara su base.** Valor, unidad, fuente, supuestos y confianza viajan
    juntos. Una cifra sin procedencia es un defecto, no un resultado.
 3. **Las verificaciones que requieren inspección física se enumeran como pendientes**, no
@@ -76,17 +79,53 @@ explícita y documentada en cada cotización.
 Los porcentajes que use cada empresa son **configuración del comprador**. Helios no trae
 valores recomendados ni predeterminados obligatorios.
 
-## 5. Qué necesito del negocio
+## 5. Primera entrega de dimensionamiento
 
-Para desbloquear P1–P6 hace falta, en este orden:
+Disponible en **Dimensionador** del menú o `/engineering/interconnection`, con
+sesión y permiso `receipts.import`. No necesita IA, Google, llamadas de red ni
+migraciones nuevas. Usa el motor puro `app/Domain/Solar`, implementado desde cero.
 
-1. Decisión sobre la fuente de irradiación y confirmación de sus condiciones de uso.
-2. Metodología de estimación de producción que Helios debe replicar, con su referencia.
-3. Modelo de pérdidas a aplicar, con su fuente.
-4. Tarifas CFE vigentes con su publicación oficial y fechas de vigencia.
-5. Esquema de compensación aplicable a los proyectos que atiende la empresa.
-6. Reglas fiscales aplicables y su vigencia.
+Capturar consumo en kWh, días, HSP manual de prueba y watts de un panel.
+Opcionalmente agregar histórico y capacidad de módulos por microinversor.
+Los campos están vacíos inicialmente: no se suponen HSP ni datos de un recibo.
 
-Mientras tanto, el desarrollo del motor avanza: las estructuras, los contratos, el
-versionado, la trazabilidad y las pruebas se construyen con los parámetros como datos
-externos cargables. Lo que no avanza es la emisión de cifras.
+La calculadora funciona sin API ni cuenta de proveedor. El resultado comienza
+con una lista de necesidades: cantidad y watts de los paneles, potencia DC total
+y un inversor central con capacidad AC mínima en kW. Si se captura capacidad de
+módulos por microinversor, muestra su cantidad como alternativa al inversor
+central, no como equipo adicional. La potencia mínima no constituye una selección
+de modelo comercial ni acredita compatibilidad. Estructura, cableado y
+protecciones requieren el diseño posterior de la instalación; no se calculan
+baterías en esta entrega de interconexión.
+
+Ejemplo sintético: 600 kWh, 60 días, HSP 5 y panel de 550 W producen 10 kWh/día,
+2.5974025974 kWp requeridos, 5 paneles, 2.75 kWp seleccionados e inversor mínimo
+de referencia de 2165 W. Con dos módulos por microinversor se cuentan tres unidades;
+esto no acredita su potencia o compatibilidad eléctrica.
+
+El histórico usa la misma duración del período actual para todas sus entradas,
+conforme a `calc_pretty.js` líneas 3223–3256. Menos de 330 días usa el consumo
+actual; desde 330 usa promedio histórico. Si la cobertura excede 400 días se
+normaliza a 365. Registrar cada período una sola vez; el motor no agrega el actual
+al histórico automáticamente ni dispone de fechas para detectar duplicados.
+El mínimo de inversor se calcula sobre kWp requeridos, antes de redondear paneles.
+
+Esta pantalla solo dimensiona y no guarda resultados, importa archivos, selecciona
+equipos del catálogo, comprueba existencias o calcula precios. Cambiar una entrada
+retira el resultado anterior hasta volver a calcular. Se identifican la base de
+consumo, cobertura histórica y versión del motor. No habilita cotizaciones reales
+desde HSP o entradas de prueba.
+
+Pendientes: catálogo Syscom, HSP estatal NASA validado, validadores eléctricos,
+Ingeniero IA, perfiles comerciales, snapshots, publicación y entrega del RFC-001.
+Precios configurados forman parte del objetivo comercial, aunque esta primera
+entrega técnica aún no los calcule.
+
+## 6. RFC y decisiones relacionadas
+
+El diseño de integración se detalla en [RFC-001](rfcs/001-cotizacion-ia-ubicacion-hsp.md)
+y los [ADR-012](adrs/012-motor-syscom.md),
+[ADR-013](adrs/013-ubicacion-desde-recibo-cfe.md) y
+[ADR-014](adrs/014-hsp-nasa-power.md). La tabla Syscom corresponde al modo de
+referencia; NASA es el origen del catálogo estatal decidido para la primera entrega.
+Las políticas pendientes están identificadas en esos documentos.

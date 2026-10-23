@@ -131,6 +131,14 @@ JSON válido no garantiza información correcta. Las correcciones posteriores se
 
 ## 6. Proveedores
 
+El **Ingeniero de IA** es responsable del análisis contextual y la selección de
+los equipos para la instalación: considera datos útiles y validados del recibo,
+ubicación geográfica y resultados de herramientas de cálculo, catálogo y validación.
+La fuente de fórmulas Syscom no obliga a comprar equipos a Syscom. Las empresas
+usuarias pueden trabajar con otros proveedores; los contratos del dominio deben
+permitirlo desde el inicio. Los criterios de preferencia se detallarán en el
+[RFC-001](rfcs/001-cotizacion-ia-ubicacion-hsp.md).
+
 Primer distribuidor: **Syscom México**, siguiendo su documentación oficial vigente.
 La arquitectura admite otros distribuidores después. Cada adaptador declara **qué sabe
 hacer**; no se asume paridad de funciones entre proveedores.
@@ -139,6 +147,18 @@ Cada cotización **congela** los productos, precios y especificaciones usados, c
 fecha de consulta. Antes de liberar una orden hay que **re-verificar** disponibilidad,
 precio y vigencia técnica. No se sustituye un equipo por otro sin re-validar
 compatibilidad.
+
+### Estimación de equipos e instalación separada
+
+Decisión de producto: perfiles de estimación por kWp, por panel o por paquete,
+siempre **sin instalación**. El configurador de presupuestos del CRM debe explicar
+junto a los importes que se capturan precios sin IVA y sin instalación. Toda cotización,
+vista de propuesta, PDF y resumen económico debe indicar visiblemente:
+**“La instalación no está incluida. Se cotiza por separado.”**
+No presentar importes como total instalado ni instalación con valor cero. El
+Ingeniero IA aplica perfiles configurados mediante herramientas deterministas.
+La cotización debe desglosar **subtotal, IVA y total**, sin incluir instalación.
+Reglas y alcance en [RFC-001](rfcs/001-cotizacion-ia-ubicacion-hsp.md).
 
 ## 7. Fases
 

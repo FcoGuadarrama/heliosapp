@@ -2,7 +2,7 @@
 import { Head, Link, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import Heading from '@/components/Heading.vue';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { AlertCircle } from '@lucide/vue';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -88,17 +88,13 @@ defineOptions({
     <Head :title="`Proyecto - ${project.code}`" />
 
     <div class="flex flex-col space-y-6">
-        <div class="flex items-center justify-between">
-            <Heading
-                variant="small"
-                :title="project.code"
-                :description="project.name"
-            />
+        <div class="page-header">
+            <Heading :title="project.code" :description="project.name" />
 
             <Link
                 :href="`/projects/${project.id}/edit`"
                 as="button"
-                class="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow hover:bg-primary/90"
+                :class="buttonVariants()"
             >
                 Editar proyecto
             </Link>
@@ -118,29 +114,29 @@ defineOptions({
         </Alert>
 
         <div class="grid gap-4 md:grid-cols-4">
-            <div class="rounded-lg border p-4">
+            <div class="surface-panel">
                 <p class="text-sm text-muted-foreground">Estado</p>
                 <Badge class="mt-2">
                     {{ statusLabels[project.status] }}
                 </Badge>
             </div>
-            <div class="rounded-lg border p-4">
+            <div class="surface-panel">
                 <p class="text-sm text-muted-foreground">Tipo de instalación</p>
                 <p class="mt-2 font-medium">
                     {{ installationLabels[project.installation_type] }}
                 </p>
             </div>
-            <div class="rounded-lg border p-4">
+            <div class="surface-panel">
                 <p class="text-sm text-muted-foreground">Cliente</p>
                 <p class="mt-2 font-medium">{{ clientName }}</p>
             </div>
-            <div class="rounded-lg border p-4">
+            <div class="surface-panel">
                 <p class="text-sm text-muted-foreground">Creado</p>
                 <p class="mt-2 font-medium">{{ project.created_at }}</p>
             </div>
         </div>
 
-        <div class="rounded-lg border p-6">
+        <div class="surface-panel">
             <h3 class="mb-4 text-lg font-semibold">Información del sitio</h3>
             <div class="grid gap-4 md:grid-cols-2">
                 <div>
@@ -172,7 +168,7 @@ defineOptions({
             </div>
         </div>
 
-        <div class="rounded-lg border p-6">
+        <div class="surface-panel">
             <h3 class="mb-4 text-lg font-semibold">Coordenadas</h3>
             <div class="grid gap-4 md:grid-cols-2">
                 <div>
@@ -190,12 +186,12 @@ defineOptions({
             </div>
         </div>
 
-        <div v-if="project.notes" class="rounded-lg border p-6">
+        <div v-if="project.notes" class="surface-panel">
             <h3 class="mb-4 text-lg font-semibold">Notas</h3>
             <p class="text-sm">{{ project.notes }}</p>
         </div>
 
-        <div class="rounded-lg border p-6">
+        <div class="surface-panel">
             <h3 class="mb-4 text-lg font-semibold">Datos energéticos</h3>
             <p class="text-sm text-muted-foreground">
                 Los datos energéticos se habilitarán después de importar el

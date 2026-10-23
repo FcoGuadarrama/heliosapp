@@ -74,11 +74,12 @@ prueba sin ningún modelo presente. Ollama se integra en F5.
 versión del motor, resultado y advertencias. Misma entrada + mismas versiones = mismo
 resultado.
 
-**ADR-005 — Los parámetros no verificados bloquean el cálculo.** Un `ParameterGate`
-comprueba que las tarifas, la fuente de irradiación y el modelo de pérdidas estén marcados
-como verificados antes de calcular. Si no lo están, el análisis termina en `conditioned` o
-`requires_professional_review` nombrando el parámetro ausente. **Nunca se sustituye un
-parámetro faltante por un valor por defecto.**
+**ADR-005 — Fuente de verdad de cálculos: Syscom (actualizado 2026-10-22).**
+El motor reproduce [la referencia Syscom](syscom-calculator-reverse-engineering.md),
+incluidos HSP por estado, PR y valores predeterminados documentados.
+`ParameterGate` comprueba únicamente los parámetros que requiere cada operación.
+Las tarifas, compensación e impuestos pendientes bloquean sus cifras dependientes,
+no el dimensionamiento de Syscom. La IA no inventa ni modifica los cálculos.
 
 **ADR-006 — Dato no disponible ≠ dato nulo ≠ cero.** Los adaptadores de proveedor
 devuelven valores envueltos: `Available(valor)` o `Unavailable(motivo)`. Un `null` crudo
@@ -102,6 +103,15 @@ volumen lo justifica.
 
 **ADR-011 — Sin starter kit de equipos.** No se usa `--teams`. El dominio `Identity` es
 propio porque "empresa" aquí es la instalación completa, no un grupo dentro de la app.
+
+### Decisiones de cotización, ubicación y recurso solar (2026-10-22)
+
+El [RFC-001](rfcs/001-cotizacion-ia-ubicacion-hsp.md) reúne el flujo propuesto.
+[ADR-012](adrs/012-motor-syscom.md) formaliza la adopción aceptada de Syscom.
+[ADR-013](adrs/013-ubicacion-desde-recibo-cfe.md) propone resolver y confirmar
+la ubicación del suministro; [ADR-014](adrs/014-hsp-nasa-power.md) propone
+obtener HSP con NASA. Estos dos últimos no implican integración implementada.
+La fuente NASA sustituiría la entrada HSP, manteniendo las fórmulas adoptadas.
 
 ## 4. Contratos esenciales
 
@@ -180,7 +190,8 @@ interface ProductionEstimator {  // PVWatts V8 u otro, previa verificación
 }
 ```
 
-Sin coordenadas no hay irradiación. **No se sustituye por un promedio estatal.**
+El dimensionamiento adoptado usa HSP por estado según Syscom, sin exigir coordenadas.
+Estas interfaces de irradiación y producción son ampliaciones futuras.
 
 ### 4.5 Compatibilidad eléctrica
 
@@ -253,17 +264,16 @@ modificaciones sobre precios, perfiles comerciales y cotizaciones.
 
 | #   | Decisión                                                                                                | Estado                                                                           |
 | --- | ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| D1  | Fuente de irradiación definitiva (NASA POWER / PVGIS) y condiciones de uso                              | **Pendiente de verificación**                                                    |
-| D2  | Uso de PVWatts V8 como referencia de producción: cobertura, límites de cuota y términos                 | **Pendiente de verificación**                                                    |
+| D1  | Fuente de irradiación definitiva (NASA POWER / PVGIS) y condiciones de uso                              | **Ampliación futura; no bloquea Syscom**                                         |
+| D2  | Uso de PVWatts V8 como referencia de producción: cobertura, límites de cuota y términos                 | **Ampliación futura; no bloquea Syscom**                                         |
 | D3  | Origen y vigencia de las tarifas CFE y del esquema de compensación                                      | **Pendiente de fuente oficial**                                                  |
 | D4  | Reglas fiscales aplicables y su vigencia (no asumir un porcentaje único)                                | **Pendiente de fuente oficial**                                                  |
 | D5  | Motor de PDF: `spatie/laravel-pdf` (Chromium, mejor tipografía) vs `dompdf` (sin dependencias externas) | Propuesta: dompdf, por facilidad de instalación en infraestructura del comprador |
 | D6  | Paquete de auditoría: `spatie/laravel-activitylog` vs tabla propia                                      | Propuesta: activitylog                                                           |
 | D7  | ¿Helios publica un catálogo técnico base curado, o cada empresa parte de cero?                          | Pendiente de producto                                                            |
 
-D1–D4 **bloquean cálculos**, no el desarrollo: el motor se construye con los parámetros
-como datos verificables externos, y `ParameterGate` impide producir cifras mientras no
-estén cargados y marcados como verificados.
+D1–D2 no bloquean el motor Syscom adoptado. D3–D4 condicionan únicamente
+los resultados que dependen de tarifas, compensación o impuestos.
 
 ## 9. Ingreso de recibos y límites de seguridad (v0.3)
 
@@ -271,7 +281,8 @@ Flujo de producto: PDF/imagen → prospecto (`Client`) → JSON interno Ollama/m
 validación CFE → ingeniero con motores/proveedores reales → presupuesto configurable →
 cotización → seguimiento. Los proyectos existentes son internos y opcionales; no se
 obliga al prospecto a crearlos. `ParameterGate` sigue siendo un requisito previo a emitir
-cifras: mientras fuentes/parámetros no estén verificados no hay cálculos ni precios inventados.
+cifras: acepta la referencia Syscom y exige los datos propios de cada operación;
+no se inventan precios ni parámetros ajenos a esa referencia.
 No se implementa IA real, web manager, constructor de landings ni API pública completa.
 
 - GET/POST `/embed/cfe` se registran fuera de `web`: sin sesión, cookies, usuario CRM

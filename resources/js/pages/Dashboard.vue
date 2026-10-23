@@ -17,7 +17,7 @@ defineOptions({
             title="CRM de cotizaciones solares"
             description="Recibe prospectos y reúne sus recibos CFE en un solo lugar."
         />
-        <section class="max-w-2xl space-y-4 rounded-lg border p-6">
+        <section class="surface-panel max-w-2xl space-y-4">
             <h2 class="text-lg font-semibold">
                 Empieza con un prospecto y su recibo
             </h2>

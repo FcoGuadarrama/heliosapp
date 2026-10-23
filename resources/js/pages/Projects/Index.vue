@@ -8,7 +8,7 @@ const confirmDelete = (message: string): boolean => {
 import Heading from '@/components/Heading.vue';
 import PaginationLinks from '@/components/PaginationLinks.vue';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { index as projectsIndex } from '@/routes/projects';
 
 interface Project {
@@ -78,9 +78,8 @@ defineOptions({
     <Head title="Proyectos" />
 
     <div class="flex flex-col space-y-6">
-        <div class="flex items-center justify-between">
+        <div class="page-header">
             <Heading
-                variant="small"
                 title="Proyectos solares"
                 description="Gestiona tus proyectos y su progreso"
             />
@@ -88,14 +87,14 @@ defineOptions({
             <Link
                 href="/projects/create"
                 as="button"
-                class="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow hover:bg-primary/90"
+                :class="buttonVariants()"
                 data-test="create-project-button"
             >
                 Nuevo proyecto
             </Link>
         </div>
 
-        <div class="w-full overflow-x-auto rounded-lg border">
+        <div class="data-table">
             <table class="w-full min-w-[56rem] text-left text-sm">
                 <thead class="bg-muted/50">
                     <tr>
@@ -138,14 +137,24 @@ defineOptions({
                                 <Link
                                     :href="`/projects/${project.id}`"
                                     as="button"
-                                    class="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-3 text-sm font-medium shadow-sm hover:bg-accent hover:text-accent-foreground"
+                                    :class="
+                                        buttonVariants({
+                                            variant: 'outline',
+                                            size: 'sm',
+                                        })
+                                    "
                                 >
                                     Ver
                                 </Link>
                                 <Link
                                     :href="`/projects/${project.id}/edit`"
                                     as="button"
-                                    class="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-3 text-sm font-medium shadow-sm hover:bg-accent hover:text-accent-foreground"
+                                    :class="
+                                        buttonVariants({
+                                            variant: 'outline',
+                                            size: 'sm',
+                                        })
+                                    "
                                 >
                                     Editar
                                 </Link>
