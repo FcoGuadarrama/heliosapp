@@ -2125,3 +2125,321 @@ Las entradas son acumulativas; una propuesta no equivale a una implementación.
 - **Validación local:** se mantienen 347 pruebas/1716 aserciones y checks completos
   correctos de la entrada anterior. No se cambió workflow para ocultar el bloqueo.
   Sin despliegue ni cambios a facturación. Evidencia consultada con gh run/api.
+
+## 2026-10-27 — Codex: investigación de skills para lector IA y RFC
+
+- **Dirección del usuario:** pausar la elaboración del RFC del lector/cotizador
+  y primero investigar skills útiles. No se creó RFC ni se cambió implementación.
+- **Skill aplicada:** find-skills, leída localmente. Consultados leaderboard,
+  fichas de skills y repositorios; inspeccionados SKILL.md originales de
+  anthropics/skills (doc-coauthoring), obra/superpowers (brainstorming y
+  systematic-debugging) y wshobson/agents (llm-evaluation).
+- **Recomendación propuesta:** doc-coauthoring para RFC colaborativo;
+  brainstorming para alcance antes de código; systematic-debugging para causa
+  raíz del fallo; llm-evaluation para comparación y regresiones del lector.
+  No instaladas ni aplicadas esas cuatro skills; selección pendiente del usuario.
+- **Límites:** son métodos de trabajo, no modelos OCR ni conocimiento certificado
+  de CFE/ingeniería solar. Evaluación requiere referencias privadas independientes
+  y métricas exactas por campo; ejemplos Python de la skill no obligan a cambiar
+  el stack PHP/Vue. Evitar registrar recibos o secretos siguiendo ejemplos de logs.
+- **Validación:** lectura de fuentes públicas y metadatos de adopción; no ejecución
+  ni auditoría integral de paquetes. Solo MEMORY.md modificado; sin pruebas de
+  aplicación por investigación documental. Seguimiento: elegir e instalar skills
+  concretas y retomar definición del lector con criterios verificables.
+
+## 2026-10-27 — Codex: búsqueda enfocada en OCR CFE e Ingeniero IA
+
+- **Aclaración:** el usuario busca skills técnicas de OCR PDF/imagen y del
+  Ingeniero IA, no principalmente métodos de planificación. Sustituye el foco
+  de la recomendación anterior; RFC e implementación siguen pausados.
+- **Investigado con find-skills:** smart-ocr de claude-office-skills/skills
+  (PaddleOCR), pdf de anthropics/skills y langchain-architecture de
+  wshobson/agents. Consultadas fichas/adopción/repositorios y SKILL.md originales.
+  llm-evaluation mantiene utilidad para validar extracción y decisiones.
+- **Conclusión propuesta:** pdf como apoyo para PDF digital/escaneado; smart-ocr
+  como candidata experimental para fotos y escaneos, sin exactitud CFE demostrada.
+  LangChain aporta patrones de herramientas/estado, pero introduce stack Python
+  y no se propone adoptarlo en Laravel sin justificarlo. Ninguna skill examinada
+  demuestra especialización CFE/Syscom/ingeniería solar mexicana.
+- **Límites:** smart-ocr contiene ejemplos de API y lenguajes que deben cotejarse
+  con la versión de PaddleOCR antes de ejecutar; no es un adaptador listo.
+  Recomendación de definir conocimiento específico Helios con contrato CFE,
+  evidencia y herramientas deterministas; no se creó esa skill ni se instaló nada.
+- **Validación:** investigación web de fuentes originales; no benchmark, descarga
+  de modelos, ejecución OCR ni cambios de aplicación. Solo memoria actualizada.
+
+## 2026-10-27 — Codex: instalación y evaluación de skills de lectura IA
+
+- **Autorizado/realizado:** usuario permite instalar o evaluar. Skill-installer
+  leída y aplicada; instalador oficial descargó pdf de anthropics/skills y
+  llm-evaluation de wshobson/agents en ~/.codex/skills con aprobación de entorno.
+  Lectura posterior de ambos SKILL.md confirmó identidad y contenido. Disponibles
+  en próximo turno; no se instalaron dependencias OCR/modelos ni cambió Helios.
+- **Evaluado:** smart-ocr no instalada: ejemplos sin versión fijada y temporales
+  PDF sin limpieza garantizada. Skills oficiales PaddleOCR descubiertas en guía
+  oficial: requieren token/servicio por defecto; no instaladas ni enviadas muestras.
+  LangChain sigue fuera por ausencia de decisión de stack.
+- **Entregable:** docs/receipt-ai-skills-evaluation.md registra decisión, fuentes,
+  límites y evaluación propuesta por tipo de entrada, exactitud/evidencia por
+  campo, aceptación errónea, latencia y casos del Ingeniero IA con herramientas.
+  No equivale a benchmark ni RFC aceptado; umbrales/muestras siguen por definir.
+- **Validación:** instalaciones exitosas, lectura de archivos y fuentes oficiales;
+  diff --check y aislop de cambios documentales. Sin pruebas de aplicación porque
+  no cambió implementación. Pendiente retomar RFC y evaluación con referencias
+  privadas independientes; no se afirma activación del cotizador ni precisión nueva.
+
+## 2026-10-27 — Codex: RFC-003 del lector CFE PDF con IA
+
+- **Solicitado/decidido:** definir primero RFC de lectura PDF con nuevas skills.
+  Usuario confirma mediante pregunta: revisión solo cuando haga falta; recibos
+  verificables avanzan automáticamente. No se autorizó ni inició implementación.
+- **Documentado:** RFC-003 cubre PDF digital/escaneado/mixto, clasificación por
+  página, texto/OCR e interpretación IA con evidencia, contrato CFE v1 intacto,
+  histórico completo, conciliación/validación, revisión condicional, fallos
+  técnicos/recaptura, privacidad, idempotencia, operación y entregas verificables.
+  Distingue aceptación del lector de ubicación/HSP requeridos para cálculo.
+- **Evaluación propuesta, no aprobada ni ejecutada:** 60 PDF independientes,
+  repetición generativa, reserva y referencias humanas; métricas por campo/fila,
+  aceptación errónea, automatización y latencia. Umbrales 95% exactitud crítica,
+  70% automatización por clase y p95 120 s son propuestas, no resultados o SLA.
+  Cero errores críticos/histórico observados en autoaceptados como puerta inicial,
+  con incertidumbre explícita. Modelo/OCR, equipo y matriz de avisos pendientes.
+- **Skills:** pdf y llm-evaluation leídas y aplicadas, incluida referencia de
+  evaluación; sin copiar ejemplos Python ni añadir dependencias. Fotografías
+  mantienen alcance de evaluación separado; Ingeniero IA comercial no queda cerrado.
+- **Áreas:** docs/rfcs/003-lectura-cfe-pdf-ia.md, enlace desde RFC-001 y estado
+  actualizado en receipt-ai-skills-evaluation.md; memoria. Inspeccionados extractor,
+  grounding, contratos y validadores. No se diagnosticó una carga real concreta.
+- **Validación:** enlaces locales, diff --check y aislop; sin pruebas de aplicación
+  por cambios exclusivamente documentales. Sin benchmark, recibos procesados,
+  configuración modificada ni precisión nueva acreditada. Pendiente revisar
+  propuestas con usuario antes de implementación y evaluación privada.
+
+## 2026-10-27 — Registro operativo: corrección de autoría ADR/RFC
+
+- **Instrucción del usuario aplicada:** autoría exclusiva del responsable indicado
+  en AGENTS.md para todos los ADR y RFC; ningún crédito autoral o de coautoría
+  para agentes. Esta instrucción sustituye cualquier atribución anterior.
+- **Corregido:** ocho documentos en docs/adrs y docs/rfcs; atribución común para
+  ADR-001–011 dentro de docs/architecture.md. Regla persistente en AGENTS.md.
+  Las entradas históricas de actividad son registros operativos, no autoría.
+- **Validación:** inventario completo de ADR/RFC, comprobación de atribución única,
+  ausencia de Codex en esos documentos, diff --check y aislop. Sin cambios de
+  aplicación ni pruebas de ejecución necesarias.
+
+## 2026-10-27 — Registro operativo: datos mínimos y flujo de cotización
+
+- **Decisiones recibidas:** periodo/consumo, histórico, tarifa y dirección, sin
+  titular ni identificadores; incluir actual sin duplicar, estimar con cobertura
+  menor a año, ambigüedad a asesor también desde embebido, dirección de suministro
+  como instalación si inequívoca, tarifas soportadas, cobertura 100%, existencia
+  inmediata antes que precio y materiales de instalación promedio con salvedades.
+- **Investigado:** motor usa kWh diarios; histórico count*periodDays, denominador
+  365 si supera 400. Selector actual toma 330–400 días anteriores y con histórico
+  corto vuelve al periodo actual. No cumple todavía aprovechar todos los periodos.
+- **Propuesta pendiente:** promedio ponderado por días reales, anualizado diario
+  por 365; ventana temporal y adaptación versionada al motor por confirmar.
+  Confirmación al cliente y aprobación del asesor requieren aclaración; respuesta
+  10 no reconfirma precio_lista/IVA. No se implementaron estas propuestas.
+- **Áreas:** RFC-001 y RFC-003 con prioridad explícita sobre propuestas previas.
+  Skills pdf y llm-evaluation consultadas; inspección del motor y referencia.
+- **Validación:** diff --check y aislop correctos; sin cambios de código, recibos
+  ejecutados ni pruebas de aplicación. Pendiente resolver preguntas con usuario.
+
+## 2026-10-27 — Registro operativo: promedio y estimación comercial confirmados
+
+- **Aceptado por usuario:** usar todos los periodos únicos, actual e histórico,
+  promedio diario suma kWh/suma días cubiertos; mostrar cobertura y anualizado.
+  Estimar también con menos de año. Sustituye la confirmación pendiente anterior;
+  la adaptación versionada del motor sigue sin implementarse.
+- **Entrega:** cliente embebido recibe estimación real de materiales de instalación
+  general antes de aprobación del asesor si pasan controles. Definitiva requiere
+  confirmación administrativa. Excluir mano de obra, indicar supuestos/variaciones;
+  ambigüedad pasa a asesor y bloquea estimación automática.
+- **Precio:** confirmado lista Syscom más IVA; se conserva configuración local16
+  previamente aceptada y modo sin margen adicional. Proveedor por empresa mediante
+  API conectada por responsable de producto o inventario interno es evolución
+  futura; primera entrega solo Syscom, sin construir multiproveedor ahora.
+- **Áreas:** RFC-001 y RFC-003; datos fuera del alcance quedan vacíos en contrato,
+  duplicados/huecos/traslapes explicitados. Autoría exclusiva preservada.
+- **Validación:** revisión documental, diff --check y aislop. Sin código cambiado,
+  benchmark, recibos procesados ni pruebas de aplicación; pendientes técnicos del
+  RFC permanecen abiertos, sin declarar lector/cotizador completos.
+
+## 2026-10-27 — Registro operativo: precisión sobre entrada diaria del motor
+
+- **Consulta:** comprobar si Syscom recibe directamente promedio diario.
+- **Verificado:** artefacto local docs/reference/syscom-calculator/calc_pretty.js,
+  e$ (3223), eD (3243) y dimensionamiento (1797–1802): estado contiene consumo de
+  periodo/días/histórico; deriva kWh diarios antes de kwp=diario/(0.77*HSP).
+  InterconnectionInput/Calculator de Helios siguen esa separación. La interfaz
+  actual no recibe un campo directo de promedio diario. Afirmación previa sobre
+  lo que recibe el motor era imprecisa; RFC-003 lo distingue ahora expresamente.
+- **Límite:** verificación estática de copia local, no sitio Syscom actual ni
+  servicio remoto. Promedio ponderado con todos los días es decisión Helios que
+  requiere adaptación versionada; no equivale a política histórica del bundle.
+- **Validación:** lectura de funciones y líneas, diff --check y aislop. Solo
+  documentación/memoria; sin modificación del motor ni nuevas pruebas ejecutadas.
+
+## 2026-10-27 — Registro operativo: cierre de aclaraciones del lector y equipos
+
+- **Autorizado:** adaptar entrada del motor al promedio por días reales y todos
+  los periodos sin duplicar, conservando fórmulas Syscom. Aún no implementado.
+- **Datos ausentes:** usuario rechaza deducir fechas/duraciones; trabajar con lo
+  disponible e informar al cliente embebido o asesor. RFC explicita usar periodos
+  con kWh/días verificables, avisar exclusiones y no calcular promedio diario sin
+  denominador verificable. Filas ambiguas siguen pasando a revisión.
+- **Alcance sustituido:** equipos (paneles, inversor, etc.) por ahora; sin asumir
+  instalación estándar ni BOM completa de obra, sin mano de obra. Sustituye el
+  alcance previo de todos los materiales para una instalación general.
+- **Bloqueo confirmado:** falta de stock, precio o información de compatibilidad
+  detiene estimación y deriva a asesor. No ocultar faltantes ni inventar valores.
+- **Áreas/validación:** RFC-001, RFC-003 y memoria; diff --check y aislop. Solo
+  documentación; sin código, cálculos, pruebas de aplicación o activación nueva.
+
+## 2026-10-27 — Registro operativo: revisión de propuestas pendientes del RFC
+
+- **Solicitado:** resolver propuestas del RFC antes de producir ADR. Revisado
+  RFC-003 completo; no se interpreta la petición como autorización para marcar
+  automáticamente todas las propuestas aceptadas o borrar controles de evaluación.
+- **Pendientes identificados:** arquitectura/modelo local, cobertura PDF/imagen,
+  corpus y umbrales de evaluación, latencia y política de advertencias/reevaluación.
+  Decisiones de producto previamente aceptadas se conservan.
+- **Siguiente paso:** presentar decisiones en lenguaje de producto y explicitar
+  qué parámetros técnicos puede resolver implementación. No crear ADR todavía.
+- **Validación:** lectura del RFC y memoria; diff --check. Solo registro operativo;
+  sin cambios al estado de aprobación, código o configuración.
+
+## 2026-10-27 — Registro operativo: decisiones restantes RFC-003 confirmadas
+
+- **Confirmado:** todos los formatos desde primera entrega: fotografías/imágenes
+  JPEG/PNG/WebP, PDF digital, escaneado y mixto. Usuario reitera explícitamente
+  que fotografías, PDF digital y escaneado deben estar incluidos. Eliminada su
+  posposición anterior; verificar cada categoría es requisito de entrega.
+- **Aceptado:** procesamiento local con adaptadores existentes, revisión solo
+  cuando haga falta y faltantes no impeditivos informados, evaluación con recibos
+  representativos y ningún error crítico observado entre autoaceptados; versiones
+  trazables de correcciones/relecturas preservando original.
+- **Corregido:** RFC-003 cambia título/estado a definición funcional aceptada;
+  elimina requisitos arbitrarios 60/95%/70%/120s y pendientes de aprobación ya
+  resueltos. Modelo definitivo/latencia quedan por medir durante ejecución; no se
+  inventan resultados. RFC-001 enlaza alcance/estado actualizados.
+- **Skills:** pdf y llm-evaluation aplicadas a distinción por categoría y pruebas.
+  Sin ADR nuevos, código, configuración, benchmark ni activación. Adaptación de
+  persistencia y motor y preparación de referencias siguen por ejecutar.
+- **Validación:** diff --check, enlaces locales y aislop; autoría exclusiva del
+  responsable de producto preservada. Memoria registra actividad, no autoría.
+
+## 2026-10-27 — Registro operativo: primer ciclo TDD de promedio y dimensionamiento
+
+- **Solicitado:** empezar TDD con pruebas de código. Rojo observado primero:
+  AnnualReceiptHistory 10/11 casos fallaron con selección anterior; pruebas de
+  nueva entrada del motor fallaron sin ConsumptionAverage. Integración roja:
+  cálculo anterior 2.251082 kWp frente a 2.092352 esperados con 1450 kWh/180 días.
+- **Implementado:** AnnualReceiptHistory v2 suma periodos únicos verificables,
+  incluido actual, pondera por días reales, admite menos de año y más de 400 días,
+  conserva cero consumido y excluye huecos del denominador. Registra índices
+  excluidos por faltantes; traslapes, contradicciones, fechas imposibles, consumos
+  negativos y duración impresa incompatible requieren revisión.
+- **Motor:** ConsumptionAverage valida total positivo finito/días positivos;
+  entrada explícita opcional al motor v2 tiene precedencia sobre aproximación
+  histórica. Fórmulas Syscom PR/HSP, inversor y redondeos conservadas. Llamadas
+  anteriores mantienen comportamiento de entrada; sin reescribir snapshots.
+- **Integración:** ReadAndSizeReceipt utiliza esa entrada y congela total/días,
+  selección completa y política. Prueba real de servicios/SQLite con lector fake
+  acredita 11 periodos más actual: 7120 kWh/720 días, sin dividir entre 365.
+- **Áreas:** AnnualReceiptHistory, ConsumptionAverage, InterconnectionInput y
+  Calculator, ReadAndSizeReceipt; tests unitarios de histórico/motor y Feature
+  AutomaticReceiptAnalysisTest. RFC-001/003 y guía de análisis reconciliados.
+- **Validación final:** 364 pruebas/1750 aserciones, PHPStan sin errores, Pint
+  focal y diff --check correctos. Aislop 100 sin hallazgos; su formatter PHP no
+  estaba disponible, cubierto por Pint. No dependencias ni migraciones nuevas.
+- **Límites:** no evaluación OCR/IA, llamadas Syscom ni activación nueva. El
+  normalizador y revisión previos conservan controles de duplicados/campos
+  críticos; la deduplicación se prueba en el selector y no declara cerrado todo
+  el flujo automático. Avisos visibles al cliente y aceptación condicional
+  siguen por implementar. Sin ADR nuevos, commit, push ni datos reales usados.
+
+## 2026-10-27 — Registro operativo: lectura íntegra IA, sin esfuerzo OCR local
+
+- **Corrección explícita de producto:** toda lectura de recibos (PDF digital,
+  escaneado, mixto y fotografías) corresponde a IA. Ollama sirve en desarrollo
+  para reducir gasto de tokens; proveedor de producción por elegir, con Claude
+  o Codex mencionados como candidatos sin API/modelo definido. No invertir en
+  OCR local ni llevar Apple Vision/PaddleOCR como lector alternativo a producción.
+  Sustituye la selección local texto/OCR y la restricción local permanente previas.
+- **Documentado:** RFC-003 cambia recorrido a documento/imágenes → IA → validación
+  determinista. Preparación/renderizado no interpreta campos; contrato común
+  permite otro proveedor. RFC-001 y evaluación de skills alineados. Privacidad
+  de producción debe resolverse al integrar; no se enviaron recibos a terceros.
+- **Contexto de interrupción anterior:** se interpretó run como ejecución cuando
+  usuario quería explicación escrita. Se creó script temporal privado y ejecutó
+  extractor source: 4 PDF digitales coincidieron con referencias previas en 16/16
+  críticos y 44/44 filas; un PDF falló al invocar OCR en sandbox. Solicitud de
+  ejecución escalada fue abortada por usuario. No fue una corrida de IA ni
+  evaluación independiente; no valida el nuevo recorrido y no se continuará.
+  Sin escrituras CRM; resultados privados fuera de Git, sin datos en esta memoria.
+- **Áreas/validación:** documentación RFC-001/003, receipt-ai-skills-evaluation y
+  memoria; diff --check y aislop. Skills pdf/llm-evaluation consultadas para
+  mantener preparación y evaluación separadas de lectura. Sin cambios de código,
+  configuración, nuevos ADR o pruebas de aplicación en esta corrección.
+
+## 2026-10-27 — Registro operativo: eliminación completa de Apple Vision del proyecto
+
+- **Autorizado y eliminado:** scripts/receipts/vision_ocr.swift, binario privado
+  helios-vision-ocr, SourceReceiptReader, ReceiptSourceExtractor/Candidates/Layout,
+  comando helios:receipts:extract y dos archivos de pruebas específicos (7 casos).
+  Sin borrar recibos, lecturas persistidas ni snapshots históricos.
+- **Configuración:** binding rechaza source; opción ocr_binary y variable de
+  entorno eliminadas. .env local y .env.example seleccionan ollama. Caché de
+  configuración reconstruida y comprobada: OllamaReceiptReader, sin clave OCR
+  ni binario. Señal queue:restart enviada con permiso tras bloqueo sandbox MySQL;
+  no acredita que exista supervisor o un worker activo después de la señal.
+- **TDD:** dos regresiones fallaron antes de eliminar (source aún se resolvía y
+  comando aún registrado), luego pasaron: source no puede reactivarse y probe IA
+  sigue disponible. Suite final 359 pruebas/1728 aserciones, PHPStan y Pint focal
+  correctos. Aislop 100 sin hallazgos; formato PHP cubierto por Pint. Swagger
+  regenerado y diff --check correcto.
+- **Documentación:** guía assisted-quote, automatic-receipt-analysis, receipt-reader,
+  RFC-001/003, project-plan y atributos OpenAPI actualizados para eliminar setup
+  OCR/comando retirado y describir lector Ollama vigente. Historial de memoria se
+  conserva; referencias a Apple Vision indican retirada, no soporte activo.
+- **Límites:** ReceiptImages conserva validación/renderizado PDF con Poppler;
+  ReceiptText/CfeTextFacts/ReceiptGrounding de Ollama siguen adjuntando/conciliando
+  texto digital. No contienen Apple Vision; cambiar esa autoridad conforme RFC-003
+  es tarea separada. Sin inferencia real, llamadas externas, despliegue o cambios
+  de modelo; no se afirma precisión nueva ni flujo IA completo.
+
+## 2026-10-27 — Registro operativo: brecha del lector Ollama frente al RFC
+
+- **Consulta:** qué falta para el lector Ollama. Inspeccionados adaptador, prompt
+  v3, ReceiptText y aceptación/continuación; sin ejecutar inferencias ni editar código.
+- **Existe:** envío de imágenes de PDF/fotografía a /api/chat, esquema JSON,
+  límites/errores, lectura persistida, cola y cálculo con promedio nuevo.
+- **Falta:** prompt/esquema de generación centrados en datos mínimos; v3 aún pide
+  identificadores, titular/importes/conceptos. Sustituir conciliación que sobreescribe
+  extracción por validación sin parser como autoridad. sourceVerified depende de
+  texto verificable; escaneos/fotos no alcanzan aceptación automática por esa vía.
+  Adaptar controles a faltantes no impeditivos sin quitar revisión por ambigüedad.
+- **Operación/evaluación:** verificar disponibilidad de modelo/túnel/worker y
+  evaluar respuesta real con referencias en cada formato; no comprobados en esta
+  consulta. Relectura/versionado explícitos pendientes; carga ya leída se reutiliza.
+  Ubicación confirmada sigue siendo bloqueo independiente del lector.
+- **Validación:** lectura local y diff --check; solo memoria. No se declara lector
+  nuevo implementado ni precisión/servicio operativo sin comprobación.
+
+## 2026-10-27 — Registro operativo: preparación de commits y publicación
+
+- **Autorizado:** revisar Git y subir cambios acumulados. Rama main; fetch de
+  origin completado con permiso. No se reescribe historial ni se usa force push.
+- **Alcance:** promedio determinista y pruebas, eliminación de Apple Vision,
+  configuración de ejemplo/Ollama, documentación operativa, RFC-003 y autoría
+  exclusiva indicada por el usuario en todos los ADR/RFC. AGENTS.md está ignorado
+  por configuración existente; regla de autoría local se registra aquí y documentos
+  publicados conservan su atribución. No se cambia esa política de Git.
+- **Validación previa:** 359 pruebas/1728 aserciones, PHPStan y Pint correctos.
+  Check general detectó formato en cuatro Markdown; se corrige antes de commit.
+  .env, recibos y resultados privados permanecen ignorados; no se incluyen.
+- **Organización prevista:** commit de promedio, commit de retirada OCR y commit
+  documental con memoria. Publicación y verificación de HEAD remoto se ejecutan
+  después de este registro; aquí no se afirma éxito anticipado ni despliegue.

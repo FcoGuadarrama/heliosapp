@@ -1,5 +1,6 @@
 # ADR-016 — Identidad Helios y sistema visual compartido
 
+- Autor: Francisco Guadarrama <ingfranciscoguadarrama@gmail.com>.
 - Fecha: 2026-10-27.
 - Estado: aceptado por instrucción explícita del responsable de producto;
   implementado en el tema y componentes compartidos, con revisión visual parcial.

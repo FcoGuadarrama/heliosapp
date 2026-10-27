@@ -23,10 +23,10 @@ La interfaz es de consulta: no ejecuta operaciones sobre los expedientes.
    El archivo permanece privado y vinculado al prospecto y a un expediente solar.
 3. **Análisis:** la cola `receipts` extrae datos y guarda el resultado. La pantalla
    del prospecto consulta progreso mientras el trabajo está en cola o ejecutándose.
-4. **Estado actual del lector:** el adaptador `source` exige cotejo humano en todos
-   los recibos, incluso completos, y no extrae la entidad de suministro. El asesor
-   confirma/corrige datos y entidad para continuar. El usuario pidió sustituir
-   esta obligación por controles condicionales; **ese cambio aún está pendiente**.
+4. **Estado actual del lector:** `ollama` recibe imágenes de las páginas PDF o
+   fotografías. El driver source y OCR Apple Vision fueron eliminados. Lecturas
+   sin evidencia/coherencia suficiente requieren revisión y entidad confirmada;
+   el recorrido íntegro de IA del RFC-003 aún no está cerrado.
 5. **Dimensionamiento:** una revisión válida permite calcular consumo diario,
    kWp requeridos e inversor mínimo usando HSP por entidad. Si falta la potencia
    del panel, cantidades de paneles y microinversores permanecen nulas.
@@ -54,28 +54,24 @@ módulo independiente. Aislado/híbrido, selección automática de equipos,
 compatibilidad eléctrica completa, PDF de propuesta, correo y enlaces privados
 de entrega **no están implementados**. Un borrador no es una propuesta publicada.
 
-## Lectura PDF/OCR y datos
+## Lectura IA de PDF e imágenes
 
-- `source`: `pdfinfo` y `pdftotext` leen PDFs digitales. Si el texto no es
-  reconocible, o la entrada es imagen, utiliza OCR Apple Vision local.
-- OCR: ejecutable Swift en almacenamiento privado; requiere macOS. Conserva
-  páginas, cajas, texto y confianza. No usa una API OCR pagada.
-- `ollama`: adaptador alternativo configurable; no es el lector local seleccionado.
-- JSON CFE **1.0**: `document`, `receipt`, `service`, `current_period`,
-  `consumption_history` y `extraction`. Los valores desconocidos son `null`.
+- `ollama`: lector vigente. Procesa imágenes de todas las páginas PDF o la
+  imagen cargada. No existe OCR local ni fallback al driver source.
+- Poppler prepara documentos: `pdfinfo` valida páginas y `pdftoppm` renderiza.
+  El adaptador existente también adjunta texto digital mediante `pdftotext`
+  y concilia campos; esto no es Apple Vision ni un motor OCR local.
+- JSON CFE **1.0** conserva procedencia, campos, evidencia y advertencias.
   No se infieren fases de NO HILOS ni se presentan días calculados como impresos.
-- El extractor limita archivos a 20 MiB, seis páginas e imágenes a 24 MP;
-  la recepción HTTP además aplica `intake.max_file_kb`.
-- La evaluación de desarrollo acertó 20/20 campos críticos y 55/55 filas de
-  histórico en cinco recibos; hubo un error OCR en una lectura de medidor.
-  Esas muestras no prueban precisión universal.
+- Límites: 20 MiB, seis páginas e imágenes a 24 MP; la recepción HTTP además
+  aplica `intake.max_file_kb`. No se declara precisión universal.
 
 ## Ingeniería y precios
 
 Las fórmulas proceden del reverse engineering aceptado de Syscom: cobertura de
-consumo de 100%, PR 0.77 y relación DC/AC 1.2. El histórico selecciona periodos
-consecutivos recientes con cobertura real de 330–400 días; cobertura insuficiente
-usa el periodo actual. Incoherencias, huecos y traslapes pueden bloquear el cálculo.
+consumo de 100%, PR 0.77 y relación DC/AC 1.2. El promedio utiliza periodos
+únicos verificables, incluido el actual, ponderados por días reales. No reduce
+22 meses a un año; contradicciones y traslapes requieren revisión.
 HSP se obtiene del catálogo local NASA POWER por entidad, con fuente y vigencia.
 Esto no es un estudio de sombras, estructura o compatibilidad eléctrica.
 
@@ -143,7 +139,7 @@ php artisan l5-swagger:generate
 ```
 
 Configura `.env` según `.env.example`: `HELIOS_INTAKE_ENABLED`, aviso de privacidad,
-`HELIOS_RECEIPT_READER_ENABLED`, driver, ejecutable OCR, almacenamiento y cola.
+`HELIOS_RECEIPT_READER_ENABLED`, driver `ollama`, modelo, almacenamiento y cola.
 Syscom requiere `SYSCOM_CLIENT_ID` y `SYSCOM_CLIENT_SECRET`; IVA se configura con
 `HELIOS_QUOTE_VAT_RATE`. Nunca publiques valores secretos. Después de configurar:
 `php artisan config:cache`; reinicia workers para cargar código/configuración.
@@ -151,14 +147,14 @@ El timeout del worker es 840 s y `retry_after` de la cola debe ser mayor (960 s)
 
 ```sh
 php artisan helios:syscom:probe
-php artisan helios:receipts:extract /ruta/recibo.pdf --output=/ruta/privada/nuevo.json
+php artisan helios:receipts:probe /ruta/recibo.pdf
 php artisan test --compact
 vendor/bin/phpstan analyse --debug --no-progress
 npm run check
 npm run types:check
 ```
 
-La exportación crea un archivo privado nuevo, sin sobrescribir ni modificar CRM.
+El probe ejecuta lectura IA real sin crear prospectos ni guardar datos en el CRM.
 Para mantener esta documentación, edita atributos PHP en `app/OpenApi` y regenera
 con `l5-swagger:generate` en cada entrega. JSON/YAML se generan en
 `storage/api-docs`; no se regeneran durante requests ni se envían a validadores

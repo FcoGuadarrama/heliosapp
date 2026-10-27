@@ -1,5 +1,6 @@
 # ADR-013 — Resolver la ubicación desde el domicilio del suministro CFE
 
+- Autor: Francisco Guadarrama <ingfranciscoguadarrama@gmail.com>.
 - Fecha: 2026-10-22
 - Estado: flujo aceptado; entidad manual implementada parcialmente; coordenadas, proveedor y semáforo real pendientes.
 - Relacionado: [RFC-001](../rfcs/001-cotizacion-ia-ubicacion-hsp.md).

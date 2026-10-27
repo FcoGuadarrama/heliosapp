@@ -1,9 +1,9 @@
 # Carga y análisis automático de recibos
 
-Actualización vigente: [cotizador asistido y extracción local](assisted-quote.md).
-El entorno local usa ahora texto/OCR sin modelo generativo para nuevas cargas,
-con confirmación obligatoria y borrador interno Syscom. La descripción v3 de abajo
-conserva el recorrido Ollama anterior; no es el lector local seleccionado hoy.
+Actualización 2026-10-27: el lector `source` y el OCR Apple Vision fueron
+eliminados. Nuevas lecturas usan Ollama; ver [cotizador asistido](assisted-quote.md)
+y [lector IA](receipt-reader.md). El modelo/túnel deben estar disponibles.
+Esto no implementa selección IA de equipos, PDF de propuesta o entrega por correo.
 
 Implementado localmente el 2026-10-26. CRM y embebido guardan el archivo privado
 y encolan su análisis cuando el lector está habilitado. El detalle del prospecto
@@ -77,17 +77,20 @@ inversor mínimo de referencia, con cantidad de paneles/potencia seleccionada y
 microinversores no disponibles. No introduce 500/550 W ni una cantidad cero.
 La pantalla diferencia el resultado técnico de una propuesta comercial.
 
-`AnnualReceiptHistory` selecciona los periodos consecutivos más recientes,
-anteriores al actual, hasta cubrir entre 330 y 400 días reales. Conserva índices,
-días y criterio de selección en el snapshot. Menos de 330 días reales usa el
-periodo actual; huecos, traslapes o datos incompletos bloquean esa adaptación.
-El histórico completo permanece en la lectura: no se suman dos años impresos
-como si fueran uno ni se pierde la referencia de las filas excluidas.
+Primer ciclo TDD del RFC-003: `AnnualReceiptHistory` utiliza todos los periodos
+únicos verificables, incluido el actual. Suma kWh y divide entre días cubiertos,
+también con históricos menores a un año; los huecos no cuentan como consumo cero.
+Las filas incompletas se conservan en la lectura y sus índices excluidos quedan
+en el snapshot. Traslapes, consumos contradictorios o duraciones inconsistentes
+requieren revisión. El normalizador previo conserva por ahora sus controles de
+duplicados y campos críticos; esta entrega no completa la revisión condicional.
 
-La fórmula Syscom no cambia: con la selección anual, estima cobertura como
-cantidad de periodos por duración del actual y normaliza a 365 si excede 400.
-Ambos recuentos (real y motor) quedan registrados. Si la selección real alcanza
-330 días pero el motor no, se requiere revisión en lugar de cambiar su fórmula.
+`ConsumptionAverage` transmite total kWh y días al motor v2, que conserva las
+fórmulas Syscom de kWp, inversor y módulos. No normaliza 22 meses a 365 días;
+anualizar es solo mostrar diario × 365. Se conserva la entrada anterior para
+otras llamadas. Nuevos snapshots registran promedio, cobertura y política v2;
+los snapshots anteriores permanecen intactos. La precisión OCR no se evaluó
+mediante estas pruebas de código.
 
 Se exige estado de suministro confirmado por el asesor y se consulta el catálogo
 HSP estatal NASA local vigente. No se infieren coordenadas ni se consulta un

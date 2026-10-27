@@ -59,6 +59,9 @@ lógica **no** vive en ellos: vive en servicios de dominio.
 
 ## 3. Decisiones de arquitectura (ADR)
 
+Autor de todos los ADR de esta sección: Francisco Guadarrama
+<ingfranciscoguadarrama@gmail.com>.
+
 **ADR-001 — Single-tenant.** Cada comprador instala Helios con su propia base. Sin
 `company_id`, sin global scopes, sin paquetes de tenancy. La configuración de la empresa
 es un registro único con `id = 1`.

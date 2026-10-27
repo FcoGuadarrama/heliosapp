@@ -1,6 +1,6 @@
-# Cotizador asistido y extracción de fuente
+# Cotizador asistido y lectura IA
 
-Estado local, 2026-10-26: PDF → texto/OCR → JSON CFE → revisión → cálculo
+Estado actualizado, 2026-10-27: PDF/imagen → Ollama → JSON CFE → validación/revisión → cálculo
 técnico → selección manual de equipos Syscom → borrador interno versionado.
 No se publica ni envía al cliente. No hay selección eléctrica automática.
 
@@ -20,57 +20,30 @@ Los errores de extracción son editables antes del cálculo. La potencia de pane
 sigue sin configurarse: no se inventa una cantidad de módulos. Las cantidades
 comerciales son explícitas del asesor, pendientes de ingeniería.
 
-## Extracción local
+## Lectura de recibos con IA
 
-`HELIOS_RECEIPT_READER_DRIVER=source` selecciona `SourceReceiptReader`.
-`pdfinfo` limita el PDF a seis páginas/20 MiB. `pdftotext -layout` conserva el
-texto digital cuando reconoce encabezados CFE; si no, se ejecuta el binario OCR
-configurado. PNG/JPEG/WebP van directamente al OCR, con límite de 24 MP.
-No se usa Ollama para completar campos ausentes en este modo.
+`HELIOS_RECEIPT_READER_DRIVER=ollama` selecciona el lector IA existente.
+El driver `source`, su OCR Apple Vision, binario Swift y comando de exportación
+fueron eliminados. No existe fallback OCR local. Las lecturas ya almacenadas
+conservan su procedencia histórica y no se reescriben.
 
-En Mac el OCR usa [Apple Vision](https://developer.apple.com/documentation/vision/vnrecognizetextrequest),
-en español/inglés, nivel accurate, sin corrección lingüística. Conserva página,
-texto, confianza y cajas normalizadas con origen superior izquierdo. La confianza
-no es una probabilidad calibrada de exactitud ni habilita aceptación automática.
-Las filas se agrupan por posición; el consumo se busca bajo el encabezado
-**Total periodo**, separado de lecturas del medidor. Ambigüedad deja el candidato
-sin completar. No se calcula un dato para presentarlo como impreso.
+PDF digital, PDF escaneado e imágenes JPEG/PNG/WebP se preparan mediante
+`ReceiptImages`: valida archivos y renderiza todas las páginas PDF con Poppler
+para enviarlas al modelo. `pdfinfo`/`pdftoppm` preparan el documento; no hacen OCR.
+El adaptador Ollama existente también adjunta texto digital utilizable con
+`pdftotext` y conserva su conciliación determinista; retirar esa autoridad de
+extracción conforme al RFC-003 es trabajo separado, aún pendiente. No se afirma
+que este cambio complete la lectura íntegra por IA especificada en ese RFC.
 
-Compilación local (requiere herramientas Swift de Apple):
+Configurar habilitación, URL loopback y modelo conforme al
+[lector IA](receipt-reader.md). El modelo debe estar disponible en Ollama y, si
+corresponde, el túnel y worker deben estar activos. No se asume disponibilidad
+por haber cambiado el driver. Reiniciar workers tras cambios de configuración.
 
-```sh
-mkdir -p storage/app/private/tools
-swiftc scripts/receipts/vision_ocr.swift -o storage/app/private/tools/helios-vision-ocr
-```
-
-Configurar `HELIOS_RECEIPT_OCR_BINARY` con la ruta absoluta del binario, después
-`php artisan config:cache` y reiniciar el worker receipts. Vision necesita acceso
-a los servicios de macOS; el sandbox del agente lo bloquea. El worker local se
-ha iniciado fuera de ese sandbox mediante aprobación. Esto no instala un servicio
-permanente. Para Linux/Windows falta un adaptador OCR equivalente: este binario
-es de macOS, no se presenta como portable ni como instalado en la PC Windows.
-
-Exportación privada independiente, sin escribir en el CRM:
-
-```sh
-php artisan helios:receipts:extract /ruta/recibo.pdf --output=/directorio/privado/nuevo.json
-# --ocr fuerza OCR para evaluar incluso un PDF con texto.
-```
-
-El archivo se crea con permisos 0600 y no sobrescribe uno existente. Contiene
-datos del recibo: no subirlo a Git. Es `receipt-candidates/1`, con fuente, páginas,
-texto y candidatos. La aplicación deriva de ahí el contrato CFE 1.0.
-Todo resultado source permanece sujeto a revisión, incluso si todos los campos
-están presentes; importes, domicilios y fases desconocidos quedan vacíos.
-
-Evaluación de cinco muestras reales, sin guardar expedientes: cuatro con texto
-digital y una con OCR por codificación de fuente dañada. Comparadas con las
-referencias privadas: **20/20 campos críticos** (tarifa, inicio, fin, kWh),
-**55/55 filas históricas** (fechas y kWh), sin inventar fases ni días impresos.
-No se evaluó la exactitud de todos los caracteres, importes ni otros formatos;
-el OCR sí erró en una lectura del medidor. Son muestras usadas para desarrollar,
-no un conjunto independiente ni garantía de precisión universal. Primer arranque
-OCR observado ~27 s; ejecución final caliente ~1.1 s. No es un SLA.
+La comprobación aislada disponible es `helios:receipts:probe`; ejecuta lectura IA
+real sin crear prospectos. No se ejecutó inferencia real durante la eliminación
+del OCR. Las evaluaciones source anteriores son históricas y no acreditan la
+precisión del lector IA actual.
 
 ## Syscom y precio
 

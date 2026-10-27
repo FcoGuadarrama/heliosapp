@@ -1,8 +1,9 @@
 # Lector local de recibos — E3
 
-**Lector local seleccionado posteriormente:** [texto/OCR y cotizador asistido](assisted-quote.md).
-Este documento conserva las opciones, límites y evaluación del adaptador Ollama;
-no significa que nuevas cargas se envíen al modelo con el driver `source`.
+**Lector vigente:** Ollama. El driver `source` y OCR Apple Vision fueron
+eliminados el 2026-10-27; ver [cotizador asistido](assisted-quote.md).
+Este documento describe opciones, límites y evaluaciones históricas de Ollama;
+la disponibilidad actual del servicio requiere comprobación operativa.
 
 Estado: lector con control de fuente y recorrido CRM operativos localmente.
 La carga automática, revisión y dimensionamiento técnico están conectados;

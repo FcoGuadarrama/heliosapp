@@ -1,5 +1,6 @@
 # ADR-014 — Catálogo estatal de HSP derivado de NASA POWER
 
+- Autor: Francisco Guadarrama <ingfranciscoguadarrama@gmail.com>.
 - Fecha: 2026-10-22
 - Estado: implementado E2; catálogo real de 32 entidades publicado y validado.
 - Relacionado: [RFC-001](../rfcs/001-cotizacion-ia-ubicacion-hsp.md), [ADR-012](012-motor-syscom.md), [ADR-013](013-ubicacion-desde-recibo-cfe.md).

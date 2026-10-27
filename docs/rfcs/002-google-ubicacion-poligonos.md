@@ -1,5 +1,6 @@
 # RFC-002 — Integración Google para ubicación y contornos de edificios
 
+- Autor: Francisco Guadarrama <ingfranciscoguadarrama@gmail.com>.
 - Fecha: 2026-10-22.
 - Estado: borrador pospuesto por decisión posterior del usuario; no bloquea RFC-001.
 - Implementación y pruebas con Google: pendientes.

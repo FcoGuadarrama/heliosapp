@@ -1,5 +1,6 @@
 # ADR-012 — Motor determinista basado en Syscom
 
+- Autor: Francisco Guadarrama <ingfranciscoguadarrama@gmail.com>.
 - Fecha: 2026-10-22
 - Estado: aceptado por decisión explícita del responsable de producto.
 - Amplía: ADR-003, ADR-004 y ADR-005 de [arquitectura](../architecture.md).

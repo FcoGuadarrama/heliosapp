@@ -1,5 +1,52 @@
 # RFC-001 — Flujo compartido de recibo a cotización solar
 
+Actualización de producto 2026-10-27: el lector se limita a periodo/consumo,
+histórico, tarifa y dirección; no requiere titular ni identificadores personales.
+Se estimará con periodos disponibles si no completan un año; cualquier ambigüedad
+del CRM o formulario embebido se deriva al asesor. Cobertura objetivo: 100%.
+Selección de equipos: disponibilidad inmediata primero y precio después.
+Alcance inicial corregido por el usuario: equipos como paneles, inversor y otros
+equipos justificables con datos disponibles, sin mano de obra. No asumir techo,
+estructura o distancias de instalación estándar ni prometer todos los materiales
+para ejecutar la obra. Accesorios o cantidades sin fundamento no se inventan;
+se indica expresamente el alcance de equipos incluidos y conceptos pendientes.
+Promedio aceptado: sumar kWh de todos los periodos únicos (actual e histórico)
+y dividir entre sus días cubiertos; motor recibe kWh/día. Mostrar cobertura usada
+y anual estimado (diario × 365), incluso con histórico menor a un año. Adaptación
+versionada autorizada e implementada en primer ciclo TDD conforme RFC-003;
+la extracción y revisión condicional del flujo completo siguen pendientes.
+No deducir fechas/duraciones ausentes: usar periodos con kWh y días verificables,
+conservar los demás, comunicar exclusiones y cobertura parcial al cliente embebido
+o asesor CRM. Si no hay base verificable para promedio diario, el cálculo queda
+pendiente, sin inventar días. Ambigüedad/contradicción sigue requiriendo asesor.
+
+El cliente del embebido recibe automáticamente una estimación real de materiales
+cuando pasan los controles, antes de revisión del asesor. La cotización definitiva
+requiere aprobación del asesor en administración; datos ambiguos llegan al asesor
+y bloquean la estimación automática. Identificar claramente versión estimada y
+versión definitiva; la primera no se presenta como aprobada por el asesor.
+Precio al público: precio_lista Syscom en MXN más IVA, sin margen adicional en
+este modo. Se conserva la tasa local de 16% previamente indicada, congelada en
+cada versión; no sustituir precios ausentes ni convertirlos en cero.
+Falta de stock suficiente confirmado, precio o información necesaria para validar
+compatibilidad bloquea la estimación y deriva al asesor, también desde embebido.
+
+Evolución futura confirmada: proveedor configurable por empresa, mediante API de
+proveedor cuya conexión realizará Francisco Guadarrama, o inventario interno.
+Primera entrega sigue solo con Syscom. Mantener cálculo separado del acceso a
+catálogo/precios y conservar fuente en snapshots; no implementar ahora conectores
+adicionales, configuración multiproveedor o inventario interno.
+Estas decisiones prevalecen sobre propuestas incompatibles del documento;
+no describen funcionalidad ya implementada.
+
+La especificación del lector está en
+[RFC-003 — Lectura CFE con IA](003-lectura-cfe-pdf-ia.md), con definición funcional
+aceptada: PDF digital, PDF escaneado, PDF mixto y fotografías/imágenes desde la
+primera entrega; lectura íntegra por IA con Ollama en desarrollo y revisión
+condicional. Producción usará el proveedor IA que se elija, sin invertir en OCR
+local. Evaluación e
+implementación pendientes; no se ha activado funcionalidad nueva.
+
 Actualización de decisión 2026-10-26: el usuario dispone de API oficial Syscom y
 indicó que también proporciona un precio público sugerido. El [modo asistido implementado](../assisted-quote.md)
 consulta la API oficial y guarda `precio_lista` en borradores por equipos,
@@ -10,7 +57,7 @@ semántica pública de lista frente a MAP por producto. No habilita publicación
 automática ni selección eléctrica sin validación.
 
 - Fecha de consolidación: 2026-10-22.
-- Autor: Codex, con decisiones del responsable de producto.
+- Autor: Francisco Guadarrama <ingfranciscoguadarrama@gmail.com>.
 - Estado: definición consolidada; sin preguntas de producto pendientes (seis resueltas el 2026-10-22).
 - Implementación al 2026-10-27: parcial; lectura real, revisión, cálculo con NASA y borrador asistido Syscom. Selección IA y entrega comercial completas pendientes.
 - Alcance: interconexión CFE, catálogo Syscom, cotización automática y seguimiento.
@@ -480,14 +527,14 @@ propio de agentes. El dominio no depende de controladores ni del cliente Syscom.
 ## 14. Etapa simulada y criterios de aceptación
 
 **Estado local al 2026-10-27:** cargas CRM/embebido encolan lectura real
-source (texto/OCR) u Ollama. El CRM permite revisión versionada y confirmación
+con Ollama; el driver source y OCR Apple Vision fueron eliminados. El CRM permite revisión versionada y confirmación
 de entidad. El cálculo consulta HSP estatal NASA y conserva snapshots. El
 cotizador asistido consulta API oficial Syscom, permite selección manual de
 modelos/cantidades y genera borradores internos versionados con precio_lista,
 IVA local 16% y total. Ver [guía vigente](../assisted-quote.md).
 
-El lector source aún exige revisión universal: sustituirla por revisión
-condicional es una solicitud pendiente. Sin potencia documentada no se inventa
+Completar lectura íntegra IA y aceptación condicional sigue pendiente; retirar
+Apple Vision no acredita ese cierre. Sin potencia documentada no se inventa
 cantidad de paneles. No existen aún selección de equipos con Ingeniero IA,
 validación eléctrica completa, perfiles comerciales completos, publicación,
 PDF/correo de propuesta ni acceso/acciones del cliente. Google/contornos sigue
@@ -534,7 +581,7 @@ indicación del usuario.
 - Verificar fórmulas detalladas en bundle y escribir pruebas de valores independientes.
 - Revalidar contrato/cobertura Syscom y definir caché, reintentos y frescura de stock.
 - NASA E2 y snapshot de cálculo integrados; verificar operación y vigencia.
-- Completar evaluación del lector real y revisión condicional source; acciones
+- Completar evaluación del lector IA y aceptación condicional; acciones
   públicas de corrección, recaptura y recuperación aún pendientes.
 - Implementar autenticación de enlace, permisos, idempotencia, PDF y correo.
 - Configurar reglas fiscales verificadas, redondeo, plazos de aviso y responsables

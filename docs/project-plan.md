@@ -44,24 +44,24 @@ registrados en MEMORY.md. No acredita despliegue ni auditoría completa de
 seguridad. Esta reconciliación documental no ejecuta pruebas de aplicación.
 Las validaciones de cada entrega conservan su fecha y alcance en la memoria.
 
-| Área           | Existe                                                                                                            | Falta para cerrar                                                                                           |
-| -------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| Identidad      | Fortify, 2FA/passkeys, roles, usuarios y protección del último owner                                              | Auditoría integral de registro, sesiones, cuentas inactivas y permisos                                      |
-| Empresa y tema | Configuración y vigencia; identidad Helios, tema claro y oscuro negro con acentos verdes, componentes compartidos | Identidad configurable por empresa y revisión visual individual de rutas restantes                          |
-| CRM            | CRUD de prospectos/proyectos, duplicados y resumen operativo con permisos                                         | Bandeja completa, toma concurrente, historial y seguimiento                                                 |
-| Recepción      | CRM y embebido encolan análisis; archivo privado, consentimiento, progreso interno y segunda carga interna        | Recuperación y acciones públicas, recaptura pública completa y avisos                                       |
-| Datos CFE      | Lectores source texto/OCR y Ollama, contrato v1.0, normalización, evidencia y revisión versionada                 | Revisión condicional solicitada para source, evaluación de más formatos y OCR portable                      |
-| Ingeniería     | Motor, dimensionador manual y cálculo desde recibo con snapshot HSP NASA                                          | Potencia/modelo documentados para cantidades, validación eléctrica y API externa completa                   |
-| Geografía      | Domicilio extraído y entidad confirmada manualmente para cálculo                                                  | Coordenadas verificadas, mapa y semáforo real; Google/contornos pospuesto                                   |
-| NASA           | Catálogo real de 32 entidades, actualizador y snapshot consumido por cálculo                                      | Verificación operativa continua de vigencia y recuperación de actualizaciones                               |
-| Equipos        | Adaptador API oficial Syscom, búsqueda y selección manual en borradores                                           | Selección IA, atributos y compatibilidad eléctrica completos, semántica comercial lista/MAP                 |
-| Economía       | Borrador interno con precio_lista congelado, IVA local 16% y total                                                | Perfiles kWp/panel/paquete, descuentos y configuración comercial completa; costo/utilidad verificables      |
-| Propuestas     | Borradores internos de equipos versionados e idempotentes                                                         | Publicación comercial, PDF privado, correo, enlace y acciones del cliente                                   |
-| Operación      | Migraciones, colas, CI y Swagger local documentado                                                                | Instalación/actualización y OCR portables, workers/scheduler persistentes, respaldos, monitoreo y retención |
+| Área           | Existe                                                                                                            | Falta para cerrar                                                                                         |
+| -------------- | ----------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| Identidad      | Fortify, 2FA/passkeys, roles, usuarios y protección del último owner                                              | Auditoría integral de registro, sesiones, cuentas inactivas y permisos                                    |
+| Empresa y tema | Configuración y vigencia; identidad Helios, tema claro y oscuro negro con acentos verdes, componentes compartidos | Identidad configurable por empresa y revisión visual individual de rutas restantes                        |
+| CRM            | CRUD de prospectos/proyectos, duplicados y resumen operativo con permisos                                         | Bandeja completa, toma concurrente, historial y seguimiento                                               |
+| Recepción      | CRM y embebido encolan análisis; archivo privado, consentimiento, progreso interno y segunda carga interna        | Recuperación y acciones públicas, recaptura pública completa y avisos                                     |
+| Datos CFE      | Lector Ollama, contrato v1.0, normalización, evidencia y revisión versionada; OCR local eliminado                 | Completar lectura íntegra IA y evaluación PDF/fotografías; proveedor IA de producción                     |
+| Ingeniería     | Motor, dimensionador manual y cálculo desde recibo con snapshot HSP NASA                                          | Potencia/modelo documentados para cantidades, validación eléctrica y API externa completa                 |
+| Geografía      | Domicilio extraído y entidad confirmada manualmente para cálculo                                                  | Coordenadas verificadas, mapa y semáforo real; Google/contornos pospuesto                                 |
+| NASA           | Catálogo real de 32 entidades, actualizador y snapshot consumido por cálculo                                      | Verificación operativa continua de vigencia y recuperación de actualizaciones                             |
+| Equipos        | Adaptador API oficial Syscom, búsqueda y selección manual en borradores                                           | Selección IA, atributos y compatibilidad eléctrica completos, semántica comercial lista/MAP               |
+| Economía       | Borrador interno con precio_lista congelado, IVA local 16% y total                                                | Perfiles kWp/panel/paquete, descuentos y configuración comercial completa; costo/utilidad verificables    |
+| Propuestas     | Borradores internos de equipos versionados e idempotentes                                                         | Publicación comercial, PDF privado, correo, enlace y acciones del cliente                                 |
+| Operación      | Migraciones, colas, CI y Swagger local documentado                                                                | Instalación/actualización, proveedor IA, workers/scheduler persistentes, respaldos, monitoreo y retención |
 
 La integración local usa `ReceiveReceipt` y `ReadAndSizeReceipt`: carga, lectura,
 revisión cuando corresponda, entidad confirmada y consulta HSP antes de guardar
-el cálculo. El lector source exige hoy cotejo humano universal; su sustitución
+el cálculo. El lector source fue eliminado; la lectura íntegra IA y su aceptación
 por revisión condicional está solicitada, aún no implementada. No se inventa
 potencia de panel para completar cantidades. Las respuestas del embebido no
 incluyen una propuesta pública ni convierten cookies CRM en autorización.
@@ -142,7 +142,7 @@ consulta local por entidad y pruebas de actualización fallida conservando la
 
 ### E3 — Recibo real, validado y corregible
 
-Estado al 2026-10-27: implementado parcialmente con lectores source/Ollama, normalización y revisión versionada. Pendientes evaluación ampliada, revisión condicional source y operación portable.
+Estado al 2026-10-27: implementado parcialmente con Ollama, normalización y revisión versionada. Source/OCR local eliminados. Pendientes lectura íntegra IA, evaluación ampliada y operación del proveedor de producción.
 
 Definir dónde ejecutará el lector, hardware/modelo/formato soportado y límites
 antes de elegir modelo. El contrato CFE actual prohíbe enviar datos personales a
@@ -323,7 +323,7 @@ ni venta de equipos según perfiles. No prometer ahorro ni retorno sin fuentes.
 
 ## Próxima unidad de trabajo
 
-Corregir la revisión universal del lector source para aplicar la revisión
+Completar el lector IA y aplicar la revisión
 condicional solicitada, con evidencia y validaciones deterministas. No se
 considera autorizada la aceptación de extracciones ambiguas por este documento.
 Después, cerrar evaluación/operación del lector y completar ingeniería de

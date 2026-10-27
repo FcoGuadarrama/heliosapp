@@ -1,5 +1,6 @@
 # ADR-015 — Expediente y procesamiento compartido
 
+- Autor: Francisco Guadarrama <ingfranciscoguadarrama@gmail.com>.
 - Fecha: 2026-10-23.
 - Estado: fundamento E1 implementado; integración local E3–E5 parcial, sin cierre del flujo completo.
 - Relacionado: [contrato v1](../contracts/solar-processing-v1.md),
