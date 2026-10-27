@@ -2443,3 +2443,21 @@ Las entradas son acumulativas; una propuesta no equivale a una implementación.
 - **Organización prevista:** commit de promedio, commit de retirada OCR y commit
   documental con memoria. Publicación y verificación de HEAD remoto se ejecutan
   después de este registro; aquí no se afirma éxito anticipado ni despliegue.
+
+## 2026-10-27 — Registro operativo: publicación confirmada y CI bloqueada externamente
+
+- **Publicado:** dd6d7cb (promedio por cobertura real), 8acb289 (eliminación Apple
+  Vision) y a786a10 (RFC/autoría/documentación) subidos a origin/main. ls-remote
+  confirmó a786a10a28415662cdf7d2fb1224389ee4848cc5; árbol limpio tras esos commits.
+  Autor de commits: identidad Git existente del usuario; sin créditos de agente.
+- **Validación:** 359 pruebas/1728 aserciones, PHPStan, Pint focal, npm check y
+  diff --check correctos. Aislop 100 sin hallazgos; su formato PHP se cubrió con
+  Pint. Cuatro Markdown formateados. Revisión de patrones conocidos de secretos
+  sin coincidencias en los archivos de texto a publicar; no auditoría integral.
+- **CI:** run 40556237197 para a786a10 terminó sin pasos. Anotación consultada por
+  API: cuenta bloqueada por problema de facturación. No hubo fallo de pruebas
+  ejecutadas en GitHub. Resolver cuenta/facturación y repetir Actions pendiente.
+  No se modificó workflow ni facturación para ocultar el bloqueo.
+- **Cierre:** esta entrada se publica en commit documental adicional. No despliegue,
+  credenciales o recibos incluidos. No se afirma que el lector IA del RFC esté
+  completo; sus pendientes técnicos se conservan en entradas y documentos previos.
