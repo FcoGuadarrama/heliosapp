@@ -18,6 +18,11 @@ return [
         'key' => env('POSTMARK_API_KEY'),
     ],
 
+    'syscom' => [
+        'client_id' => env('SYSCOM_CLIENT_ID', ''),
+        'client_secret' => env('SYSCOM_CLIENT_SECRET', ''),
+    ],
+
     'resend' => [
         'key' => env('RESEND_API_KEY'),
     ],

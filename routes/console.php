@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Foundation\DevCommands;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
@@ -10,3 +11,7 @@ Artisan::command('inspire', function () {
 
 Schedule::command('helios:hsp:refresh')->cron((string) config('hsp.refresh_cron', '0 3 1 * *'))
     ->timezone('UTC')->withoutOverlapping(120);
+
+if (config('receipt_reader.enabled')) {
+    DevCommands::artisan('queue:work --queue=receipts --tries=3 --timeout=840', 'receipts');
+}

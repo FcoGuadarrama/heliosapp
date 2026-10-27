@@ -322,7 +322,7 @@ final class ReceiptCoherenceValidator
                 $a = $periods[$i];
                 $b = $periods[$j];
 
-                $overlaps = $a['start']->lessThanOrEqualTo($b['end']) && $b['start']->lessThanOrEqualTo($a['end']);
+                $overlaps = $a['start']->lessThan($b['end']) && $b['start']->lessThan($a['end']);
 
                 if ($overlaps) {
                     $violations[] = RuleViolation::make(

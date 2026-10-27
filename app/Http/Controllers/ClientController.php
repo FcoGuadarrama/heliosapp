@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
+use App\Http\Resources\ReceiptAnalysis;
+use App\Infrastructure\Hsp\StateGrid;
 use App\Models\Client;
 use App\Models\ReceiptIntake;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -69,7 +71,7 @@ class ClientController extends Controller
         return to_route('clients.index')->with('success', 'Cliente creado exitosamente.');
     }
 
-    public function show(Client $client): Response
+    public function show(Client $client, ReceiptAnalysis $analysis, StateGrid $states): Response
     {
         $this->authorize('view', $client);
 
@@ -122,6 +124,7 @@ class ClientController extends Controller
             ],
             'projects' => $projects,
             'possibleDuplicates' => $possibleDuplicates,
+            'stateOptions' => array_map(fn ($state): array => ['code' => $state->code, 'name' => $state->name], $states->states),
             'intakes' => request()->user()->can('receipts.view')
                 ? $client->intakes()->latest()->get()->map(fn (ReceiptIntake $intake) => [
                     'id' => $intake->id,
@@ -131,7 +134,8 @@ class ClientController extends Controller
                     'download_url' => route('intakes.file', $intake),
                     'reader_identifier' => $intake->reader_identifier,
                     'fixture_identifier' => $intake->fixture_identifier,
-                    'validation_result' => $intake->validation_result,
+                    'validation_result' => $intake->fixture_identifier === null ? null : $intake->validation_result,
+                    'analysis' => $intake->fixture_identifier === null ? $analysis->forAdvisor($intake, request()->user()) : null,
                 ]) : [],
         ]);
     }

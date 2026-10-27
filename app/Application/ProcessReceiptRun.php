@@ -10,6 +10,7 @@ use App\Domain\Processing\ProcessingStatus;
 use App\Domain\Processing\ReceiptProcessor;
 use App\Domain\Processing\ReceiptSource;
 use App\Models\ReceiptProcessingRun;
+use App\Models\SolarCase;
 use App\Models\SolarCaseEvent;
 use Illuminate\Support\Facades\DB;
 use Throwable;
@@ -39,6 +40,8 @@ final class ProcessReceiptRun
     private function start(int $runId): ?ReceiptProcessingRun
     {
         return DB::transaction(function () use ($runId): ?ReceiptProcessingRun {
+            $source = ReceiptProcessingRun::findOrFail($runId);
+            SolarCase::query()->lockForUpdate()->findOrFail($source->solar_case_id);
             $run = ReceiptProcessingRun::query()->lockForUpdate()->findOrFail($runId);
             if (! in_array($run->status, [ProcessingStatus::Queued, ProcessingStatus::Running], true)) {
                 return null;
@@ -60,6 +63,7 @@ final class ProcessReceiptRun
     private function record(ReceiptProcessingRun $run, ProcessingOutcome $outcome, bool $retry = false): void
     {
         DB::transaction(function () use ($run, $outcome, $retry): void {
+            SolarCase::query()->lockForUpdate()->findOrFail($run->solar_case_id);
             $locked = ReceiptProcessingRun::query()->lockForUpdate()->findOrFail($run->id);
             if ($locked->status !== ProcessingStatus::Running || $locked->attempts !== $run->attempts) {
                 return;

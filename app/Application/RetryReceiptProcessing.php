@@ -6,6 +6,7 @@ namespace App\Application;
 
 use App\Domain\Processing\ProcessingStatus;
 use App\Models\ReceiptProcessingRun;
+use App\Models\SolarCase;
 use App\Models\SolarCaseEvent;
 use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -17,6 +18,7 @@ final class RetryReceiptProcessing
     public function __invoke(ReceiptProcessingRun $run, User $actor): void
     {
         DB::transaction(function () use ($run, $actor): void {
+            SolarCase::query()->lockForUpdate()->findOrFail($run->solar_case_id);
             $locked = ReceiptProcessingRun::query()->lockForUpdate()->findOrFail($run->id);
             if (! $actor->can('process', $locked->solarCase)) {
                 throw new AuthorizationException;

@@ -31,7 +31,7 @@ final class InterconnectionCalculator
         }
 
         $requiredKwp = $dailyConsumption / (self::PERFORMANCE_RATIO * $input->hsp);
-        $moduleCount = $this->ceilQuantity($requiredKwp * 1000 / $input->modulePowerW);
+        $moduleCount = $input->modulePowerW === null ? null : $this->ceilQuantity($requiredKwp * 1000 / $input->modulePowerW);
 
         return new InterconnectionResult(
             motorVersion: self::VERSION,
@@ -41,8 +41,8 @@ final class InterconnectionCalculator
             requiredKwp: $requiredKwp,
             minimumInverterW: $this->ceilQuantity($requiredKwp * 1000 / self::DC_AC_RATIO),
             moduleCount: $moduleCount,
-            selectedKwp: $moduleCount * $input->modulePowerW / 1000,
-            microinverterCount: $input->modulesPerMicroinverter === null
+            selectedKwp: $moduleCount === null ? null : $moduleCount * $input->modulePowerW / 1000,
+            microinverterCount: $input->modulesPerMicroinverter === null || $moduleCount === null
                 ? null
                 : $this->ceilQuantity($moduleCount / $input->modulesPerMicroinverter),
         );

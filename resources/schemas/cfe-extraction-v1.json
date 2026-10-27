@@ -1,0 +1,309 @@
+{
+    "type": "object",
+    "properties": {
+        "receipt": {
+            "type": "object",
+            "properties": {
+                "receipt_id": {
+                    "type": ["string", "null"]
+                },
+                "issue_date": {
+                    "type": ["string", "null"]
+                },
+                "due_date": {
+                    "type": ["string", "null"]
+                },
+                "total_amount_mxn": {
+                    "type": ["number", "null"]
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "receipt_id",
+                "issue_date",
+                "due_date",
+                "total_amount_mxn"
+            ]
+        },
+        "service": {
+            "type": "object",
+            "properties": {
+                "service_number": {
+                    "type": ["string", "null"]
+                },
+                "tariff_code": {
+                    "type": ["string", "null"]
+                },
+                "tariff_description": {
+                    "type": ["string", "null"]
+                },
+                "voltage_level": {
+                    "type": ["string", "null"]
+                },
+                "billing_cycle": {
+                    "type": ["string", "null"]
+                },
+                "holder_name": {
+                    "type": ["string", "null"]
+                },
+                "phases": {
+                    "type": ["number", "null"]
+                },
+                "contracted_demand_kw": {
+                    "type": ["number", "null"]
+                },
+                "service_address": {
+                    "type": "object",
+                    "properties": {
+                        "street": {
+                            "type": ["string", "null"]
+                        },
+                        "neighborhood": {
+                            "type": ["string", "null"]
+                        },
+                        "municipality": {
+                            "type": ["string", "null"]
+                        },
+                        "state": {
+                            "type": ["string", "null"]
+                        },
+                        "postal_code": {
+                            "type": ["string", "null"]
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "street",
+                        "neighborhood",
+                        "municipality",
+                        "state",
+                        "postal_code"
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "service_number",
+                "tariff_code",
+                "tariff_description",
+                "voltage_level",
+                "billing_cycle",
+                "holder_name",
+                "phases",
+                "contracted_demand_kw",
+                "service_address"
+            ]
+        },
+        "current_period": {
+            "type": "object",
+            "properties": {
+                "period_start": {
+                    "type": ["string", "null"]
+                },
+                "period_end": {
+                    "type": ["string", "null"]
+                },
+                "days": {
+                    "type": ["number", "null"]
+                },
+                "consumption_kwh": {
+                    "type": ["number", "null"]
+                },
+                "amount_mxn": {
+                    "type": ["number", "null"]
+                },
+                "demand_kw": {
+                    "type": ["number", "null"]
+                },
+                "consumption_by_tier": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "tier": {
+                                "type": ["string", "null"]
+                            },
+                            "kwh": {
+                                "type": ["number", "null"]
+                            },
+                            "unit_price_mxn": {
+                                "type": ["number", "null"]
+                            },
+                            "amount_mxn": {
+                                "type": ["number", "null"]
+                            }
+                        },
+                        "additionalProperties": false,
+                        "required": [
+                            "tier",
+                            "kwh",
+                            "unit_price_mxn",
+                            "amount_mxn"
+                        ]
+                    },
+                    "maxItems": 36
+                },
+                "concepts": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "code": {
+                                "type": ["string", "null"]
+                            },
+                            "description": {
+                                "type": ["string", "null"]
+                            },
+                            "amount_mxn": {
+                                "type": ["number", "null"]
+                            }
+                        },
+                        "additionalProperties": false,
+                        "required": ["code", "description", "amount_mxn"]
+                    },
+                    "maxItems": 36
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "period_start",
+                "period_end",
+                "days",
+                "consumption_kwh",
+                "amount_mxn",
+                "demand_kw",
+                "consumption_by_tier",
+                "concepts"
+            ]
+        },
+        "consumption_history": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "period_start": {
+                        "type": ["string", "null"]
+                    },
+                    "period_end": {
+                        "type": ["string", "null"]
+                    },
+                    "days": {
+                        "type": ["number", "null"]
+                    },
+                    "consumption_kwh": {
+                        "type": ["number", "null"]
+                    },
+                    "amount_mxn": {
+                        "type": ["number", "null"]
+                    },
+                    "source": {
+                        "type": "string",
+                        "enum": ["receipt_table", "receipt_chart", "other"]
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "period_start",
+                    "period_end",
+                    "days",
+                    "consumption_kwh",
+                    "amount_mxn",
+                    "source"
+                ]
+            },
+            "maxItems": 36
+        },
+        "extraction": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "string",
+                    "enum": ["complete", "partial", "failed"]
+                },
+                "confidence": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                    }
+                },
+                "missing_fields": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "maxItems": 100
+                },
+                "warnings": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "code": {
+                                "type": "string"
+                            },
+                            "field": {
+                                "type": "string"
+                            },
+                            "message": {
+                                "type": "string"
+                            }
+                        },
+                        "additionalProperties": false,
+                        "required": ["code", "field", "message"]
+                    },
+                    "maxItems": 36
+                },
+                "evidence": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "field": {
+                                "type": "string"
+                            },
+                            "page": {
+                                "type": "integer",
+                                "minimum": 1,
+                                "maximum": 6
+                            },
+                            "text": {
+                                "type": "string"
+                            },
+                            "bbox": {
+                                "type": "array",
+                                "items": {
+                                    "type": "number",
+                                    "minimum": 0,
+                                    "maximum": 1
+                                },
+                                "minItems": 4,
+                                "maxItems": 4
+                            }
+                        },
+                        "additionalProperties": false,
+                        "required": ["field", "page", "text"]
+                    },
+                    "maxItems": 100
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "status",
+                "confidence",
+                "missing_fields",
+                "warnings",
+                "evidence"
+            ]
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "receipt",
+        "service",
+        "current_period",
+        "consumption_history",
+        "extraction"
+    ]
+}

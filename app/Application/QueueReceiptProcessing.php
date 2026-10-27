@@ -19,11 +19,12 @@ final class QueueReceiptProcessing
     public function __invoke(ReceiptIntake $intake): ReceiptProcessingRun
     {
         return DB::transaction(function () use ($intake): ReceiptProcessingRun {
-            $locked = ReceiptIntake::query()->lockForUpdate()->findOrFail($intake->id);
-            if ($locked->solar_case_id === null) {
+            $source = ReceiptIntake::findOrFail($intake->id);
+            if ($source->solar_case_id === null) {
                 throw ValidationException::withMessages(['receipt' => 'El recibo histórico necesita vincularse a un expediente.']);
             }
-            $case = SolarCase::query()->lockForUpdate()->findOrFail($locked->solar_case_id);
+            $case = SolarCase::query()->lockForUpdate()->findOrFail($source->solar_case_id);
+            $locked = ReceiptIntake::query()->lockForUpdate()->findOrFail($intake->id);
             $existing = ReceiptProcessingRun::where('receipt_intake_id', $locked->id)->first();
             if ($existing !== null) {
                 $this->dispatchAfterCommit($existing);
@@ -54,7 +55,7 @@ final class QueueReceiptProcessing
             return;
         }
         DB::afterCommit(function () use ($run): void {
-            Bus::dispatch((new ProcessReceipt($run->id))->afterCommit());
+            Bus::dispatch((new ProcessReceipt($run->id))->onQueue('receipts')->afterCommit());
             $run->update(['dispatched_at' => now()]);
         });
     }

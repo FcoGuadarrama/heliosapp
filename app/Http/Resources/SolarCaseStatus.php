@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Resources;
 
 use App\Domain\Processing\ProcessingStatus;
+use App\Models\SolarCalculation;
 use App\Models\SolarCase;
 use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -25,7 +26,8 @@ final class SolarCaseStatus
                 ProcessingStatus::Completed => 'none',
                 ProcessingStatus::Queued, ProcessingStatus::Running => 'wait',
             },
-            'result' => null,
+            'result' => $case->processing_status === ProcessingStatus::Completed && ! $case->simulated
+                ? SolarCalculation::where('solar_case_id', $case->id)->latest('id')->first()?->result : null,
             'sale_price' => ['status' => 'unavailable', 'reason' => 'pricing_not_configured', 'amount_minor' => null],
         ];
     }

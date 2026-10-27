@@ -1,0 +1,7 @@
+{
+    "current_period.period_start": null,
+    "current_period.period_end": null,
+    "current_period.consumption_kwh": null,
+    "service.tariff_code": null,
+    "extraction.status": "failed"
+}

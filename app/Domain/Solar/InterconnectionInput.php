@@ -13,7 +13,7 @@ final readonly class InterconnectionInput
         public float $currentConsumptionKwh,
         public int $periodDays,
         public float $hsp,
-        public float $modulePowerW,
+        public ?float $modulePowerW,
         public array $historyKwh = [],
         public ?int $modulesPerMicroinverter = null,
     ) {
@@ -27,7 +27,7 @@ final readonly class InterconnectionInput
             }
         }
 
-        foreach ([$hsp, $modulePowerW] as $value) {
+        foreach (array_filter([$hsp, $modulePowerW], fn (?float $value): bool => $value !== null) as $value) {
             if (! is_finite($value) || $value <= 0) {
                 throw new InvalidArgumentException('HSP y potencia del módulo deben ser finitos y positivos.');
             }

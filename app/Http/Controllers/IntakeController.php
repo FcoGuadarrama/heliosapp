@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Application\StoreReceiptIntake;
+use App\Application\ReceiveReceipt;
 use App\Application\ValidateMockReceipt;
 use App\Domain\Intake\IntakeSettings;
 use App\Domain\Intake\MockReceiptReader;
@@ -48,7 +48,7 @@ class IntakeController extends Controller
         ]);
     }
 
-    public function store(StoreIntakeRequest $request, IntakeSettings $settings, StoreReceiptIntake $store): RedirectResponse
+    public function store(StoreIntakeRequest $request, IntakeSettings $settings, ReceiveReceipt $store): RedirectResponse
     {
         abort_unless($settings->available(), 503, 'Recepción no configurada.');
         $this->authorize('create', ReceiptIntake::class);
@@ -59,7 +59,8 @@ class IntakeController extends Controller
         abort_unless($file instanceof UploadedFile, 422);
         $intake = $store($data, $file, $client, $request->user());
 
-        return to_route('clients.show', $intake->client_id)->with('success', 'Recibo guardado de forma privada. Extracción pendiente.');
+        return to_route('clients.show', $intake->client_id)->with('success', config('receipt_reader.enabled')
+            ? 'Recibo recibido. El estado del análisis aparece en el prospecto.' : 'Recibo guardado. El lector está deshabilitado.');
     }
 
     public function download(ReceiptIntake $intake): StreamedResponse

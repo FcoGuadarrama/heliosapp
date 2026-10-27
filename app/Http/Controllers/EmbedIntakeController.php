@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Application\StoreReceiptIntake;
+use App\Application\ReceiveReceipt;
 use App\Domain\Intake\IntakeSettings;
 use App\Domain\Intake\PublicFormToken;
 use App\Http\Requests\StoreIntakeRequest;
@@ -26,7 +26,7 @@ class EmbedIntakeController extends Controller
         ]);
     }
 
-    public function store(Request $request, IntakeSettings $settings, PublicFormToken $tokens, StoreReceiptIntake $store): Response|RedirectResponse
+    public function store(Request $request, IntakeSettings $settings, PublicFormToken $tokens, ReceiveReceipt $store): Response|RedirectResponse
     {
         abort_unless($settings->available(), 503, 'Recepción no configurada.');
         $validator = Validator::make($request->all(), [

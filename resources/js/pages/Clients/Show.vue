@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { Form, Head, Link, usePage } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { Head, Link, usePage, usePoll } from '@inertiajs/vue3';
+import { computed, watch } from 'vue';
+import ReceiptAnalysisPanel from '@/components/ReceiptAnalysisPanel.vue';
+import type {
+    ReceiptAnalysisData,
+    StateOption,
+} from '@/types/receipt-analysis';
 import Heading from '@/components/Heading.vue';
-import InputError from '@/components/InputError.vue';
-import IntakeController from '@/actions/App/Http/Controllers/IntakeController';
 import { create as intakeCreate, file as intakeFile } from '@/routes/intakes';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -53,20 +56,45 @@ interface Intake {
     reader_identifier: string | null;
     fixture_identifier: string | null;
     validation_result: Record<string, unknown> | null;
+    analysis: ReceiptAnalysisData | null;
 }
 
 const page = usePage();
 const permissions = computed(() => page.props.auth.permissions ?? []);
 const intakes = computed(() => (page.props.intakes ?? []) as Intake[]);
+const states = computed(() => (page.props.stateOptions ?? []) as StateOption[]);
+const poll = usePoll(5000, { only: ['intakes'] }, { autoStart: false });
+watch(
+    () =>
+        intakes.value.some((intake) =>
+            ['queued', 'running'].includes(intake.analysis?.processing ?? ''),
+        ),
+    (busy) => {
+        if (busy) poll.start();
+        else poll.stop();
+    },
+    { immediate: true },
+);
 const possibleDuplicates = computed(
     () => (page.props.possibleDuplicates ?? []) as PossibleDuplicate[],
 );
 const receiptStatuses: Record<string, string> = {
     stored: 'Archivo guardado · extracción pendiente',
+    needs_review: 'Requiere revisión',
+    validated: 'Lectura comprobada',
+    accepted: 'Datos confirmados',
+    unreadable: 'Recibo ilegible',
+    rejected: 'Datos por corregir',
+    analyzed: 'Dimensionamiento disponible',
     mock_validated: 'Simulación: JSON validado',
     mock_needs_review: 'Simulación: requiere revisión',
     mock_rejected: 'Simulación: JSON rechazado',
 };
+function receiptStatus(intake: Intake): string {
+    if (intake.analysis?.processing === 'queued') return 'Análisis en cola';
+    if (intake.analysis?.processing === 'running') return 'Analizando recibo';
+    return receiptStatuses[intake.status] ?? intake.status;
+}
 const client = computed(() => page.props.client as unknown as ClientData);
 const projects = computed(() => page.props.projects as unknown as Project[]);
 
@@ -172,7 +200,8 @@ defineOptions({
             </div>
             <p class="text-sm text-muted-foreground">
                 Los archivos se vinculan directamente a este prospecto. No se
-                requiere proyecto. La extracción automática está pendiente.
+                requiere proyecto. El análisis se realiza en segundo plano y su
+                estado aparece aquí.
             </p>
             <p
                 v-if="!permissions.includes('receipts.view')"
@@ -204,11 +233,9 @@ defineOptions({
                         >Descargar recibo #{{ intake.id }}</a
                     >
                 </div>
-                <Badge variant="secondary">{{
-                    receiptStatuses[intake.status] ?? intake.status
-                }}</Badge>
+                <Badge variant="secondary">{{ receiptStatus(intake) }}</Badge>
                 <div
-                    v-if="intake.reader_identifier"
+                    v-if="intake.fixture_identifier"
                     class="space-y-2 rounded-md border p-4"
                 >
                     <p class="text-sm font-medium">
@@ -234,47 +261,14 @@ defineOptions({
                             }}</pre>
                     </details>
                 </div>
-                <details
-                    v-else-if="permissions.includes('receipts.import')"
-                    class="rounded-md border p-4"
-                >
-                    <summary class="cursor-pointer text-sm">
-                        Probar validación con datos ficticios
-                    </summary>
-                    <p class="my-3 text-sm text-muted-foreground">
-                        Registra una simulación única con un fixture JSON. No
-                        lee ni extrae información del archivo adjunto.
-                    </p>
-                    <Form
-                        v-bind="IntakeController.mock.form(intake.id)"
-                        v-slot="{ errors, processing }"
-                        class="space-y-3"
-                    >
-                        <label
-                            :for="`fixture-${intake.id}`"
-                            class="block text-sm font-medium"
-                            >Escenario de prueba</label
-                        >
-                        <select
-                            :id="`fixture-${intake.id}`"
-                            name="fixture_identifier"
-                            class="h-10 w-full rounded-md border bg-background px-3 text-sm"
-                            required
-                        >
-                            <option value="complete">Completo</option>
-                            <option value="partial">Parcial</option>
-                            <option value="incoherent">Incoherente</option>
-                            <option value="malformed">Malformado</option>
-                        </select>
-                        <InputError :message="errors.fixture_identifier" />
-                        <Button
-                            type="submit"
-                            variant="outline"
-                            :disabled="processing"
-                            >Validar fixture de prueba</Button
-                        >
-                    </Form>
-                </details>
+                <ReceiptAnalysisPanel
+                    v-else-if="intake.analysis"
+                    :key="`${intake.id}-${intake.status}-${intake.analysis.revision}-${intake.analysis.processing}`"
+                    :intake-id="intake.id"
+                    :status="intake.status"
+                    :analysis="intake.analysis"
+                    :states="states"
+                />
             </article>
         </section>
 

@@ -9,12 +9,12 @@ class ReceiptIntakePolicy
 {
     public function create(User $user): bool
     {
-        return $user->can('receipts.import');
+        return $user->is_active && $user->can('receipts.import');
     }
 
     public function view(User $user, ReceiptIntake $intake): bool
     {
-        return ! $intake->client->trashed()
+        return $user->is_active && ! $intake->client->trashed()
             && $user->can('receipts.view')
             && $user->can('view', $intake->client);
     }

@@ -13,8 +13,8 @@ final readonly class InterconnectionResult
         public float $dailyConsumptionKwh,
         public float $requiredKwp,
         public int $minimumInverterW,
-        public int $moduleCount,
-        public float $selectedKwp,
+        public ?int $moduleCount,
+        public ?float $selectedKwp,
         public ?int $microinverterCount,
     ) {}
 

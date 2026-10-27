@@ -1,0 +1,31 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 842] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Length 455 >>
+stream
+BT /F1 14 Tf 45 770 Td 26 TL (CFE - MUESTRA SINTETICA - NO VALIDA PARA PAGO) Tj T* (Tarifa: 1C) Tj T* (Periodo del 2026-07-15 al 2026-09-13) Tj T* (Dias: 60) Tj T* (Consumo: 520 kWh) Tj T* (Total: 1234.56 MXN) Tj T* (Domicilio de suministro:) Tj T* (Calle de Prueba 123, Centro) Tj T* (Queretaro, Queretaro, CP 76000) Tj T* (Historico de consumo:) Tj T* (2026-03-15 al 2026-05-14: 450 kWh, 60 dias) Tj T* (2026-05-15 al 2026-07-14: 480 kWh, 60 dias) Tj ET
+endstream
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000000311 00000 n 
+trailer << /Size 6 /Root 1 0 R >>
+startxref
+817
+%%EOF

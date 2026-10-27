@@ -126,6 +126,16 @@ test('OVERLAPPING_HISTORY se dispara cuando dos periodos del historial se trasla
     expect(codesFor(F::base()))->not->toContain('OVERLAPPING_HISTORY');
 });
 
+test('los periodos históricos consecutivos pueden compartir fecha de corte sin traslaparse', function () {
+    $adjacent = F::base();
+    $adjacent['consumption_history'][1]['period_start'] = $adjacent['consumption_history'][0]['period_end'];
+
+    expect(codesFor($adjacent))->not->toContain('OVERLAPPING_HISTORY');
+
+    $adjacent['consumption_history'][1] = $adjacent['consumption_history'][0];
+    expect(codesFor($adjacent))->toContain('OVERLAPPING_HISTORY');
+});
+
 test('HISTORY_GAP se dispara cuando hay un hueco mayor a 10 días entre periodos consecutivos', function () {
     $withGap = F::base();
     $withGap['consumption_history'][1]['period_start'] = '2026-06-01';

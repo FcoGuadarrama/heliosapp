@@ -291,7 +291,7 @@ class ReceiptProcessingTest extends TestCase
     {
         app(QueueReceiptProcessing::class)($this->intake());
         $this->assertDatabaseCount('jobs', 1);
-        Artisan::call('queue:work', ['--once' => true, '--sleep' => 0, '--tries' => 3]);
+        Artisan::call('queue:work', ['--once' => true, '--queue' => 'receipts', '--sleep' => 0, '--tries' => 3]);
 
         $this->assertDatabaseCount('jobs', 0);
         $this->assertSame(ProcessingStatus::Blocked, ReceiptProcessingRun::sole()->status);

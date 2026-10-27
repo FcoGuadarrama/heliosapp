@@ -1,0 +1,17 @@
+{
+    "service.tariff_code": "1C",
+    "service.holder_name": null,
+    "service.phases": null,
+    "current_period.period_start": "2026-07-15",
+    "current_period.period_end": "2026-09-13",
+    "current_period.days": 60,
+    "current_period.consumption_kwh": 520,
+    "receipt.total_amount_mxn": 1234.56,
+    "consumption_history.0.period_start": "2026-03-15",
+    "consumption_history.0.period_end": "2026-05-14",
+    "consumption_history.0.consumption_kwh": 450,
+    "consumption_history.1.period_start": "2026-05-15",
+    "consumption_history.1.period_end": "2026-07-14",
+    "consumption_history.1.consumption_kwh": 480,
+    "extraction.status": "complete"
+}

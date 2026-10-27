@@ -5,6 +5,7 @@ namespace App\Jobs;
 use App\Application\ProcessReceiptRun;
 use App\Domain\Processing\ProcessingStatus;
 use App\Models\ReceiptProcessingRun;
+use App\Models\SolarCase;
 use App\Models\SolarCaseEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
@@ -18,7 +19,7 @@ class ProcessReceipt implements ShouldQueue
 
     public int $tries = 3;
 
-    public int $timeout = 60;
+    public int $timeout = 840;
 
     public bool $failOnTimeout = true;
 
@@ -33,7 +34,7 @@ class ProcessReceipt implements ShouldQueue
     /** @return list<WithoutOverlapping> */
     public function middleware(): array
     {
-        return [(new WithoutOverlapping('receipt-run:'.$this->runId))->releaseAfter(10)->expireAfter(75)];
+        return [(new WithoutOverlapping('receipt-run:'.$this->runId))->releaseAfter(10)->expireAfter(900)];
     }
 
     public function handle(ProcessReceiptRun $process): void
@@ -44,6 +45,11 @@ class ProcessReceipt implements ShouldQueue
     public function failed(?Throwable $exception): void
     {
         DB::transaction(function (): void {
+            $source = ReceiptProcessingRun::find($this->runId);
+            if ($source === null) {
+                return;
+            }
+            SolarCase::query()->lockForUpdate()->findOrFail($source->solar_case_id);
             $run = ReceiptProcessingRun::query()->lockForUpdate()->find($this->runId);
             if ($run === null || ! in_array($run->status, [ProcessingStatus::Queued, ProcessingStatus::Running], true)) {
                 return;
