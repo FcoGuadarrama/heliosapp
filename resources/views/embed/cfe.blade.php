@@ -6,23 +6,23 @@
     <meta name="referrer" content="no-referrer">
     <title>Enviar recibo CFE · Helios</title>
     <style>
-        :root { color-scheme: light; font-family: ui-sans-serif, system-ui, sans-serif; color: #18181b; background: #fff; }
+        :root { color-scheme: light; font-family: ui-sans-serif, system-ui, sans-serif; color: #08221B; background: #F9F9F8; }
         * { box-sizing: border-box; }
         body { margin: 0; padding: 24px 16px; }
-        main { max-width: 560px; margin: 0 auto; }
+        main { max-width: 560px; margin: 0 auto; padding: 24px; background: #fff; border: 1px solid #DDE4DF; border-top: 3px solid #C69C53; border-radius: 14px; }
         h1 { margin: 0 0 12px; font-size: 24px; line-height: 1.25; }
         p { line-height: 1.5; }
-        .muted { color: #52525b; font-size: 14px; }
+        .muted { color: #53665F; font-size: 14px; }
         form { display: grid; gap: 20px; margin-top: 24px; }
         .field { display: grid; gap: 8px; }
         label, legend { font-size: 14px; font-weight: 600; }
         input:not([type=checkbox]), button { min-height: 44px; width: 100%; font: inherit; }
-        input:not([type=checkbox]) { border: 1px solid #a1a1aa; border-radius: 6px; padding: 10px 12px; background: #fff; color: #18181b; }
+        input:not([type=checkbox]) { border: 1px solid #a1a1aa; border-radius: 6px; padding: 10px 12px; background: #fff; color: #08221B; }
         input[type=file] { font-size: 14px; }
         input[type=checkbox] { width: 20px; height: 20px; flex-shrink: 0; }
-        input:focus-visible, button:focus-visible, a:focus-visible { outline: 3px solid #2563eb; outline-offset: 3px; }
-        button { border: 0; border-radius: 6px; background: #18181b; color: #fff; padding: 12px 16px; font-weight: 600; cursor: pointer; }
-        .notice { border: 1px solid #d4d4d8; padding: 16px; border-radius: 6px; }
+        input:focus-visible, button:focus-visible, a:focus-visible { outline: 3px solid #527564; outline-offset: 3px; }
+        button { border: 0; border-radius: 6px; background: #08221B; color: #fff; padding: 12px 16px; font-weight: 600; cursor: pointer; }
+        .notice { border: 1px solid #DDE4DF; padding: 16px; border-radius: 6px; }
         .consent { display: flex; align-items: flex-start; gap: 10px; font-weight: 400; line-height: 1.5; }
         .errors { border: 1px solid #b91c1c; border-radius: 6px; padding: 16px; color: #991b1b; margin-top: 20px; }
         .errors ul { margin-bottom: 0; padding-left: 20px; }
@@ -82,7 +82,7 @@
                 <label for="privacy_consent" class="consent"><input id="privacy_consent" name="privacy_consent" type="checkbox" value="1" required aria-describedby="privacy-text privacy-error" aria-invalid="{{ isset($errors['privacy_consent']) || isset($errors['privacy_version']) ? 'true' : 'false' }}">Autorizo el tratamiento de mis datos personales y de mi recibo conforme al aviso de privacidad.</label>
                 <div id="privacy-error">@foreach ($errors['privacy_consent'] ?? [] as $message)<p class="error">{{ $message }}</p>@endforeach @foreach ($errors['privacy_version'] ?? [] as $message)<p class="error">{{ $message }}</p>@endforeach</div>
             </section>
-            <p class="muted">El archivo se guardará de forma privada para su revisión. La extracción automática de PDF e imágenes está pendiente.</p>
+            <p class="muted">El archivo se guarda de forma privada. Cuando el lector está habilitado, el análisis continúa en segundo plano; un asesor revisará los datos que necesiten confirmación.</p>
             <button type="submit">Enviar solicitud y recibo</button>
         </form>
     @endif

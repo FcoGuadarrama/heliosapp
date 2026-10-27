@@ -12,16 +12,20 @@ withDefaults(defineProps<Props>(), {
 
 <template>
     <header :class="variant === 'small' ? '' : 'space-y-2'">
-        <h2
+        <component
+            :is="variant === 'small' ? 'h2' : 'h1'"
             :class="
                 variant === 'small'
                     ? 'mb-0.5 text-base font-medium'
-                    : 'text-xl font-semibold tracking-tight'
+                    : 'text-2xl font-semibold tracking-tight sm:text-3xl'
             "
         >
             {{ title }}
-        </h2>
-        <p v-if="description" class="text-sm text-muted-foreground">
+        </component>
+        <p
+            v-if="description"
+            class="max-w-2xl text-sm leading-relaxed text-muted-foreground"
+        >
             {{ description }}
         </p>
     </header>

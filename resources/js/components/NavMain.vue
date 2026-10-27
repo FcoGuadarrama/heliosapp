@@ -6,6 +6,7 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
+    useSidebar,
 } from '@/components/ui/sidebar';
 import { useCurrentUrl } from '@/composables/useCurrentUrl';
 import type { NavItem } from '@/types';
@@ -15,6 +16,7 @@ defineProps<{
 }>();
 
 const { isCurrentOrParentUrl } = useCurrentUrl();
+const { isMobile, setOpenMobile } = useSidebar();
 </script>
 
 <template>
@@ -27,10 +29,11 @@ const { isCurrentOrParentUrl } = useCurrentUrl();
                     as-child
                     :is-active="isCurrentOrParentUrl(item.href)"
                     :tooltip="item.title"
-                    class="h-10"
+                    class="h-11"
                 >
                     <Link
                         :href="item.href"
+                        @click="isMobile && setOpenMobile(false)"
                         :aria-current="
                             isCurrentOrParentUrl(item.href) ? 'page' : undefined
                         "
@@ -41,7 +44,7 @@ const { isCurrentOrParentUrl } = useCurrentUrl();
                 </SidebarMenuButton>
                 <SidebarMenuButton
                     v-else
-                    class="h-10"
+                    class="h-11"
                     disabled
                     :tooltip="`${item.title}: próximamente`"
                 >

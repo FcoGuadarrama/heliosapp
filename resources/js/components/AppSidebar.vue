@@ -2,12 +2,9 @@
 import { Link, usePage } from '@inertiajs/vue3';
 import {
     BookOpen,
-    FolderGit2,
     LayoutGrid,
     Users,
     Zap,
-    FileText,
-    Truck,
     Calculator,
     UserCog,
 } from '@lucide/vue';
@@ -38,7 +35,7 @@ const mainNavItems = computed<NavItem[]>(() => {
 
     return [
         {
-            title: 'Dashboard',
+            title: 'Resumen',
             href: dashboard(),
             icon: LayoutGrid,
         },
@@ -51,7 +48,6 @@ const mainNavItems = computed<NavItem[]>(() => {
                   },
               ]
             : []),
-        { title: 'Cotizaciones', href: '#', icon: FileText, disabled: true },
         ...(permissions.includes('receipts.import')
             ? [
                   {
@@ -61,13 +57,6 @@ const mainNavItems = computed<NavItem[]>(() => {
                   },
               ]
             : []),
-        { title: 'Proveedores', href: '#', icon: Truck, disabled: true },
-        {
-            title: 'Costos y márgenes',
-            href: '#',
-            icon: Calculator,
-            disabled: true,
-        },
         ...(permissions.includes('users.view')
             ? [{ title: 'Usuarios', href: usersIndex(), icon: UserCog }]
             : []),
@@ -85,13 +74,8 @@ const mainNavItems = computed<NavItem[]>(() => {
 
 const footerNavItems: NavItem[] = [
     {
-        title: 'Repository',
-        href: 'https://github.com/laravel/vue-starter-kit',
-        icon: FolderGit2,
-    },
-    {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#vue',
+        title: 'Documentación',
+        href: '/documentation',
         icon: BookOpen,
     },
 ];
