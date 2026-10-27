@@ -2112,3 +2112,16 @@ Las entradas son acumulativas; una propuesta no equivale a una implementación.
 - **Publicación:** el push y cotejo de HEAD con origin/main se ejecutan después
   de este registro; esta entrada no afirma éxito anticipado. Si fallan, se
   registrará el impedimento. La publicación del repositorio no es despliegue.
+
+## 2026-10-27 — Codex: push confirmado y bloqueo externo de CI
+
+- **Publicado:** push de los siete commits a origin/main completado. HEAD local
+  y ls-remote coinciden en 473a727a10aa1c44fb047373149e3f10ab9b8709; árbol
+  limpio tras publicación. Este registro se añade en commit documental posterior.
+- **CI remoto:** run 40533163664 terminó sin iniciar pasos. Anotación oficial:
+  “The job was not started because your account is locked due to a billing issue.”
+  No es fallo de pruebas ejecutadas en GitHub; ninguna llegó a iniciar. Resolver
+  facturación/bloqueo de la cuenta y repetir Actions queda pendiente del usuario.
+- **Validación local:** se mantienen 347 pruebas/1716 aserciones y checks completos
+  correctos de la entrada anterior. No se cambió workflow para ocultar el bloqueo.
+  Sin despliegue ni cambios a facturación. Evidencia consultada con gh run/api.
