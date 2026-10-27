@@ -12,7 +12,6 @@ use App\Domain\ReceiptData\FileReceiptReader;
 use App\Infrastructure\Hsp\DatabaseHspProvider;
 use App\Infrastructure\Hsp\NasaClimatologyClient;
 use App\Infrastructure\Receipts\OllamaReceiptReader;
-use App\Infrastructure\Receipts\SourceReceiptReader;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -28,7 +27,6 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(ReceiptReader::class, MockReceiptReader::class);
         $this->app->bind(FileReceiptReader::class, fn ($app): FileReceiptReader => match (config('receipt_reader.driver')) {
-            'source' => $app->make(SourceReceiptReader::class),
             'ollama' => $app->make(OllamaReceiptReader::class),
             default => throw new \LogicException('Invalid receipt reader driver.'),
         });

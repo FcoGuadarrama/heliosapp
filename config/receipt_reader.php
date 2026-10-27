@@ -13,5 +13,4 @@ return [
     'pdftoppm' => env('HELIOS_PDFTOPPM', 'pdftoppm'),
     'pdfinfo' => env('HELIOS_PDFINFO', 'pdfinfo'),
     'pdftotext' => env('HELIOS_PDFTOTEXT', 'pdftotext'),
-    'ocr_binary' => env('HELIOS_RECEIPT_OCR_BINARY', ''),
 ];
