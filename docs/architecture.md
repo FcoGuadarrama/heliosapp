@@ -118,6 +118,8 @@ El [RFC-001](rfcs/001-cotizacion-ia-ubicacion-hsp.md) reúne el flujo aceptado.
 [ADR-012](adrs/012-motor-syscom.md) formaliza la adopción aceptada de Syscom.
 [ADR-013](adrs/013-ubicacion-desde-recibo-cfe.md) define ubicación confirmada;
 [ADR-014](adrs/014-hsp-nasa-power.md) define catálogo estatal NASA.
+[ADR-015](adrs/015-expediente-y-procesamiento-compartido.md) registra expediente y procesamiento común.
+[ADR-016](adrs/016-identidad-y-sistema-visual.md) registra identidad y sistema visual vigentes.
 Ambas decisiones de producto están aceptadas, con metodología e implementación
 pendientes. Google/contornos se mantiene pospuesto según RFC-002 actualizado.
 
@@ -145,7 +147,13 @@ Contrato objetivo para extracción futura. El adaptador actual vive en
 JSON sintético de un catálogo cerrado. `MockReceiptReader` no recibe ni interpreta el
 archivo y se identifica como `mock-fixture` v1.0.0. No se toca el dominio CFE ya validado;
 `ValidateMockReceipt` reutiliza `ReceiptImportValidator` y conserva bytes originales.
-Ollama deberá implementar la lectura real de PDF/imagen posteriormente.
+E3 incorpora por separado `Domain/ReceiptData/FileReceiptReader`, implementado
+por `Infrastructure/Receipts/OllamaReceiptReader`. Recibe `ReceiptSource` y devuelve
+respuesta original, JSON CFE, modelo, páginas y versión de prompt. Preparación,
+validación, persistencia, revisión y límites en [lector local](receipt-reader.md).
+El contrato de fixtures permanece separado. `ReceiptProcessor` usa ahora
+`ReadAndSizeReceipt`, con cola automática, cotejo de fuente y snapshots de cálculo;
+[implementación y límites](automatic-receipt-analysis.md).
 El lector **nunca** infiere un campo que no leyó: lo reporta en `missing_fields`.
 
 ### 4.2 Proveedores

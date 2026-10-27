@@ -1,7 +1,9 @@
 # Helios — API compartida de procesamiento solar
 
 Revisión: 2026-10-23. Estado: contrato E1 definido y fundamentos implementados;
-endpoints HTTP aún no registrados. Contrato concreto en
+endpoints `/api/v1` aún no registrados. El recorrido interno bajo sesión ya
+dispone de [análisis, revisión y cálculo](automatic-receipt-analysis.md); el
+contrato público previsto se conserva por separado. Contrato concreto en
 [procesamiento solar v1](contracts/solar-processing-v1.md) y decisión en
 [ADR-015](adrs/015-expediente-y-procesamiento-compartido.md).
 Sustituye la instrucción anterior de diferir toda API a F6. Ver

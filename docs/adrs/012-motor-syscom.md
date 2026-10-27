@@ -48,7 +48,7 @@ Primera entrega: pruebas independientes de interconexión, consumo histórico,
 fronteras de redondeo y cantidad de microinversores por módulos admitidos.
 Aislado, híbrido y banco de baterías quedan para ampliaciones posteriores.
 
-## Primera implementación — 2026-10-22
+## Primera implementación — 2026-10-22 (histórico)
 
 Motor puro en `app/Domain/Solar`, versión `syscom-interconnection-v1`, con captura
 manual interna en `/engineering/interconnection`. No copia el PHP externo.
@@ -57,3 +57,16 @@ modelos ni validación eléctrica completa. HSP se captura explícitamente como
 entrada de prueba; no hay tabla predeterminada ni integración NASA activa.
 No genera ni publica cotizaciones comerciales. El flujo completo del RFC sigue
 pendiente. Ver [guía de uso](../solar-engineering.md#5-primera-entrega-de-dimensionamiento).
+
+## Estado vigente — 2026-10-27
+
+La sección anterior conserva el alcance de la primera entrega, no el estado
+actual de NASA. `ReadAndSizeReceipt` integra recibo normalizado, entidad
+confirmada y catálogo estatal NASA real; persiste entradas, resultado y snapshot
+HSP en `SolarCalculation`. Sin potencia documentada de panel no completa sus
+cantidades. El dimensionador manual sigue disponible como herramienta separada.
+
+El cotizador asistido consulta la API oficial Syscom y congela selección manual,
+precio_lista e IVA en borradores internos. No implementa el Ingeniero IA de
+selección, compatibilidad eléctrica completa ni publicación comercial. Ver
+[guía vigente](../assisted-quote.md) y [plan](../project-plan.md).

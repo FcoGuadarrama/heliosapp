@@ -6,6 +6,11 @@ E2: migración `2026_10_23_000002_create_hsp_catalog` aplicada localmente;
 configuración cacheada reconstruida y primer catálogo real de 32 entidades
 publicado. Consulta/actualización y frecuencia en [operación HSP](hsp-catalog.md).
 
+E3 en validación: Poppler y túnel SSH local para Ollama; requisitos y comandos en
+[lector de recibos](receipt-reader.md). Las dos migraciones E3 del 2026-10-26
+se aplicaron en MySQL local tras revisar SQL y probarlas en SQLite en memoria.
+El cache alterno de pruebas evita ejecutar la suite contra MySQL local.
+
 Cierre verificado: migración E1 aplicada en MySQL local, sin migraciones
 pendientes. Instalación vacía con 171 paquetes (incluidas dependencias dev),
 scripts de autoload/discovery, migraciones aisladas y 235 pruebas correctos.
@@ -63,19 +68,20 @@ instalación/actualización de producto prevista en E10.
 
 ## Cola E1
 
-La recepción crea expediente en received. E4 conectará el dispatch automático;
-en E1 `QueueReceiptProcessing` es un servicio interno sin endpoint nuevo.
-Al solicitar ejecución, dispatch ocurre después del commit. Worker de desarrollo:
+La carga usa `ReceiveReceipt` y encola automáticamente si el lector está habilitado.
+El procesamiento real y los endpoints internos están conectados; ver
+[operación y límites actuales](automatic-receipt-analysis.md). Worker de desarrollo:
 
 ```bash
-php artisan queue:work database --tries=3 --timeout=60
+php artisan queue:work database --queue=receipts --tries=3 --timeout=840 --sleep=2
 ```
 
 No iniciarlo contra una base compartida sin revisar sus trabajos y migraciones.
 La prueba de integración ejecuta worker sobre la base aislada de pruebas.
-Conservar retry_after >75 s, timeout 60 s y caché con locks compartida entre
-workers. Esta base devuelve blocked/receipt_reader_unavailable cuando se ejecuta,
-no un dimensionamiento ficticio. No produce correos ni PDF ni consume otra carga.
+Conservar retry_after 960 s, timeout 840 s y locks 900 s compartidos entre
+workers. Fallos de lector, fuente, revisión, estado o HSP devuelven bloqueos
+explícitos; solo se conserva cálculo tras datos comprobados/aceptados. No produce
+correos ni PDF ni consume otra carga por un fallo técnico.
 
 Workers/scheduler permanentes, monitoreo, retención, SMTP y restauración completa
 se cierran en E10. El contrato de estados y límites está en

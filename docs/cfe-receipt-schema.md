@@ -2,7 +2,7 @@
 
 > Actualización de producto v0.3: este JSON es un contrato interno de Ollama/mock, no la entrada pública del usuario. El producto recibe PDF/imagen vinculados a un prospecto; no exige proyecto manual. Las reglas y DTOs de este contrato no cambian.
 > Este es el **contrato de entrada de datos energéticos de Helios**. Lo producen por igual
-> un archivo de prueba, el `MockReceiptReader` y, más adelante, el `OllamaReceiptReader`.
+> un archivo de prueba, el `MockReceiptReader` y el `OllamaReceiptReader` (E3 en validación).
 > Quien implemente un lector nuevo debe emitir exactamente esta forma.
 
 ## 1. Principios

@@ -1,6 +1,6 @@
 # Helios — Alcance, estado y orden de entrega
 
-Fecha de revisión: 2026-10-23. Autor: Codex.
+Fecha de revisión: 2026-10-27. Autor: Codex.
 
 Este documento ordena el trabajo de todo el proyecto por dependencias reales.
 El orden es una recomendación técnica para ejecutar las decisiones de producto
@@ -39,33 +39,37 @@ compartida que necesitan ahora los dos formularios.
 
 ## Estado comprobado en el repositorio
 
-Revisión de rutas, migraciones, modelos, servicios, vistas, configuración,
-pruebas y documentación. No es una auditoría exhaustiva de seguridad ni prueba
-actual de producción. El último cierre registrado pasó 217 pruebas; no se
-repitieron para esta actualización documental.
+Inventario local actualizado con servicios, rutas, guías de operación y cierres
+registrados en MEMORY.md. No acredita despliegue ni auditoría completa de
+seguridad. Esta reconciliación documental no ejecuta pruebas de aplicación.
+Las validaciones de cada entrega conservan su fecha y alcance en la memoria.
 
-| Área           | Existe                                                                            | Falta para cerrar                                                                                                               |
-| -------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| Identidad      | Fortify, 2FA/passkeys, roles, usuarios y protección del último owner              | Revisar registro público de usuarios CRM, cuentas inactivas con sesión/passkey y permisos de nuevos módulos                     |
-| Empresa y tema | Configuración, vigencia de propuestas, tema azul/Instrument Sans                  | Conectar identidad configurable donde corresponda, configuración operativa y comercial                                          |
-| CRM            | CRUD de prospectos/proyectos, aviso interno de duplicados                         | Responsable del expediente, bandeja, historial y seguimiento; dashboard de actividad real                                       |
-| Recepción      | Embebido y CRM, consentimiento, archivo privado, token y límites                  | Correo obligatorio público, dos cargas en mismo expediente, progreso, recuperación e integración común                          |
-| Datos CFE      | DTO v1.0, validadores, fixtures y JSON original de simulación                     | Lector de archivo real, normalización para cálculo, correcciones y aceptación auditadas                                         |
-| Ingeniería     | Motor `Domain/Solar`, pruebas y pantalla manual                                   | API JSON, entradas desde recibo, parámetros trazables, snapshots y reglas de faltantes                                          |
-| Geografía      | Domicilio en contrato y coordenadas en proyecto opcional                          | Estado/ubicación del expediente, aceptación/corrección manual y semáforo simulado; geocodificador real pospuesto                |
-| NASA           | Catálogo real de 32 entidades, consulta local, evidencia/versiones y actualizador | Integrar HSP y snapshot al flujo de cálculo E4                                                                                  |
-| Equipos        | Referencia externa de fórmulas y catálogo                                         | Adaptador Syscom, atributos, costos, stock, validación y selección IA                                                           |
-| Economía       | Decisiones funcionales y vigencia comercial                                       | Perfiles/versiones, IVA, descuentos, redondeo, costo separado de venta y configuración CRM                                      |
-| Propuestas     | Especificación y PDF estático de junta                                            | Versiones de producto, publicación, PDF privado, correo y acciones del cliente                                                  |
-| Operación      | Migraciones base, tablas de colas, scripts y workflow CI                          | Instalación/actualización documentada, workers/scheduler, respaldos/restauración, monitoreo, retención y pruebas de instalación |
+| Área           | Existe                                                                                                            | Falta para cerrar                                                                                           |
+| -------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| Identidad      | Fortify, 2FA/passkeys, roles, usuarios y protección del último owner                                              | Auditoría integral de registro, sesiones, cuentas inactivas y permisos                                      |
+| Empresa y tema | Configuración y vigencia; identidad Helios, tema claro y oscuro negro con acentos verdes, componentes compartidos | Identidad configurable por empresa y revisión visual individual de rutas restantes                          |
+| CRM            | CRUD de prospectos/proyectos, duplicados y resumen operativo con permisos                                         | Bandeja completa, toma concurrente, historial y seguimiento                                                 |
+| Recepción      | CRM y embebido encolan análisis; archivo privado, consentimiento, progreso interno y segunda carga interna        | Recuperación y acciones públicas, recaptura pública completa y avisos                                       |
+| Datos CFE      | Lectores source texto/OCR y Ollama, contrato v1.0, normalización, evidencia y revisión versionada                 | Revisión condicional solicitada para source, evaluación de más formatos y OCR portable                      |
+| Ingeniería     | Motor, dimensionador manual y cálculo desde recibo con snapshot HSP NASA                                          | Potencia/modelo documentados para cantidades, validación eléctrica y API externa completa                   |
+| Geografía      | Domicilio extraído y entidad confirmada manualmente para cálculo                                                  | Coordenadas verificadas, mapa y semáforo real; Google/contornos pospuesto                                   |
+| NASA           | Catálogo real de 32 entidades, actualizador y snapshot consumido por cálculo                                      | Verificación operativa continua de vigencia y recuperación de actualizaciones                               |
+| Equipos        | Adaptador API oficial Syscom, búsqueda y selección manual en borradores                                           | Selección IA, atributos y compatibilidad eléctrica completos, semántica comercial lista/MAP                 |
+| Economía       | Borrador interno con precio_lista congelado, IVA local 16% y total                                                | Perfiles kWp/panel/paquete, descuentos y configuración comercial completa; costo/utilidad verificables      |
+| Propuestas     | Borradores internos de equipos versionados e idempotentes                                                         | Publicación comercial, PDF privado, correo, enlace y acciones del cliente                                   |
+| Operación      | Migraciones, colas, CI y Swagger local documentado                                                                | Instalación/actualización y OCR portables, workers/scheduler persistentes, respaldos, monitoreo y retención |
 
-Actualización E1: existen expediente, eventos y job de procesamiento con binding
-bloqueado por ausencia de lector, sin dispatch automático desde las pantallas.
-Ver [contrato](contracts/solar-processing-v1.md), [ADR-015](adrs/015-expediente-y-procesamiento-compartido.md)
-y [runtime/migración](runtime.md). No existen aún endpoints de API compartida,
-lector real, perfiles comerciales ni generador de propuestas. E2 aporta el
-catálogo NASA real y consulta local, sin conectarlo aún al flujo de recibos.
-Las tablas y job de E1 no equivalen al recorrido automático E4/E5.
+La integración local usa `ReceiveReceipt` y `ReadAndSizeReceipt`: carga, lectura,
+revisión cuando corresponda, entidad confirmada y consulta HSP antes de guardar
+el cálculo. El lector source exige hoy cotejo humano universal; su sustitución
+por revisión condicional está solicitada, aún no implementada. No se inventa
+potencia de panel para completar cantidades. Las respuestas del embebido no
+incluyen una propuesta pública ni convierten cookies CRM en autorización.
+
+Ver [análisis automático](automatic-receipt-analysis.md),
+[cotizador asistido](assisted-quote.md), [contrato](contracts/solar-processing-v1.md)
+y [ADR-016 de diseño](adrs/016-identidad-y-sistema-visual.md).
+Estos avances no declaran cerrados E3–E10 ni el recorrido completo del RFC-001.
 
 ## Orden recomendado
 
@@ -110,7 +114,8 @@ Las rutas HTTP, lector real y notificaciones conservan su entrega E3–E5.
 - Preparar cola sobre base, ejecución después del commit, errores observables y
   puntos de reanudación. Un reintento no consume otra carga ni crea otra propuesta.
 - Definir contratos de lector, HSP, resultado genérico y precios no disponibles.
-  El lector actual solo tiene `readFixture`; no admite archivos reales aún.
+  En el cierre inicial E1 el lector solo tenía `readFixture`; esa limitación
+  fue sustituida por los lectores reales de E3.
 - Definir responsable/bandeja y notificaciones como parte del expediente; su
   interfaz completa se entrega en E5. No prometer un procesamiento activo si
   faltan lectores o workers.
@@ -137,6 +142,8 @@ consulta local por entidad y pruebas de actualización fallida conservando la
 
 ### E3 — Recibo real, validado y corregible
 
+Estado al 2026-10-27: implementado parcialmente con lectores source/Ollama, normalización y revisión versionada. Pendientes evaluación ampliada, revisión condicional source y operación portable.
+
 Definir dónde ejecutará el lector, hardware/modelo/formato soportado y límites
 antes de elegir modelo. El contrato CFE actual prohíbe enviar datos personales a
 terceros; no sustituirlo por un servicio remoto sin decisión expresa.
@@ -153,6 +160,8 @@ inferencias silenciosas ni aceptación automática de un JSON solo estructuralme
 válido. El módulo puede probarse antes de NASA; la integración automática espera E2.
 
 ### E4 — Primera API útil sin catálogo proveedor
+
+Estado al 2026-10-27: cálculo interno desde recibo y snapshot NASA implementados. No equivale a cierre de API completa ni a cantidades de equipos sin potencia documentada.
 
 Componer recibo validado, entidad aceptada, HSP versionada y motor existente.
 Persistir entradas/supuestos, versiones y resultado de cada cálculo. Resolver
@@ -173,6 +182,8 @@ Es un dimensionamiento preliminar, no publicación comercial completa.
 
 ### E5 — Usar el resultado en los dos canales
 
+Estado al 2026-10-27: ambas cargas disparan procesamiento y el CRM muestra progreso/revisión. Acciones públicas, recuperación, bandeja y avisos completos pendientes.
+
 Conectar primero la carga dentro del prospecto del asesor, luego el formulario
 embebido existente. Ambos usan el contrato y caso de uso comunes. Preservar
 CSRF del CRM y aislamiento sin sesión del embebido; no convertir cookies CRM
@@ -190,6 +201,8 @@ una propuesta comercial desde datos de prueba ni por ausencia de tarifa.
 
 ### E6 — Venta propia independiente de costo Syscom
 
+Estado al 2026-10-27: precio_lista e IVA local 16% disponibles en borrador asistido. Perfiles propios y descuentos de esta entrega siguen pendientes.
+
 Perfiles versionados por kWp, panel y paquete con condiciones, prioridad,
 moneda, vigencia e inclusiones. Captura sin IVA ni instalación. Dinero en
 centavos, IVA configurado/verificado y descuentos según RFC-001.
@@ -204,6 +217,8 @@ E6 puede construirse con resultados de prueba mientras se integra E4.
 
 ### E7 — Equipos y costos reales
 
+Estado al 2026-10-27: API oficial y selección manual implementadas; no acreditan compatibilidad eléctrica ni costo de compra/utilidad. Semántica lista/MAP pendiente.
+
 Revalidar endpoints, cobertura y credenciales Syscom; precio de compra exige
 su fuente real. Normalizar atributos y conservar ausencias explícitas; agregar
 stock por cantidad, consulta/frescura/caché y fallos. Validar eléctricamente
@@ -217,6 +232,8 @@ pruebas del adaptador siguen posibles; equipos/costos reales quedan bloqueados.
 
 ### E8 — Ingeniero IA con autoridad limitada
 
+Estado al 2026-10-27: selección automática de equipos con herramientas pendiente; no confundir el lector con el Ingeniero IA.
+
 El lector y el Ingeniero IA son responsabilidades distintas. El primero extrae;
 el segundo analiza contexto y elige configuraciones. Exponer herramientas de
 cálculo/catálogo/compatibilidad/precios ya probadas. Rechazar IDs inexistentes,
@@ -227,6 +244,8 @@ trazabilidad, sin sustituir la decisión del Ingeniero IA con un ranking fijo.
 La API integra este resultado sin cambiar el formulario de contacto/archivo.
 
 ### E9 — Cotización y entrega completa
+
+Estado al 2026-10-27: existen borradores internos versionados; publicación, PDF/correo y acceso del cliente siguen pendientes.
 
 Borrador y versiones inmutables con snapshots, edición autorizada y publicación
 explícita de actualizaciones. Acceso revocable por versión, vencimiento comercial
@@ -304,8 +323,12 @@ ni venta de equipos según perfiles. No prometer ahorro ni retorno sin fuentes.
 
 ## Próxima unidad de trabajo
 
-E1 está cerrada: runtime/CI, contrato, expediente y ejecución probados, incluida
-instalación limpia de desarrollo y migración local aplicada.
-E2 implementada: catálogo NASA real publicado, consulta local y actualizador.
-Siguiente módulo E3: lector real y normalización del recibo. No implementar
-ahora una API que solo recibe y devuelve “pendiente” como sustituto del cálculo.
+Corregir la revisión universal del lector source para aplicar la revisión
+condicional solicitada, con evidencia y validaciones deterministas. No se
+considera autorizada la aceptación de extracciones ambiguas por este documento.
+Después, cerrar evaluación/operación del lector y completar ingeniería de
+equipos, compatibilidad y selección asistida por IA antes de publicación.
+
+Los hitos E1/E2 permanecen implementados. E3–E7 tienen avances locales parciales;
+E8/E9 y el cierre integral E10 no están completados. Mantener los criterios
+anteriores como trabajo restante, sin reinterpretarlos como funciones existentes.

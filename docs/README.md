@@ -1,5 +1,9 @@
 # Documentación de Helios
 
+La referencia navegable del proyecto está en **Documentación** del sidebar
+(`/documentation`), integrada con Laravel L5-Swagger. Incluye guía de uso,
+arquitectura, operación y endpoints actuales. Ver [mantenimiento de Swagger](swagger.md).
+
 ## Por dónde continuar
 
 [Alcance, estado y orden de entrega](project-plan.md) contiene el inventario
@@ -18,9 +22,12 @@ producto. Es la entrada de trabajo para continuar por partes.
 | [ADR-012](adrs/012-motor-syscom.md)                           | Fórmulas Syscom y motor propio                                       |
 | [ADR-013](adrs/013-ubicacion-desde-recibo-cfe.md)             | Ubicación del suministro y confirmación                              |
 | [ADR-014](adrs/014-hsp-nasa-power.md)                         | Catálogo estatal NASA y trazabilidad                                 |
+| [ADR-015](adrs/015-expediente-y-procesamiento-compartido.md)  | Expediente y procesamiento común, integración local parcial          |
+| [ADR-016](adrs/016-identidad-y-sistema-visual.md)             | Identidad Helios, tema claro y oscuro negro con acentos verdes       |
 | [API](api-design.md)                                          | Consumidores asesor/embebido y contrato por cerrar                   |
 | [Modelo de dominio](domain-model.md)                          | Persistencia existente frente a diseños históricos por adaptar       |
 | [Contrato CFE](cfe-receipt-schema.md)                         | JSON interno v1.0 y validación; no es formulario público             |
+| [Cotizador asistido](assisted-quote.md)                       | Texto/OCR, revisión y borrador interno con precio de lista Syscom    |
 | [Ingeniería](solar-engineering.md)                            | Parámetros, fuentes y motor manual actual                            |
 | [Referencia Syscom](syscom-calculator-reverse-engineering.md) | Evidencia de fórmulas; no acredita integración ni precios reales     |
 | [Tema](design/theme.md)                                       | Sistema visual existente                                             |

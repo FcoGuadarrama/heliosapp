@@ -1,7 +1,7 @@
 # ADR-013 — Resolver la ubicación desde el domicilio del suministro CFE
 
 - Fecha: 2026-10-22
-- Estado: flujo y semáforo aceptados por producto; proveedor, criterios e implementación pendientes.
+- Estado: flujo aceptado; entidad manual implementada parcialmente; coordenadas, proveedor y semáforo real pendientes.
 - Relacionado: [RFC-001](../rfcs/001-cotizacion-ia-ubicacion-hsp.md).
 
 ## Contexto
@@ -34,12 +34,23 @@ RFC-002 y el [plan global](../project-plan.md). El cierre real debe incluir una
 vía de confirmación/corrección manual de ubicación y entidad sin presentar las
 fixtures geográficas como verificadas. No se exige proveedor pago para avanzar.
 
+### Etapa inicial simulada (histórico)
+
 Por decisión del usuario, simular la consulta a Google con fixtures explícitas
 para verde, amarillo, rojo y fallo técnico mientras el lector de archivos sea
 mock. No exigir credenciales ni facturación ni realizar llamadas reales. Los
 resultados simulados no acreditan ubicación ni generan propuestas reales.
 Elección definitiva, criterios reales e integración se revisarán al abordar
 la lectura de archivos con IA. La definición de esos servicios no bloquea esta etapa.
+
+## Estado vigente — 2026-10-27
+
+La revisión del recibo permite confirmar/corregir la entidad de instalación.
+`ReadAndSizeReceipt` exige `location_status=state_confirmed` y código de entidad
+antes de consultar HSP. Esto confirma una entidad para ingeniería estatal;
+no acredita coordenadas, precisión del domicilio ni implementación del mapa.
+Los lectores reales source/Ollama ya existen; su incorporación no habilitó
+geocodificación externa. Google/contornos continúa pospuesto por RFC-002.
 
 ## Privacidad
 

@@ -1,8 +1,10 @@
 # Contrato v1 — Expediente y procesamiento solar
 
 Entrega E1, 2026-10-23. Estado: contrato para implementar en E3–E5; las rutas
-HTTP de esta página todavía no están registradas. E1 implementa expediente,
-auditoría, cola y proyecciones de estado, no cálculo automático ni precios.
+HTTP `/api/v1` de esta página todavía no están registradas. La actualización de
+2026-10-26 conecta carga/lectura/cálculo y rutas CRM bajo sesión; ver
+[implementación interna y límites](../automatic-receipt-analysis.md). La API
+pública por enlace, publicación comercial y precios siguen pendientes.
 Relacionado: [plan](../project-plan.md), [API](../api-design.md),
 [RFC-001](../rfcs/001-cotizacion-ia-ubicacion-hsp.md).
 
@@ -170,6 +172,9 @@ reales y sus snapshots; E1 no tiene fuente económica.
   ilegible, incompleto y fallo técnico. Reutiliza validación existente sin
   sobrescribir el original. `ReceiptProcessor` es el límite de ejecución E1,
   no una sustitución del JSON CFE ni del futuro contrato específico del lector.
+  Implementación E3 en validación: `FileReceiptReader`/`ReceiptReading`, persistencia
+  y revisión internas; [operación y límites](../receipt-reader.md). La integración
+  con `ReceiptProcessor` y rutas sigue en E4/E5.
 - HSP E2 implementado mediante `HspProvider`: consulta local por clave INEGI;
   resultado disponible contiene
   HSP, unidad h/día, fuente, período y versión de catálogo/metodología. Resultado

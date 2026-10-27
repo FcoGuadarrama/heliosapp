@@ -135,8 +135,9 @@ Por defecto la recepción está deshabilitada y no admite framing. Los textos de
 son exclusivamente de prueba y no constituyen un aviso legal aprobado.
 
 El **JSON CFE es un contrato interno** (`docs/cfe-receipt-schema.md`), producido después
-por Ollama. La implementación actual solo ofrece una simulación explícita con fixtures
-identificadas; no extrae información del PDF ni la presenta como real. Un archivo recibido
+por Ollama. E3 añade lectura local real para PDF/imagen, todavía en validación;
+ver [estado del lector](receipt-reader.md). La interfaz actual ofrece una simulación
+explícita con fixtures identificadas. Un archivo recibido por esa interfaz
 queda `stored`, pendiente de extracción. Ejecutar una fixture produce `mock_validated`,
 `mock_needs_review` o `mock_rejected`, conservando JSON original y validación CFE.
 No hay cálculos ni cotizaciones automáticas derivados de datos ficticios.

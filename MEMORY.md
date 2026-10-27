@@ -1268,3 +1268,847 @@ Las entradas son acumulativas; una propuesta no equivale a una implementación.
   y normalización. Sin nuevas dependencias Composer/npm, archivos/personas
   reales de clientes ni cambios de estado de sus expedientes. Commit local al
   cierre, sin push ni despliegue externo. Ninguna skill especializada aplica.
+
+### 2026-10-23 — Codex: preparación de IA local para E3
+
+- El usuario requiere ejecutar la IA en su propia PC, sin acceso a una API de
+  IA de pago. Se prepara la integración local para el lector de recibos E3.
+- Investigación: documentación oficial de Ollama confirma API local en
+  localhost:11434 sin API key y entrada de imágenes en modelos con visión.
+  Los PDF requerirán extracción de texto o renderizado previo según su contenido;
+  los campos extraídos deben pasar la validación de CFE de Helios.
+- Pendiente conocer sistema operativo, RAM, GPU/VRAM y si Helios correrá en el
+  mismo equipo para elegir modelo y dar instrucciones concretas de instalación.
+  No se ha instalado ni seleccionado un modelo ni implementado el lector.
+- Áreas: solo memoria. Validación: consulta de documentación oficial de Ollama;
+  sin cambios de código ni pruebas de inferencia. Ninguna skill especializada
+  aporta valor a esta preparación.
+
+### 2026-10-23 — Codex: equipo de inferencia separado de Helios
+
+- Equipo confirmado por usuario: Windows, RAM 32 GB y RTX 3060; Helios correrá
+  en otro equipo. Falta confirmar VRAM y conectividad entre ambos equipos.
+- Documentación oficial de Ollama confirma soporte Windows/NVIDIA RTX 3060.
+  Candidato para evaluar lectura: qwen3-vl:8b, modelo de visión de descarga
+  aproximada de 6.2 GB; tamaño de descarga no equivale a consumo de VRAM.
+- Se indican instalación de Ollama y consulta nvidia-smi en PowerShell. La
+  configuración de acceso remoto queda pendiente de saber si comparten LAN o
+  Helios estará en un servidor externo; no se abre un puerto público.
+- Validación: fuentes oficiales Windows, GPU y ficha del modelo; diff sin
+  errores de espacios. Solo memoria, sin instalación ni cambios de aplicación.
+
+### 2026-10-23 — Codex: topología VPS y Ollama en Windows
+
+- Usuario confirma Ollama 0.40.8, RTX 3060 con 12288 MiB y driver 610.88.
+  Helios estará en un VPS y la inferencia en su PC Windows.
+- Se propone probar qwen3-vl:8b local y conectar VPS/PC por red privada
+  Tailscale. Propuesta pendiente de configuración, no conectividad ya operativa.
+  Falta conocer sistema operativo del VPS y si Tailscale está instalado.
+- Instrucciones locales: pull/run del modelo y ollama ps para verificar uso GPU.
+  La calidad y memoria con recibos reales aún requieren evaluación. PC apagada
+  o suspendida implica lector inaccesible; la integración deberá manejarlo.
+- Validación: documentación oficial Ollama (FAQ/modelo) y Tailscale quickstart;
+  sin pruebas en equipos del usuario, instalaciones ni cambios de aplicación.
+
+### 2026-10-23 — Codex: desarrollo local antes de contratar VPS
+
+- El usuario aclara que aún no tiene VPS: probará localmente y contratará el
+  servidor cuando el proyecto esté listo. Sustituye la suposición de un VPS
+  disponible; su conexión y despliegue quedan para la etapa de operación.
+- Ollama sigue en la PC Windows. Por la aclaración anterior de equipos distintos,
+  falta confirmar si Helios se probará en esa PC o en el equipo de desarrollo.
+  En un único equipo se usa localhost; entre equipos se requiere conectividad
+  privada. No se configura Tailscale ni se instala infraestructura en este turno.
+- Áreas: memoria. Validación: revisión del contexto y git diff --check; sin
+  cambios de aplicación, pruebas de inferencia ni skill especializada aplicable.
+
+### 2026-10-23 — Codex: diagnóstico de imagen en Ollama Windows
+
+- Usuario reporta archivo inaccesible, pero Test-Path devuelve True. Existencia
+  no confirma lectura; tampoco está confirmado si el mensaje proviene del modelo.
+- Se propone prueba PowerShell con ReadAllBytes y envío base64 al campo images
+  de /api/chat para distinguir permisos reales de una ruta enviada solo como texto.
+  JPG/PNG para esta prueba; PDF requiere conversión previa. No elevar permisos.
+- Validación: documentación oficial Ollama Vision; prueba pendiente en la PC
+  del usuario. Solo memoria, sin cambios al lector ni inferencia ejecutada aquí.
+
+### 2026-10-23 — Codex: acceso desde Mac a Ollama Windows por SSH
+
+- Usuario confirma que opera desde MacBook y requiere acceso remoto a la PC.
+  Se proporcionan pasos para OpenSSH Server de Windows, conexión desde Mac y
+  túnel local 127.0.0.1:11435 hacia localhost:11434 de la PC.
+- Se asume misma red para esta prueba y se mantiene Ollama escuchando local;
+  no se requiere Tailscale ni publicar el puerto de Ollama. Credencial SSH es
+  contraseña de cuenta Windows, no PIN; no se solicita compartirla.
+- Validación: instrucciones contrastadas con Microsoft Learn OpenSSH Windows;
+  instalación, conexión y túnel pendientes de ejecución en PC del usuario.
+  Solo memoria, sin cambios al código ni pruebas remotas realizadas.
+
+### 2026-10-23 — Codex: timeout SSH con servidor escuchando
+
+- Usuario verifica sshd Running y escucha IPv4 0.0.0.0:22, pero Mac agota
+  tiempo antes de autenticación. Diagnóstico pendiente de red/firewall/IP;
+  no hay evidencia de fallo de credenciales ni del modelo.
+- Se indica confirmar IPv4 del adaptador activo, habilitar regla SSH limitada
+  a LocalSubnet y repetir conexión. Si persiste, comprobar subredes, red de
+  invitados y VPN. No desactivar firewall ni abrir puertos del router.
+- Validación: documentación Microsoft OpenSSH y registro del usuario; cambios
+  de red aún no ejecutados aquí. Solo memoria; git diff --check sin errores.
+
+### 2026-10-23 — Codex: contraseña oculta en opciones Windows Hello
+
+- Usuario sigue sin autenticar SSH y Windows no muestra opción Contraseña.
+  Se explica que whoami no distingue cuenta Microsoft de local y se pide
+  verificar Cuentas/Tu información antes de asumir origen de contraseña.
+- Microsoft documenta ajuste de solo Windows Hello para cuentas Microsoft que
+  oculta contraseña. Se indica comprobarlo bajo Configuración adicional;
+  no se restablecen credenciales ni se elimina PIN. Claves SSH siguen siendo
+  alternativa si no existe el ajuste o no hay contraseña utilizable.
+- Validación: Microsoft Support, Opciones de inicio de sesión; solo memoria,
+  sin cambios de cuenta, acceso remoto ni modificación de código.
+
+### 2026-10-23 — Codex: alternativa por clave ante fallo de contraseña
+
+- Windows muestra Contraseña configurada pero Cambiar falla; SSH sigue
+  rechazando autenticación. No se atribuye causa sin evidencia ni se resetea
+  la cuenta. Se propone clave Ed25519 dedicada desde Mac como alternativa.
+- Instrucciones distinguen authorized_keys de usuario estándar y archivo
+  administrators_authorized_keys de administradores, con ACL por SID para
+  evitar nombres de grupos localizados. Solo se transfiere clave pública.
+- Validación: Microsoft Learn OpenSSH key management; aún sin prueba SSH
+  exitosa ni cambios de Windows realizados por este agente. Solo memoria.
+
+### 2026-10-23 — Codex: clave SSH rechazada, diagnóstico pendiente
+
+- Usuario reporta que SSH vuelve a pedir contraseña tras instalar clave.
+  No se asume causa: comprobar oferta de clave, grupo administrador, nombre
+  real del archivo (posible extensión .txt) y huella de clave pública en PC.
+- Prueba Mac desactiva fallback a contraseña para ver resultado publickey;
+  Windows consulta grupo por SID, archivos y huella con ssh-keygen.
+- Validación: Microsoft OpenSSH configuración/gestión de claves; resultados
+  pendientes del usuario. Solo memoria; sin nuevas modificaciones de Windows.
+
+### 2026-10-23 — Codex: acceso SSH a PC de inferencia verificado
+
+- Usuario confirma entrada por SSH y autoriza acceso del agente. Prueba remota
+  whoami exitosa con autenticación por clave en modo BatchMode, sin contraseña.
+  Restricción de red del sandbox requirió ejecución escalada autorizada.
+- Consulta remota ollama list exitosa: qwen3-vl:8b (6.2 GB) y qwen3.5:4b
+  (3.3 GB) instalados. Acceso operativo para continuar integración E3.
+- No se ejecutó inferencia, se leyeron recibos ni se modificó configuración
+  remota. Solo memoria; git diff --check verificado. Sin secretos registrados.
+
+### 2026-10-26 — Codex: mem_save, punto de reanudación E3
+
+- E1 y E2 terminadas; E3 (lector real de recibos y normalización) sigue sin
+  implementar. Siguiente trabajo: revisar Git y documentos E3, comprobar acceso
+  SSH vigente y preparar conexión de Helios a Ollama, conversión de PDF y
+  extracción validada. No dar por implementada una API HTTP o túnel persistente.
+- Desarrollo actual: Helios en MacBook, inferencia en PC Windows con 32 GB RAM,
+  RTX 3060 de 12 GB, Ollama 0.40.8 y driver reportado 610.88. No hay VPS aún;
+  se contratará al terminar pruebas locales. Configuración VPS/Tailscale diferida.
+- Acceso SSH por clave ya verificado por el agente con autorización del usuario;
+  consultar configuración local existente para reconectar sin registrar secretos.
+  Windows requería archivo administrators_authorized_keys sin extensión .txt.
+- Usuario confirmó extracción desde imagen con qwen3-vl:8b; pasar la ruta de un
+  PDF como texto no adjunta su contenido. Helios debe preparar el PDF y enviar
+  imágenes/texto al modelo. Cliente y asesor conservarán subida directa de PDF.
+- Ollama también servirá para evaluar el Ingeniero de IA de E8, usando herramientas
+  deterministas de cálculo/HSP/catálogo; capacidad y precisión del modelo aún no
+  validadas para ese rol. Puede requerir modelo local distinto al del lector.
+- Modelos vistos por SSH: qwen3-vl:8b y qwen3.5:4b. Falta medir precisión con
+  recibos, uso GPU, tiempos y manejo de PC desconectada. No se ejecutó inferencia
+  remota por el agente ni se estableció conexión de la aplicación a Ollama.
+- Áreas: solo MEMORY.md. Validación: revisión del registro previo y conversación,
+  git diff --check; sin pruebas de aplicación ni cambios remotos en este turno.
+  Ninguna skill especializada aplica a este guardado de memoria.
+
+### 2026-10-26 — Codex: base E3 implementada y evaluación Ollama local
+
+- **Implementado:** contrato `FileReceiptReader` separado de las fixtures;
+  adaptador Ollama local con esquema/prompt CFE versionados, imágenes base64,
+  procedencia controlada por Helios, validación de tipos antes de DTOs y
+  validadores CFE existentes. Distingue desconexión, timeout, generación
+  incompleta, ilegibilidad y dato no impreso; fallos técnicos no gastan cargas.
+- **PDF/imagen:** Poppler real (`pdfinfo`/`pdftoppm`), todas las páginas en orden,
+  MIME comprobado, máximo 20 MiB/seis páginas/24 MP por imagen y 32 MiB de imágenes
+  codificadas. Directorio temporal privado con limpieza en finally. Límite de
+  inferencia configurable 1–300 s y lock 900 s. Solo endpoint HTTP loopback
+  literal mediante túnel; sin redirecciones ni servicios de IA externos.
+- **Persistencia:** `ReadReceiptFile` conserva respuesta original, JSON, modelo,
+  versión, páginas, validación y normalización por intake, con unicidad y lock.
+  Transacción de persistencia sin mantenerla abierta durante inferencia; repetir
+  lectura devuelve la existente. `receipt_readings` y `receipt_reviews` ocultan
+  contenido privado al serializarse. No se sobrescriben originales al corregir.
+- **Continuidad:** `validated` requiere coherencia/estructura, normalización y
+  evidencia de los cuatro campos críticos en páginas existentes. No se impone
+  revisión humana universal. `partial` exclusivamente por opcionales no impresos
+  puede validar con esos controles; se conserva clasificación original. Otros
+  faltantes/advertencias quedan para revisión. No se publica propuesta en E3.
+- **Corrección/recaptura:** `ReviewReceiptReading` verifica permisos, usuario
+  activo, revisión esperada, procedencia y campos críticos, y guarda versiones
+  con autor/motivo. Normalización conserva fechas/días reales e impresos,
+  histórico y faltantes sin cambiar fórmulas Syscom. Entidad por coincidencia
+  exacta con nombres INEGI, sin inferir coordenadas ni confirmar ubicación.
+  `StoreSecondReceipt` prepara segunda carga CRM tras ilegibilidad, conserva
+  expediente/prospecto/archivos, replay por hash y límite de dos; un recibo
+  sustituido no puede aceptarse. Correo/enlace público/UI quedan en E4/E5.
+- **Evaluación real de infraestructura, muestras sintéticas:** SSH y túnel
+  temporal comprobados; no se leyeron recibos de clientes. qwen3-vl:8b: legible
+  15/15 campos en 94.2 s; parcial 6/6 en 106.2 s; página en blanco produjo
+  generación incompleta. Ensayos iniciales agotaron tiempo/tokens por razonamiento;
+  uno intermedio completó 13/15 en 160.5 s. GPU verificada: 7.8 GB, 100% GPU.
+- **Modelo inicial elegido:** qwen3.5:4b, ya instalado y con visión confirmada:
+  legible 14/15 en 34.3 s (única diferencia: status partial por opcionales),
+  parcial 6/6 en 25.5 s, blanco 5/5 en 42.8 s. Todos los valores esperados de
+  transcripción correctos; expectativas no alteradas para esconder el status.
+  Elección configurable por estabilidad/tiempo de estas muestras; no fallback
+  automático. Se solicita think:false, sin asumir que el runtime lo respete.
+- **Operación local:** migraciones aditivas `2026_10_26_000001` y `000002`
+  revisadas con pretend y aplicadas en MySQL, batches 9 y 10; migrate:status
+  confirmó todas Ran. Caché reconstruida, lector deshabilitado por defecto con
+  modelo 4b configurado. Pruebas reales usaron configuración aislada y activación
+  solo de proceso. Túnel de esta sesión cerrado al terminar; no se instaló daemon,
+  no se modificó Ollama/SSH remoto ni se descargaron modelos.
+- **Áreas:** Application de lectura/revisión/segunda carga, Domain/ReceiptData,
+  Infrastructure/Receipts, modelos y migraciones, provider/config/.env.example,
+  comandos `helios:receipts:read` y `helios:receipts:probe` con expectativas,
+  prompt/esquema/fixtures sintéticos reproducibles y pruebas. Workflow CI añade
+  poppler-utils; documentación alineada en lector, plan/backlog, arquitectura,
+  contrato, runtime, requisitos y nota introductoria CFE, sin cambiar JSON v1.0.
+- **Validación:** 299 pruebas/1352 aserciones en SQLite en memoria mediante
+  APP_CONFIG_CACHE alterno; 30 pruebas nuevas cubren lectura/errores, PDF real,
+  permisos, snapshots, revisiones, recaptura, replay y rollback de auditoría.
+  PHPStan, Pint, Ruff/compilación Python y npm check correctos; aislop 100 sin
+  hallazgos, formato/lint PHP/Python comprobados con herramientas aparte.
+  Sin cambios frontend ni dependencias Composer/npm; sin build nuevo ni CI remoto.
+- **Pendiente para cerrar E3:** evaluación con recibos CFE reales autorizados
+  (legibles, parciales, ilegibles y multipágina), precisión/evidencia y tiempos
+  representativos. Las muestras sintéticas no acreditan calidad de producción.
+  E3 sigue en validación; no se inició E4/E5. `ReceiptProcessor`/job E1 conservan
+  binding de bloqueo y timeout 60 s: E4 debe ajustar job/lock/retry-after antes de
+  componer lector/HSP/motor. No hay propuesta ni extracción automática desde UI.
+  Sin commit, push o despliegue; cambios previos de memoria conservados. No aplica
+  skill especializada a este backend.
+
+### 2026-10-26 — Codex: evaluación de cinco recibos reales y lector v2
+
+- **Autorización y muestras:** usuario añadió cinco PDF en `receipts/` para
+  probar el lector. Todos tienen dos páginas; cuatro tienen texto utilizable y
+  uno una capa de texto corrupta, contrastada visualmente. Originales intactos;
+  `/receipts/` añadido a .gitignore para no versionar documentos personales.
+  No se crearon prospectos, intakes ni lecturas persistentes de estos clientes.
+- **Referencia privada:** cotejo de tarifa, consumo actual y ambas fechas
+  (20 campos críticos), fases/días no impresos y 55 filas históricas, comparando
+  conjuntamente fechas y kWh sin depender del orden. Fuentes, referencias y
+  respuestas completas quedaron solo en /private/tmp/helios-real-receipts-e3,
+  directorio 0700 y archivos de datos 0600. No incorporar PII a Git, memoria ni
+  fixtures. Informe anónimo en docs/receipt-reader-real-evaluation.md.
+- **Hallazgos:** qwen3.5:4b v1 acertó 15/20 críticos y 44/55 filas; confundía
+  TARIFA con NO. MEDIDOR contiguo, mezclaba costos informativos y saldos/pagos
+  anteriores con cargos actuales y derivó días no impresos en un documento.
+  Compartir fecha de corte entre históricos también disparaba falso traslape.
+- **Implementado:** `ReceiptText` usa pdftotext con límite de 20 000 caracteres,
+  páginas identificadas y fallos técnicos explícitos. Capa vacía/no reconocible
+  se declara inutilizable y se conservan imágenes como entrada. Lector v2 añade
+  texto utilizable a las imágenes, todo tratado como datos no confiables.
+  Prompt v2 pide separar etiquetas, filas kWh, cargos, subtotales y saldos; prohíbe
+  inferir fases de NO HILOS y días por fechas. Se conserva prompt v1 y JSON v1.0.
+- **Corrección de dominio:** traslape exige intersección de duración positiva,
+  coherente con fin-inicio; fechas de corte compartidas ya no son traslape,
+  duplicados e intersecciones reales siguen advertidos. No se cambiaron fórmulas
+  Syscom, umbrales ni regla de importes negativos para acomodar al modelo.
+- **Segunda evaluación 4b v2:** 20/20 críticos, 50/55 filas históricas exactas;
+  43.8/42.5/36.1/40.5/45.6 s. Los cinco resultados CFE quedaron needs_review,
+  sin errores pero con advertencias. Persisten fechas históricas cambiadas y
+  fases inferidas sin estar impresas en tres documentos: NO aprobar precisión
+  productiva solo por acertar datos actuales o por superar estructura/coherencia.
+- **Comparación 8b v2:** respuestas incompletas en los dos primeros documentos,
+  150 s y 148 s. Se interrumpió el resto tras esos fallos; los otros tres no se
+  cuentan como evaluados con 8b. Copia temporal de petición interrumpida retirada
+  verificando hash contra muestras autorizadas; carpeta probes quedó vacía y
+  túnel SSH de la sesión cerrado. Sin cambios remotos ni descargas de modelos.
+- **Áreas:** .gitignore, ReceiptText/OllamaReceiptReader, configuración y
+  .env.example (HELIOS_PDFTOTEXT), validador de coherencia, pruebas, prompt v2,
+  documentación del lector e informe de evaluación. Cache local reconstruida;
+  activación real sigue deshabilitada y modelo 4b configurable, sin fallback.
+- **Validación:** 302 pruebas/1356 aserciones, PHPStan, Pint y npm check correctos;
+  tres regresiones nuevas para fecha compartida/duplicada, texto adjunto y PDF
+  vacío. Aislop 100, sin errores/fixables; aviso no fixable preexistente de tamaño
+  en ReceiptCoherenceValidator.php (606 líneas), activado al tocar el archivo.
+  No se desactivan reglas ni se realiza refactor general ajeno a la corrección.
+- **Estado y siguiente trabajo:** E3 sigue abierta; no iniciar E4/E5 ni aceptar
+  automáticamente estas extracciones como exactas. Propuestas todavía NO
+  implementadas: cotejo de campos/históricos contra fuente, evidencia obligatoria
+  para fases y evaluación de modelo/configuración suficientemente precisa.
+  La evaluación real sustituye cualquier expectativa de suficiencia basada solo
+  en las muestras sintéticas. Sin commit, push, despliegue ni nuevas dependencias
+  Composer/npm. No aplica skill especializada a esta tarea de backend.
+
+### 2026-10-26 — Codex: estado de carga confirmado para el usuario
+
+- **Verificado:** configuración local efectiva devuelve intake disponible y
+  lector real deshabilitado. La pantalla permite recibir/guardar PDF o imagen;
+  todavía no dispara lectura Ollama ni cálculo/propuesta automática.
+- **Validación:** arranque Laravel por CLI consultando solo indicadores booleanos
+  y revisión de referencias del controlador/rutas; sin cambios de configuración,
+  documentos de clientes ni pruebas de inferencia nuevas. Solo memoria.
+- **Pendiente:** terminar precisión E3 y conectar el recorrido en E4/E5. No aplica
+  skill especializada a esta comprobación de estado.
+
+### 2026-10-26 — Codex: lectura con fuente y carga automática operativas
+
+- **Autorización:** usuario pide continuar con precisión y conexión al formulario.
+  Confirma que aún no tiene potencia de panel de referencia: resultado en kWp e
+  inversor; cantidad de paneles, potencia seleccionada y microinversores null,
+  sin asumir watts ni mostrar cero como cantidad/precio disponible.
+- **Implementado — lector v3:** CfeTextFacts decodifica etiquetas contiguas,
+  fechas españolas, consumo frente a lecturas acumuladas e histórico completo
+  desde texto CFE reconocible. Exige encabezado y cuatro críticos, todas las
+  filas candidatas y ausencia de contradicciones; fechas/números inválidos no
+  se reparan. No toma NO HILOS como fases ni calcula días como si fueran impresos.
+  ReceiptGrounding produce JSON derivado con evidencia/página, avisos explícitos
+  SOURCE_RECONCILED y fuente verificada asignada por código. La respuesta Ollama
+  íntegra se conserva; no se sustituye ni oculta. Fuente no verificable añade
+  SOURCE_UNVERIFIED y queda para revisión. Tipos se comprueban antes de conciliar.
+- **Continuidad:** no basta estructura/evidencia declarada por el modelo para
+  validar automáticamente: exige fuente cotejada, coherencia y normalización.
+  Conciliaciones de campos reconocidos no obligan a revisión por sí solas con
+  fuente verificada; las demás advertencias CFE conservan su revisión obligatoria.
+  Revisión humana explícita sigue disponible para imágenes o texto corrupto.
+- **Verificado con originales, nueva inferencia v3:** cinco PDF, 30/30 campos
+  cotejados (20 críticos y fases/días ausentes). Cuatro fuentes verificables,
+  44/44 filas históricas correctas; quinto sin fuente verificable y una fila
+  discrepante, explícitamente no aceptado automáticamente (global 54/55).
+  Tiempos 51.0/42.2/36.2/40.8/45.5 s; los cinco conservan advertencias CFE en
+  este lote. WebP en blanco sintético: failed, 5/5 expectativas, ocho segundos.
+  Originales intactos y resultados personales solo en carpeta temporal privada;
+  ninguna muestra real se incorporó a Git o a fixtures.
+- **Carga y cola:** ReceiveReceipt conecta CRM y embebido a QueueReceiptProcessing
+  tras guardar. Fallo de dispatch/configuración conserva archivo y expediente,
+  registra estado/evento recuperables sin contenido privado de la excepción.
+  Cola dedicada receipts, job 840 s, locks 900 s, retry_after 960 s. Rechaza cola
+  síncrona o reserva insuficiente; no hace inferencia dentro del request ni de
+  una transacción larga. Locks relacionados ordenados primero por expediente.
+  composer dev incorpora worker receipts si el lector está habilitado.
+- **Proceso real:** ReceiptProcessor usa ReadAndSizeReceipt en lugar del binding
+  no disponible; se elimina esa clase obsoleta. Lectura/revisión, confirmación
+  estatal del asesor, HSP NASA local vigente y motor compartido generan snapshot
+  único por lectura/revisión en solar_calculations. Faltantes y fallos bloquean
+  con motivos expresos; no producen resultado ficticio ni consumen recaptura.
+- **Histórico anual:** AnnualReceiptHistory conserva todos los originales y
+  selecciona los periodos consecutivos más recientes hasta 330–400 días reales,
+  sin sumar dos años impresos como uno. Guarda índices/días/criterio; cobertura
+  insuficiente usa actual. Mantiene fórmula Syscom de cantidad de periodos por
+  duración actual y clamp 365; ambos recuentos quedan en snapshot. Incompatibilidad
+  de cobertura, huecos, traslapes o incompletos requieren revisión, sin cambiar
+  fórmulas implícitamente. La ausencia de watts solo afecta cantidades de equipos.
+- **HTTP/CRM:** GET analysis y POST analyze/review/replacement bajo sesión,
+  permisos, CSRF y throttling. Estado real con polling parcial queued/running;
+  formulario de cotejo/edición de tarifa, consumo, fechas, estado, fases/días
+  impresos, histórico e importes. Confirmación/nota/revisión esperada auditadas;
+  tras confirmar reencola y produce resultado técnico. Edición invalida cálculo
+  anterior hasta una versión nueva. Segunda carga en mismo expediente y máximo
+  dos, sin ofrecer tercera. Se retira el selector de fixtures del flujo nuevo;
+  tampoco se permite sustituir un análisis real por simulación vía endpoint.
+  Casos simulados anteriores siguen identificados y separados.
+- **Permisos/privacidad:** nuevas proyecciones solo muestran datos necesarios
+  para cotejo/cálculo, sin respuesta cruda, archivo o contactos del recibo.
+  ClientController deja de enviar payload completo de lecturas reales a Inertia.
+  Usuario inactivo no puede recibir/ver/procesar recibos; default de User activo
+  coincide con la base también en instancias nuevas. Público sigue sin sesión CRM,
+  sin enlazar leads por contacto y sin exponer rutas internas por conocer el ID.
+- **Operación local:** migración aditiva 000003 revisada/aplicada en MySQL, batch
+  11; todas Ran. Catálogo HSP local vigente, verificado sin nueva consulta NASA.
+  HELIOS_RECEIPT_READER_ENABLED=true en .env local, resto preservado, cache
+  reconstruida, qwen3.5:4b y cola database/retry_after 960 confirmados. Túnel SSH
+  y worker receipts iniciados y dejados activos para nuevas cargas del usuario.
+  No son servicios permanentes de sistema; Windows/Ollama deben estar conectados.
+  No se tocaron SSH/Ollama remotos ni se descargaron modelos.
+- **Validación:** 322 pruebas/1442 aserciones, PHPStan, Pint, TypeScript, npm check
+  y build correctos. Veinte pruebas nuevas: fuente/conciliación, anualidad/panel
+  ausente, carga CRM/embebida, cola fallida sin perder archivo, fuente/ubicación,
+  cálculo/snapshots/idempotencia, permisos/inactividad, revisión/continuación y
+  bloqueo de simulación en análisis real. phpunit deshabilita lector por defecto
+  incluso con .env local activo; pruebas habilitan fakes explícitos sin red real.
+- **Navegador:** SQLite y datos sintéticos aislados: login, carga PDF desde
+  formulario, queued, error de fechas con foco en resumen y valores conservados,
+  confirmación/reencolado y cálculo visible. 375 px y horizontal sin overflow,
+  oscuro/texto ampliado/reduced motion, botones 44 px; contraste muestreado 5.58:1
+  claro y 6.61:1 oscuro, sin errores JS finales. Skill ui-ux-pro-max aplicada a
+  estados/formularios con diseño existente. Se cerró únicamente la pestaña y
+  servidor de prueba y se limpiaron dos archivos sintéticos, verificando hashes;
+  no se crearon contactos en MySQL compartido ni se borraron archivos de clientes.
+- **Áreas:** aplicaciones de recepción/cola/lectura/revisión/cálculo, fuentes y
+  DTOs, motor/selección anual, modelos/migración, controllers/resources/policies,
+  queue/provider/dev/entorno, rutas/contrato API, componentes/tipos/página prospecto
+  y mensaje embebido, pruebas y documentación de análisis automático/lector/plan/
+  backlog/runtime/arquitectura. Sin dependencias Composer/npm nuevas ni despliegue,
+  commit o push. Aislop 100 con aviso no fixable preexistente de archivo grande
+  en ReceiptCoherenceValidator (606 líneas); no se suprimieron reglas. Aviso
+  fontaine opcional del build también preexistente.
+- **Límites:** recorrido interno básico operativo y embebido con dispatch; no
+  afirmar cierre total E4/E5. Pendientes página/enlaces públicos privados,
+  ubicación más allá de entidad, bandeja/seguimiento/abandono, equipos, precio,
+  Ingeniero IA comercial y PDF/correo/publicación de propuesta. La activación
+  local con control de fuente y revisión sustituye el bloqueo anterior de
+  integración; no implica precisión universal ni aceptación masiva del lote real.
+
+## 2026-10-26 — Codex: cotizador asistido, PDF/OCR sin generación y API Syscom
+
+- **Decisión del usuario:** construir cotizador asistido conservando extracción
+  PDF/OCR a JSON. Indicó acceso a API Syscom, configuró las credenciales localmente
+  y señaló su precio público sugerido. Se implementa referencia explícita
+  `precio_lista` para borrador; no se confunde con precios de distribuidor/MAP.
+  Falta confirmar comercialmente esa semántica por familia. Esto amplía la
+  política anterior de tarifas propias, sin implementar aún kWp/panel/paquete.
+- **Lectura implementada:** SourceReceiptReader y ReceiptSourceExtractor usan
+  pdfinfo/pdftotext para texto digital; OCR Apple Vision local para texto no
+  reconocible e imágenes JPEG/PNG/WebP. Binario Swift compilado en almacenamiento
+  privado ignorado. Requiere Mac; no se instaló OCR en Windows ni se afirma
+  portabilidad Linux. No hay dependencias nuevas Composer/npm ni API OCR pagada.
+  Se preservan texto/páginas/cajas/confianza y evidencia; layout agrupa filas y
+  selecciona kWh bajo Total periodo, no lectura del medidor. Límites: 20 MiB,
+  seis páginas, imágenes 24 MP, timeout, validación de salida JSON y MIME real.
+  Rutas de archivo resueltas antes de invocar procesos sin shell.
+- **Revisión obligatoria:** toda extracción source queda sin aceptación automática;
+  datos desconocidos nulos, sin inferir fases, días impresos, domicilio o dinero.
+  Se conecta al formulario existente: confirmar fuente/estado y después calcular.
+  La prueba recorre extracción real de PDF sintético, persistencia, revisión y
+  cálculo con HSP sintética; paneles siguen pendientes sin potencia asumida.
+  ReadReceiptFile registra identificador real del extractor, ya no siempre ollama.
+  Lecturas anteriores no se reescriben: para probar el nuevo lector adjuntar un
+  archivo nuevo al prospecto; las anteriores siguen corregibles manualmente.
+- **Evaluación real:** cuatro PDFs por texto y uno por OCR, cinco muestras usadas
+  para desarrollar, no holdout. 20/20 campos críticos (tarifa/inicio/fin/kWh),
+  55/55 filas históricas (fechas/kWh); sin fases/días inventados. El OCR sí erró
+  una lectura del medidor, por lo que no se afirma exactitud total. Arranque OCR
+  observado ~27 s, final caliente ~1.1 s; no SLA. Resultados/referencias privados
+  fuera de Git, sin crear expedientes reales. WebP blanco sintético produjo cero
+  bloques. Exportación CLI comprobada: receipt-candidates/1, revisión true, 0600,
+  creación exclusiva sin sobrescritura ni escrituras CRM.
+- **Syscom real:** adaptador aislado de solo lectura vía API oficial OAuth
+  client_credentials. Probe y ficha consultados con la cuenta configurada, sin
+  imprimir secretos/tokens ni realizar pedidos. MXN, iva=false, inventarios y
+  paginación; lote de hasta 20 productos. Token solo en memoria de consulta,
+  refresco acotado tras 401, sin redirecciones, errores saneados. Claves de
+  configuración documentadas en .env.example; credenciales reales solo en .env.
+- **Cotizador implementado:** componente EquipmentQuotePanel dentro del recibo
+  con cálculo. Buscar, agregar modelos, cantidades manuales, confirmar y guardar.
+  Servidor reconsulta lote y usa precio_lista, ignora importes enviados por
+  navegador. Guardados inmutables/versionados por expediente, UUID idempotente,
+  vinculación a cálculo/revisión actual y actor; bloqueo case al persistir,
+  red fuera de transacción y revalidación de usuario activo/alcance. Revisión
+  cambiada o segundo recibo bloquean cálculo anterior. Solo acceso autenticado
+  con permisos existentes de recibos, throttle/CSRF; sin rutas públicas.
+- **Dinero/alcance:** centavos enteros, precio unitario half-up a dos decimales,
+  cantidad y después IVA sobre subtotal half-up una vez; precio fuente conservado.
+  HELIOS_QUOTE_VAT_RATE sigue pendiente de respuesta/configuración: IVA y total
+  nulos, nunca cero supuesto. Instalación excluida visiblemente. Existencia
+  insuficiente/desconocida explícitas; no reserva ni fecha prometida. Compatibilidad
+  eléctrica siempre pendiente; no selección automática, PDF, email o publicación.
+  Cotizaciones generales del sidebar aún no son un módulo independiente.
+- **Persistencia/operación:** migración aditiva 000004 aplicada en MySQL local,
+  crea equipment_quote_drafts sin borrar/modificar datos previos. .env local
+  selecciona driver source y binario privado; configuración reconstruida. Worker
+  receipts reiniciado y dejado activo con timeout/cola anteriores. No es servicio
+  permanente. Ollama sigue como adaptador alternativo; no se alteró Windows/SSH.
+- **Áreas:** Infrastructure/Receipts (extractor, layout, candidatos, reader),
+  scripts/receipts (Swift y fixture PDF escapada/reproducible), comandos extract
+  y probe Syscom, Infrastructure/Syscom, Domain/Quotes, CreateEquipmentQuoteDraft,
+  modelo/migración/controlador/rutas de borrador, resource/tipos/componentes,
+  provider/config/.env.example y documentación de lector, RFC, backlog e índice.
+  phpunit fuerza caché de configuración aislada para no cargar caché MySQL local;
+  lector deshabilitado y driver Ollama de pruebas, source se habilita explícito.
+- **Validación:** 337 pruebas/1505 aserciones, PHPStan, Pint, npm check, types y
+  build correctos; Ruff del generador también. 15 pruebas nuevas cubren fuente,
+  columnas ambiguas, JSON/revisión/cálculo sin HTTP, permisos, exportación, OAuth,
+  precio manipulable, IVA pendiente/explícito, snapshots, idempotencia y revisión
+  obsoleta. Navegador SQLite aislado: búsqueda real, agregar/cantidad/guardar v1,
+  total pendiente; 375 px, horizontal 812 px y escritorio, claro/oscuro, texto
+  20 px/reduced motion, sin overflow, controles 44 px y cero errores JS. Contraste
+  secundario muestreado 5.67:1 claro, 6.55:1 oscuro. Skills write-swift y ui-ux-pro-max
+  aplicadas. Se cerró servidor/pestaña propios de prueba; solo borrador sintético
+  en SQLite, ninguno creado en MySQL compartido. Sin commit/push/despliegue.
+- **Aislop:** 100; aviso no fixable preexistente de ReceiptCoherenceValidator
+  grande. Dos falsos positivos nuevos documentados: URL canónica Syscom no es
+  URL de despliegue y client_credentials es el nombre OAuth del grant, no un ID
+  de proveedor incrustado (client_id viene de configuración). Sin suprimir reglas.
+  Swift no cubierto por Aislop: compilación/ejecución reales. Fontaine opcional
+  del build sigue preexistente. Pendientes: IVA, semántica comercial lista/MAP,
+  validación eléctrica, potencia/modelo para cantidades calculadas, pruebas
+  independientes de más formatos, OCR portable, propuestas y entrega.
+
+## 2026-10-26 — Codex: IVA del cotizador confirmado en 16%
+
+- El usuario respondió 16 a la tasa solicitada. Se configuró
+  HELIOS_QUOTE_VAT_RATE=16 en .env local y se reconstruyó la caché. Sustituye
+  únicamente el pendiente de IVA de la entrada anterior: borradores nuevos
+  calculan IVA de 16% y total; snapshots anteriores no se recalculan.
+- Áreas: configuración local y docs/assisted-quote.md. Sin cambios de fórmula,
+  datos comerciales existentes, instalación o política de publicación.
+- Validación: configuración efectiva source/lector activo/binario OCR ejecutable
+  y tasa 16 comprobadas sin exponer secretos. Prueba existente de IVA explícito
+  16.00 verifica redondeo, aplicación única y versiones inmutables; pasó.
+  Persisten validación eléctrica, semántica comercial lista/MAP y entrega.
+
+## 2026-10-27 — Codex: documentación del proyecto en sidebar con Laravel Swagger
+
+- **Solicitado e implementado:** Documentation del sidebar abre `/documentation`
+  con L5-Swagger 11.2.1, compatible con Laravel 13. Guía en español de módulos,
+  uso, arquitectura, PDF/OCR, contrato CFE, dimensionamiento, HSP, Syscom/IVA,
+  seguridad, estados, recuperación y operación; referencia de 41 operaciones,
+  29 paths y 22 esquemas de prospectos, proyectos, recibos, ingeniería, cotizador,
+  embebido y ajustes/usuarios. Distingue JSON, Inertia, redirecciones y funciones
+  aún pendientes, sin documentar `/api/v1` como implementada.
+- **Decisión pendiente explícita:** el usuario rechazó el cotejo obligatorio
+  universal del lector source. Se documenta ese comportamiento actual y su
+  sustitución solicitada por revisión condicional como NO implementada. Esta
+  tarea no cambia extracción, revisión, ubicación, cálculos o borradores.
+- **Acceso/UI:** página, esquema y assets con web/auth/verified. Swagger de
+  consulta, sin ejecutar requests de negocio, sin CDN ni validación externa.
+  Vista Blade española con viewport, enlace de regreso y descarga JSON;
+  filtrado y deep links nativos Swagger. Middleware DocumentationNavigation
+  responde con navegación completa a solicitudes Inertia para evitar el modal
+  de respuesta no Inertia al volver del login. Sidebar mantiene apertura en
+  otra pestaña. No cambia permisos de negocio ni publica recibos o secretos.
+- **Fuentes/operación:** atributos en app/OpenApi por módulos y esquemas;
+  config/l5-swagger.php escanea solo esa carpeta. Generación CLI JSON/YAML en
+  storage/api-docs, ignorados en Git, sin regenerar por request. composer setup
+  incluye generación y composer docs:generate permite repetirla. Config local
+  reconstruida y esquema generado. Documentación de mantenimiento en
+  docs/swagger.md e índice actualizado.
+- **Dependencias:** Composer añade L5-Swagger, swagger-ui, swagger-php y
+  radebatz/type-info-extras; symfony/yaml existente pasa a dependencia runtime
+  sin cambio de versión. No se actualizaron otros paquetes. Composer audit
+  detectó aviso PREEXISTENTE en phpunit/phpunit 13.4.0–13.4.3:
+  GHSA-9vw2-f4vp-x7gf (temporales compartidos/PHPT coverage). No corresponde a
+  Swagger; pendiente actualización de PHPUnit, sin cambios ajenos en esta tarea.
+- **Validación:** 339 pruebas/1568 aserciones antes de añadir la regresión de
+  navegación Inertia; prueba focal final 2/66 correcta. PHPStan, Pint, TypeScript,
+  build y composer validate correctos. Dos pruebas nuevas verifican autenticación,
+  verificación, UI/assets, navegación Inertia, generación temporal JSON/YAML,
+  seguridad pública/CRM, requisitos y existencia real de cada operación.
+  Navegador con SQLite y usuario sintéticos aislados: login, Swagger, grupos,
+  revisión con request schema, deep links y 375 px sin overflow. Sidebar compilado
+  apunta a /documentation en otra pestaña. Se cerraron solo pestaña y servidor
+  propios de prueba. Sin escrituras de clientes/recibos en MySQL.
+  Skill ui-ux-pro-max aplicada a navegación; npm check y git diff --check correctos.
+- **Límites:** generación requerida en despliegues; no hay despliegue, commit ni
+  push. Se preservan cambios anteriores. Aislop final 100, solo tres avisos
+  no fixables previos: tamaño de ReceiptCoherenceValidator y dos falsos positivos
+  Syscom ya documentados. Build conserva aviso opcional fontaine preexistente.
+
+## 2026-10-27 — Codex: comprobación de Engram
+
+- Investigación solicitada: Engram está instalado en la Mac, ejecutable
+  /opt/homebrew/bin/engram, versión 1.20.0 verificada mediante CLI. Su ayuda
+  ofrece save/search/context y servidor MCP. En esta sesión no hay herramientas
+  Engram ni mem_save expuestas; no aparece referencia Engram en la configuración
+  Codex consultada. Instalación local y conexión MCP son estados distintos.
+- Sin cambios de integración ni guardado en la base Engram. La documentación
+  del proyecto permanece registrada en MEMORY.md. Solo memoria modificada;
+  validación mediante command -v, version/help y listado de herramientas.
+
+## 2026-10-27 — Codex: Engram registrado como MCP local
+
+- Configuración implementada con autorización de escritura fuera del proyecto:
+  codex mcp add engram -- /opt/homebrew/bin/engram mcp --tools=agent.
+  Añade servidor global en ~/.codex/config.toml, preservando los demás ajustes.
+  codex mcp get engram confirma enabled=true, transporte stdio y argumentos.
+- La sesión actual todavía no expone herramientas Engram. Falta recargar el
+  servidor desde la interfaz MCP del cliente y comprobar mem_save; no afirmar
+  conexión efectiva ni memoria guardada en Engram. No se fuerza un proyecto
+  global para evitar asignar memorias de otros repositorios a Helios.
+- Skill OpenAI Docs aplicada: documentación oficial MCP consultada, configuración
+  compartida CLI/desktop/extensión y reinicio desde ajustes MCP. Solo configuración
+  global y esta memoria modificadas; sin cambios de aplicación ni pruebas nuevas.
+
+## 2026-10-27 — Codex: cliente confirmado como terminal
+
+- Usuario aclara que usa Codex en terminal, no app de Mac. Indicar salida y
+  reanudación desde el repositorio para recargar MCP; `codex resume --help`
+  confirma selector de sesiones y opción --last. Usar /mcp al reanudar para
+  comprobar Engram. Conexión efectiva todavía pendiente; sin cambios de aplicación.
+
+## 2026-10-27 — Codex: conexión Engram comprobada tras recarga
+
+- **Verificado:** herramientas MCP Engram disponibles; mem_context consultado
+  con proyecto explícito heliosapp devolvió sesiones y observaciones previas.
+  Sustituye el pendiente de conexión de las entradas anteriores.
+- **Alcance:** solicitud «setup» ambigua; se pidió distinguir entorno Helios
+  de configuración Engram. No se ejecutó composer setup ni se alteró el entorno.
+  Composer incluye regeneración de clave y migraciones; hay cambios locales
+  previos y dependencias vendor/node_modules presentes.
+- **Validación:** lectura de memoria, manifiestos y estado Git, consulta MCP
+  efectiva. Solo memoria modificada; sin cambios de aplicación. Ninguna skill
+  aporta valor concreto a esta comprobación de conexión y archivos locales.
+
+## 2026-10-27 — Codex: setup de Engram validado con escritura y búsqueda
+
+- **Confirmación:** el usuario aclara que setup se refiere a Engram.
+- **Completado:** mem_save creó la observación 216 en heliosapp y mem_search
+  la recuperó por título. Lectura y escritura MCP verificadas; sin conflictos
+  pendientes en la respuesta. No se requiere otra instalación o recarga.
+- **Áreas:** Engram y MEMORY.md; sin cambios de aplicación ni configuración.
+  MEMORY.md conserva su obligatoriedad; Engram complementa la memoria local.
+- **Validación:** mem_context previo, mem_save y mem_search reales. Skill
+  OpenAI Docs aplicada para referencia MCP. Sin importar toda la memoria histórica
+  ni copiar secretos; sin pendientes para esta comprobación de setup.
+
+## 2026-10-27 — Codex: definición del proyecto consultada en Engram
+
+- Consulta solicitada por el usuario: mem_search y mem_get_observation recuperan
+  la definición arquitectónica #196 de Helios, fechada 2026-10-21: software
+  comercial para instaladoras solares en México, instalación por empresa,
+  dashboard, recibos CFE, ingeniería determinista, Syscom y presupuestos.
+- Sin cambios de implementación. La memoria es histórica: sus fases y restricciones
+  técnicas no sustituyen decisiones posteriores registradas en este archivo.
+- Validación: lectura completa de la observación MCP; respuesta resume propósito,
+  sin afirmar que todos los módulos descritos estén implementados. Sin pendientes.
+
+## 2026-10-27 — Codex: contexto vigente sincronizado a Engram
+
+- **Corrección solicitada e implementada:** actualizar el conocimiento del proyecto,
+  no limitar setup a conexión. Guardadas #218 (definición/decisiones vigentes),
+  #219 (implementación local y validaciones históricas), #220 (Syscom/IVA/límites
+  y pendientes). Fuentes: esta memoria, plan y documentos de cotizador/análisis.
+- **Historial:** #196 conserva su texto con aviso y título histórico que remiten
+  a las tres nuevas memorias. Se distinguen propuestas, implementación y límites:
+  revisión condicional solicitada aún pendiente, source hoy obliga revisión;
+  equipos manuales, precio_lista, IVA local 16, sin compatibilidad/PDF/entrega.
+- **Validación:** mem_save devolvió IDs sin conflictos; mem_search recuperó
+  definición vigente y cotizador. Sin secretos, recibos ni datos personales.
+  No se reejecutaron pruebas de aplicación: solo actualización de memorias.
+- **Convención:** registrar también en Engram las nuevas decisiones y cierres,
+  además de MEMORY.md obligatorio. Sin sincronizador automático instalado.
+
+## 2026-10-27 — Codex: mem_save explícito del cierre Engram
+
+- Usuario solicita mem_save. Guardado en Engram el cierre de actualización con
+  referencias #218–220 y aviso histórico #196, bajo setup/engram-context-current.
+- Validación: mem_save confirmado por MCP; sin cambios de aplicación ni secretos.
+  Se mantiene actualización futura de ambos registros sin sincronizador automático.
+
+## 2026-10-27 — Codex: auditoría del dashboard, propuestas sin implementar
+
+- **Solicitado:** auditar con frontend-design y apple-design; consultar al usuario
+  antes de aplicar cambios. También se leyó ui-ux-pro-max para criterios táctiles.
+- **Hallazgos:** Dashboard.vue es una bienvenida estática sin métricas, pendientes
+  ni actividad; ruta Inertia sin datos operativos. Texto dice que extracción
+  Ollama está pendiente pese a lectores source/ollama implementados. Secciones
+  max-w-2xl limitan el uso del área disponible en escritorio. Sidebar conserva
+  Repository hacia starter Laravel, etiquetas inglesas y módulos deshabilitados.
+  Heading genera h2 sin h1 en esta portada; trigger lateral de 28 px y botones
+  de 36 px merecen áreas táctiles mayores. Sidebar anima ancho sin alternativa
+  explícita de movimiento reducido en ese componente.
+- **Propuesta, no implementada:** resumen operativo solar con acción principal,
+  pendientes y prospectos recientes; métricas solo con datos reales autorizados;
+  limpiar textos/navigation y ajustar jerarquía, tacto y movimiento reducido.
+  Conservar Instrument Sans, superficies neutras y acento corporativo.
+- **Validación:** lectura de portada, layout, navegación, tokens, botones, rutas
+  y binding de lectores; referencia oficial Apple HIG Layout y búsqueda local
+  de touch targets. URL heliosapp.test/dashboard redirige a login: sin inspección
+  visual autenticada, contraste medido ni pruebas de interacción. No se otorga
+  puntuación visual ni se afirma validación móvil. Solo memoria modificada.
+- **Pendiente:** usuario elige alcance y autoriza implementación; revisión visual
+  autenticada para confirmar espaciado, estados claro/oscuro y responsive.
+
+## 2026-10-27 — Codex navigation_polish: navegación del dashboard operativo
+
+- **Implementado:** navegación principal renombrada a Resumen, Documentación en
+  español y retirada de Repository del starter y módulos futuros deshabilitados.
+  Se preservan Dimensionador, permisos, proyectos internos y /documentation.
+- **Accesibilidad:** trigger de 44 px con aria-expanded y nombre en español;
+  filas principales de 44 px, cierre explícito del menú móvil mediante SheetClose
+  y cierre al elegir destino principal. El contenido móvil usa flex-1/min-h-0
+  para conservar desplazamiento al añadir la cabecera de cierre.
+- **Movimiento:** ancho/posición del sidebar y animación del panel móvil respetan
+  movimiento reducido; sin cambios globales de botones ni del overlay compartido.
+- **Archivos:** AppSidebar.vue, NavMain.vue, ui/sidebar/Sidebar.vue y
+  ui/sidebar/SidebarTrigger.vue. Skills frontend-design, apple-design y
+  ui-ux-pro-max leídas y aplicadas; búsqueda touch target pertinente.
+- **Validación:** vp check --fix focal y vue-tsc --noEmit correctos. Aislop focal
+  no produjo hallazgos, pero reportó cero archivos soportados y sin puntuación;
+  no representa una auditoría efectiva de estos Vue. Revisión en navegador queda
+  para integración con la portada operativa; no se añadieron pruebas espejo.
+
+## 2026-10-27 — Codex (agente dashboard_tests): cobertura del resumen operativo
+
+- **Implementado:** ampliación de `tests/Feature/DashboardTest.php` de dos a diez
+  pruebas. Verifica aislamiento de métricas y listas sin permisos, con solo
+  recibos, con solo prospectos y con owner inactivo; usuarios viewer obtienen
+  acciones de lectura. Comprueba capacidades de captura para owner activo.
+- **Datos:** exclusión de prospectos eliminados y expedientes simulados,
+  agrupación de estados de revisión/procesamiento, conteo de expedientes con
+  borrador vigente sin multiplicar versiones y retorno a pendientes cuando
+  existe un cálculo posterior al borrador. Listas acotadas a seis pendientes y
+  cinco prospectos; atención precede a selección de equipos y se ordena por
+  antigüedad, mientras los prospectos recientes muestran altas más nuevas.
+- **Validación:** diez pruebas / 148 aserciones correctas mediante SQLite aislado
+  de PHPUnit; Pint, sintaxis PHP y `git diff --check` correctos. Aislop focal
+  no reportó hallazgos, pero indicó cero archivos soportados y sin puntuación:
+  no equivale a una calificación de calidad del código PHP.
+- **Límites:** validación del contrato Inertia y permisos del servidor; la
+  apariencia e interacciones corresponden a la revisión de integración del
+  agente principal. Sin cambios de producción en esta subtarea; no aplica una
+  skill especializada de frontend a pruebas PHP sin cambios de interfaz.
+
+## 2026-10-27 — Codex: identidad visual aportada para retomar auditoría
+
+- **Corrección del usuario:** la auditoría con frontend-design y apple-design
+  debe centrarse en diseño; el avance funcional del dashboard no la resuelve.
+- **Referencia recibida:** PDF «Diagnóstico Técnico y Áreas de Oportunidad -
+  HELIOS» en Downloads únicamente para paleta, e imagen del logo con variantes
+  sobre verde oscuro y fondo claro. No se adopta el contenido técnico del PDF.
+- **Verificado:** primera página renderizada y colores planos muestreados:
+  verde #08221B, dorado #C69C53, fondo #F9F9F8, blanco #FFFFFF,
+  superficie cálida #F3F0E8 y texto secundario #354F47. La imagen muestra
+  acabados metálicos del símbolo; no se infieren códigos oficiales de esos brillos.
+- **Skills:** frontend-design y apple-design leídas para orientar revisión visual.
+- **Áreas/validación:** solo MEMORY.md; PDF inspeccionado visualmente y muestreo
+  RGB local. Sin cambios de interfaz ni pruebas de aplicación. Pendiente auditoría
+  visual y propuestas para elección del usuario antes de implementar.
+
+## 2026-10-27 — Codex: auditoría visual y rediseño Helios autorizado
+
+- **Autorización:** usuario pide ejecutar auditoría y cambiar el diseño con
+  apple-design. Sustituye la aprobación pendiente de la auditoría anterior y
+  la preferencia histórica por azul, usando su PDF únicamente como paleta.
+- **Auditoría/implementado:** identidad azul y Laravel sustituidas por verde
+  #08221B, dorado #C69C53, superficies claras/marfil y tema oscuro verde con
+  acciones doradas claras. Sidebar de marca, cabecera sticky translúcida,
+  jerarquía de títulos h1/h2, espaciado adaptable y paneles sin sombras repetidas.
+  Botones, inputs y selects principales de 44 px; respuesta al pulsar, foco y
+  movimiento/transparencia reducidos. Banda de métricas verde/dorada. Portada
+  del starter sustituida por composición Helios con accesos existentes. Login
+  con panel de marca y textos españoles. Formulario embebido alineado en color.
+  Footer Documentación corregido para contrastar sobre verde.
+- **Marca:** JPG original copiado a public/images/helios-brand.jpg sin modificar;
+  SVG muestra una ventana del símbolo, sin inventar trazados. Wordmark Georgia
+  es composición de interfaz, no se afirma tipografía oficial. El fondo original
+  queda visible; un SVG maestro transparente sigue siendo mejora de asset.
+- **Áreas:** resources/css/app.css; AppLogo/Icon, AppSidebarHeader, Heading,
+  NavFooter, componentes UI Button/Input/Select/Card, DashboardMetrics,
+  AuthSimpleLayout, Welcome, Login, app.ts, embed/cfe y docs/design/theme.md.
+  No se alteraron fórmulas, permisos, estados ni lógica de negocio. Se conservaron
+  cambios locales anteriores. Skills frontend-design, apple-design y ui-ux-pro-max
+  aplicadas; recomendación automática de landing del buscador descartada para
+  la composición operativa, conservando identidad explícita del usuario.
+- **Validación:** types:check, check:fix, build y diff --check correctos;
+  18 pruebas de Dashboard/Authentication/Registration, 165 aserciones. Aislop
+  100/100; tres avisos no fixables previos (tamaño ReceiptCoherenceValidator y
+  URL/ID Syscom), sin errores ni advertencias fixables. Build conserva aviso
+  opcional fontaine. No se instalaron dependencias.
+- **Navegador:** instancia aislada; portada y login en 1440/375 px y ambos temas.
+  Dashboard, prospectos, dimensionador y perfil comprobados con SQLite/usuario
+  sintéticos existentes, 16 combinaciones sin overflow horizontal. Capturas
+  inspeccionadas de dashboard escritorio claro/móvil oscuro y dimensionador.
+  Se esperaron transiciones de color antes de capturas finales oscuras. Sin
+  escrituras de negocio en MySQL. Navegador propio cerrado al finalizar script.
+- **Límites:** no se afirma inspección visual individual de cada ruta, Swagger
+  conserva interfaz especializada y otras páginas heredan componentes/tokens.
+  No hay commit, push ni despliegue. Auditoría y decisiones en docs/design/theme.md.
+
+## 2026-10-27 — Codex: oscuro negro con acentos verdes
+
+- **Preferencia e implementación:** usuario rechaza oscuro verde y plantea negro
+  con contraste verde. Fondo #090909, sidebar #101010, paneles #171717,
+  bordes neutros y texto claro; verde suave #8AC5A1 para acciones, enlaces,
+  foco y métricas. Selección lateral verde discreta. Sustituye solo el tema
+  oscuro de la entrada anterior; claro preservado. Marca activa usa token
+  sidebar-primary para seguir cada variante. Logo original conserva dorado.
+- **Áreas:** resources/css/app.css y docs/design/theme.md; sin lógica de negocio.
+  Skills apple-design/frontend-design/ui-ux-pro-max ya leídas aplicadas a contraste.
+- **Validación:** npm check/build y git diff --check correctos. Navegador aislado
+  portada/login en 1440/375 y claro/oscuro: sin overflow, fondo oscuro RGB 9/9/9;
+  captura móvil de login inspeccionada. Aislop conserva 100 y tres avisos previos
+  no fixables backend. Aviso opcional fontaine previo. Sin pruebas nuevas por
+  cambio exclusivo de tokens; sin revisión autenticada nueva en este ajuste.
+
+## 2026-10-27 — Codex: mem_save explícito de preferencia oscura
+
+- Usuario solicita mem_save. Guardada en Engram la preferencia vigente y el
+  cierre implementado: oscuro negro/carbón con acentos verdes, logo dorado y
+  modo claro preservado, bajo design/dark-mode.
+- Validación: respuesta MCP de mem_save confirmada. Sin cambios de aplicación;
+  resultados de comprobaciones conservados en la entrada anterior.
+
+## 2026-10-27 — Codex: revisión de estado ADR/RFC
+
+- **Consulta:** estado de decisiones y especificaciones. Inventario: ADR-001–011
+  dentro de architecture.md, ADR-012–015 separados; RFC-001 consolidado y
+  RFC-002 Google/contornos pospuesto. Aceptación no equivale a implementación.
+- **Hallazgos documentales:** ADR-012 conserva sección histórica sin NASA activa;
+  ADR-014 ya registra NASA E2 implementado. ADR-013 conserva etapa mock y no
+  refleja completamente revisión/entidad manual actual. RFC-001 sección 14 aún
+  presenta lector mock como estado actual pese a source/Ollama implementados.
+  project-plan conserva tema azul y pendientes de dashboard ya superados.
+- **Estado contrastado:** motor/NASA/fundamento de expediente implementados;
+  ubicación manual parcial, geocodificación pospuesta; cotizador asistido con
+  selección manual y borradores internos. Pendientes revisión condicional source,
+  selección IA, validación eléctrica, publicación/PDF/correo/acceso cliente.
+- **Áreas/validación:** lectura ADR/RFC, architecture, project-plan, guías assisted
+  y automatic-receipt-analysis, memoria vigente. Solo memoria actualizada;
+  no se reejecutaron pruebas ni se reescribieron decisiones. Pendiente reconciliar
+  documentos con implementación sin marcar el RFC completo como cerrado.
+
+## 2026-10-27 — Codex: reconciliación ADR/RFC y ADR-016 de diseño
+
+- **Implementado en documentación:** ADR-012 distingue primera entrega histórica
+  de cálculo actual con NASA; ADR-013 separa entidad confirmada manualmente de
+  coordenadas/mapa/geocodificación pendientes; ADR-015 refleja dispatch/lector
+  vigentes y tiempos 840/900/960 s contrastados con job/configuración.
+- **RFC-001/plan:** inventario actualizado a lectura real source/Ollama, revisión
+  versionada, cálculo/snapshot NASA, cotizador manual Syscom y borradores con
+  precio_lista/IVA local16. Retiradas afirmaciones actuales de solo mock, sin
+  NASA o sin dispatch. E3–E7 parciales, E8/E9/E10 sin cerrar. Revisión condicional
+  source solicitada sigue pendiente; no se declara API pública ni entrega completa.
+- **ADR-016 creado:** identidad Helios, tokens, claro verde/dorado y oscuro negro
+  neutro con acentos verdes, tipografía, accesibilidad y marca original; alcance
+  implementado y límites de validación explícitos. Sustituye azul y oscuro verde
+  anteriores. Índice, arquitectura y guía de tema enlazados y reconciliados.
+- **Áreas:** docs/adrs/012,013,015,016; RFC-001; project-plan; architecture;
+  README y design/theme. RFC-002 conserva posposición y ADR-014 cierre E2.
+- **Validación:** lectura de servicios ReceiveReceipt/ReadAndSizeReceipt,
+  ProcessReceipt/config queue y guías vigentes; enlaces locales, diff y aislop.
+  Sin pruebas de aplicación nuevas por cambio documental ni modificaciones de
+  lógica, configuración o decisiones funcionales. Sin skills adicionales: tarea
+  documental, basada en decisiones y auditoría de skills ya registradas.
+
+## 2026-10-27 — Codex: inventario Git previo a publicación
+
+- Consulta del usuario sobre pendientes de subir. Rama main, remoto origin
+  FcoGuadarrama/heliosapp. Fetch real completado con permiso: main conserva
+  tres commits locales por delante y ninguno remoto por incorporar.
+- Commits pendientes: b4e7d16 motor/diseño de cotización, c9b222c fundamentos
+  de expediente compartido, 36eea1d catálogo NASA HSP versionado.
+- Working tree: 66 archivos rastreados modificados, uno eliminado y 113 nuevos
+  (conteo expandido por archivo); nada en staging. Incluye lectura/OCR, análisis,
+  cotizador Syscom, Swagger, dashboard/diseño, migraciones/pruebas y ADR/RFC.
+- Validación: status, diff stat/cached, log, fetch, rev-list y diff --check.
+  Sin commit, push o cambios de aplicación. Solo este registro de investigación.
+  No se volvió a ejecutar la suite completa para esta consulta.
+
+## 2026-10-27 — Codex: revisión, validación y preparación de publicación Git
+
+- **Autorizado:** revisar/organizar todos los cambios restantes, validar, crear
+  commits y subirlos al remoto. Revisión de rutas, autorización de análisis y
+  cotizador, snapshots/precios/IVA, límites PDF, configuración/CI y archivos nuevos.
+  Sin patrones de claves privadas/tokens conocidos en archivos de texto a incluir;
+  .env y recibos reales permanecen ignorados. No es auditoría de seguridad integral.
+- **Corregido:** formato en README/plan/ADR-016 y contratos de listas del dashboard:
+  array_values sobre resultados mapeados mantiene listas explícitas y elimina
+  dos errores PHPStan, sin suprimir reglas ni ampliar tipos.
+- **Validación completa:** 347 pruebas/1716 aserciones correctas tras corrección;
+  Pint, PHPStan, npm check, TypeScript, build, composer validate --strict,
+  generación Swagger y diff --check correctos. Aislop 100, tres avisos backend
+  no fixables previos. Build mantiene aviso opcional fontaine. No se cambió .env
+  ni se limpió configuración operativa para correr pruebas (PHPUnit usa SQLite).
+- **Organización:** 12cb14b recibos/cálculo/cotizador/resumen; 9b43574 Swagger;
+  f8da60f identidad visual. Cuarto commit documental incluye guías, ADR/RFC,
+  plan y esta memoria. Además se publicarán los tres commits anteriores pendientes
+  de motor/fundamentos/NASA. No se reescribe historial ni se usa force push.
+- **Publicación:** el push y cotejo de HEAD con origin/main se ejecutan después
+  de este registro; esta entrada no afirma éxito anticipado. Si fallan, se
+  registrará el impedimento. La publicación del repositorio no es despliegue.

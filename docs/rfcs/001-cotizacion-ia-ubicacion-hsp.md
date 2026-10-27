@@ -1,9 +1,18 @@
 # RFC-001 — Flujo compartido de recibo a cotización solar
 
+Actualización de decisión 2026-10-26: el usuario dispone de API oficial Syscom y
+indicó que también proporciona un precio público sugerido. El [modo asistido implementado](../assisted-quote.md)
+consulta la API oficial y guarda `precio_lista` en borradores por equipos,
+con revisión humana. Esto amplía la sección 9, que antes solo contemplaba tarifas
+propias. El endpoint interno de la sección 8 queda como evidencia histórica,
+no como acceso del adaptador nuevo. Pendiente confirmar comercialmente la
+semántica pública de lista frente a MAP por producto. No habilita publicación
+automática ni selección eléctrica sin validación.
+
 - Fecha de consolidación: 2026-10-22.
 - Autor: Codex, con decisiones del responsable de producto.
 - Estado: definición consolidada; sin preguntas de producto pendientes (seis resueltas el 2026-10-22).
-- Implementación: parcial; motor/manual, fundamentos E1 y catálogo NASA E2. Flujo automático completo pendiente.
+- Implementación al 2026-10-27: parcial; lectura real, revisión, cálculo con NASA y borrador asistido Syscom. Selección IA y entrega comercial completas pendientes.
 - Alcance: interconexión CFE, catálogo Syscom, cotización automática y seguimiento.
 
 Orden de implementación, inventario y dependencias del producto completo en
@@ -205,10 +214,12 @@ convierte la calidad del proveedor en verde ni certifica condiciones del techo.
 No elegir automáticamente un centro municipal o la capital como sitio preciso.
 Al confirmar, resolver entidad y HSP y reanudar automáticamente; no consume cargas.
 
-**Etapa actual:** simular consulta a Google con fixtures verde/amarillo/rojo/error.
+**Etapa inicial simulada (histórica):** consulta Google prevista con fixtures
+verde/amarillo/rojo/error. Actualmente la entidad se confirma manualmente;
+Google/contornos sigue pospuesto conforme RFC-002.
 No exigir API key, cuenta de facturación ni llamadas reales para avanzar.
 Proveedor real, criterios reales, costos y tratamiento del domicilio se revisarán
-cuando se aborde lectura real de archivos con IA; no bloquear ahora por esas decisiones.
+cuando se retome RFC-002; la lectura real ya implementada no habilita ese envío.
 No presentar coordenadas mock como verificadas ni generar propuestas reales con
 fixtures. El mapa debe poder probarse sin activar servicios pagos.
 
@@ -468,13 +479,23 @@ propio de agentes. El dominio no depende de controladores ni del cliente Syscom.
 
 ## 14. Etapa simulada y criterios de aceptación
 
-**Estado actual:** lectura de archivos mock existente; Google también debe
-simularse. Se implementó motor puro de interconexión y pantalla interna de
-dimensionamiento manual de prueba, sin IA, catálogo ni precios. Ver
-[guía de uso y límites](../solar-engineering.md#5-primera-entrega-de-dimensionamiento).
-E1 incorpora expediente/cola/auditoría y E2 el catálogo HSP NASA real versionado.
-Siguen pendientes Ingeniero IA, catálogo Syscom, validación eléctrica completa,
-presupuestos, versiones, correo/PDF de producto, bandeja y acciones públicas.
+**Estado local al 2026-10-27:** cargas CRM/embebido encolan lectura real
+source (texto/OCR) u Ollama. El CRM permite revisión versionada y confirmación
+de entidad. El cálculo consulta HSP estatal NASA y conserva snapshots. El
+cotizador asistido consulta API oficial Syscom, permite selección manual de
+modelos/cantidades y genera borradores internos versionados con precio_lista,
+IVA local 16% y total. Ver [guía vigente](../assisted-quote.md).
+
+El lector source aún exige revisión universal: sustituirla por revisión
+condicional es una solicitud pendiente. Sin potencia documentada no se inventa
+cantidad de paneles. No existen aún selección de equipos con Ingeniero IA,
+validación eléctrica completa, perfiles comerciales completos, publicación,
+PDF/correo de propuesta ni acceso/acciones del cliente. Google/contornos sigue
+pospuesto. Las pruebas mock se conservan como fixtures, no describen el lector
+local actual ni acreditan geografía real.
+
+Los criterios siguientes definen el cierre completo; su presencia no afirma
+que cada uno esté implementado o validado hoy.
 
 | Área        | Validación necesaria                                                                                              |
 | ----------- | ----------------------------------------------------------------------------------------------------------------- |
@@ -490,8 +511,8 @@ presupuestos, versiones, correo/PDF de producto, bandeja y acciones públicas.
 | Seguimiento | Responsable/bandeja, toma concurrente, alerta, contacto/cambios/aceptación y permisos                             |
 
 El mock sirve para pruebas y demostración; no extrae datos reales del PDF y no
-habilita cotizaciones reales. Completar lectura IA y servicio geográfico reales
-será otra integración; sus costos no son bloqueo de esta etapa.
+habilita cotizaciones reales. La lectura real ya está integrada localmente; el servicio geográfico real
+sigue pendiente y pospuesto, sin bloquear el cálculo por entidad confirmada.
 
 ## 15. Preguntas de producto: resueltas
 
@@ -512,12 +533,13 @@ indicación del usuario.
 
 - Verificar fórmulas detalladas en bundle y escribir pruebas de valores independientes.
 - Revalidar contrato/cobertura Syscom y definir caché, reintentos y frescura de stock.
-- NASA E2 implementada; integrar consulta local y snapshot en cálculo E4.
-- Implementar lector/geocodificación mock y estados asíncronos del formulario.
+- NASA E2 y snapshot de cálculo integrados; verificar operación y vigencia.
+- Completar evaluación del lector real y revisión condicional source; acciones
+  públicas de corrección, recaptura y recuperación aún pendientes.
 - Implementar autenticación de enlace, permisos, idempotencia, PDF y correo.
 - Configurar reglas fiscales verificadas, redondeo, plazos de aviso y responsables
   administrativos sin inventar tasas o promesas de servicio.
-- Revisar integración real Google junto con lectura real IA, incluida privacidad
+- Abordar integración real Google en RFC-002 cuando se retome, incluida privacidad
   y costos. No habilitar facturación ni envío de datos ahora.
 
 ## 16. Referencias y decisiones relacionadas

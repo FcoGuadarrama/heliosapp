@@ -22,7 +22,21 @@ probados. Siguiente: E3 (lector real), E4 (API integrada sin proveedor), E5
 ver dependencias concretas y criterios de cierre antes de iniciar cada entrega.
 No se inicia implementación por el solo hecho de documentar este plan.
 
+E3 iniciada el 2026-10-26: lector Ollama, PDF, revisión, normalización y segunda
+carga internas implementados; [estado y límites](receipt-reader.md). No cerrada:
+la precisión real y operación deben verificarse antes de la integración E4/E5.
+
+Actualización del mismo día: [cotejo de fuente, carga automática y resultado
+técnico internos](automatic-receipt-analysis.md) implementados y activados localmente.
+El usuario no tiene potencia de panel definida: cantidad pendiente, sin asumir watts.
+Se conservan pendientes públicos/comerciales y operativos de cada entrega.
+
 ## Historial — ingreso de recibos al CRM
+
+Actualización 2026-10-26: [cotizador asistido](assisted-quote.md) implementado como
+lectura de texto/OCR con revisión obligatoria y borrador interno con consulta real
+de Syscom. No equivale a cerrar E6–E9: compatibilidad, otros perfiles de precio,
+PDF y entrega pública permanecen pendientes.
 
 El historial de F1 se conserva abajo. La prioridad de producto supersede la carga pública
 de JSON y la creación manual obligatoria de proyectos: **recibo PDF/imagen → prospecto →
