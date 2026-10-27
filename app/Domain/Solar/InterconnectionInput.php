@@ -16,6 +16,7 @@ final readonly class InterconnectionInput
         public ?float $modulePowerW,
         public array $historyKwh = [],
         public ?int $modulesPerMicroinverter = null,
+        public ?ConsumptionAverage $consumptionAverage = null,
     ) {
         if ($periodDays <= 0 || ($modulesPerMicroinverter !== null && $modulesPerMicroinverter <= 0)) {
             throw new InvalidArgumentException('Los días y módulos por microinversor deben ser positivos.');

@@ -14,6 +14,7 @@ use App\Domain\ReceiptData\AnnualReceiptHistory;
 use App\Domain\ReceiptData\DTO\ReceiptPayload;
 use App\Domain\ReceiptData\NormalizeReceipt;
 use App\Domain\ReceiptData\ReceiptReadingFailure;
+use App\Domain\Solar\ConsumptionAverage;
 use App\Domain\Solar\InterconnectionCalculator;
 use App\Domain\Solar\InterconnectionInput;
 use App\Models\ReceiptIntake;
@@ -65,18 +66,18 @@ final class ReadAndSizeReceipt implements ReceiptProcessor
         } catch (ValidationException) {
             return $this->blocked(ProcessingBlocker::ReceiptNeedsReview);
         }
-        if ($history['reason'] === 'annual_history' && count($history['kwh']) * $days < 330) {
-            return $this->blocked(ProcessingBlocker::ReceiptNeedsReview);
-        }
-        $input = new InterconnectionInput((float) $payload->currentPeriod->consumptionKwh, $days, $lookup->value->annual, null, $history['kwh']);
+        $input = new InterconnectionInput((float) $payload->currentPeriod->consumptionKwh, $days, $lookup->value->annual, null,
+            consumptionAverage: new ConsumptionAverage(array_sum($history['kwh']), $history['actual_days']));
         $result = $this->calculator->calculate($input);
-        DB::transaction(function () use ($intake, $reading, $review, $normalized, $lookup, $input, $result, $history): void {
+        DB::transaction(function () use ($intake, $reading, $review, $lookup, $input, $result, $history): void {
             SolarCase::query()->lockForUpdate()->findOrFail($intake->solar_case_id);
             SolarCalculation::firstOrCreate(['receipt_reading_id' => $reading->id, 'review_revision' => $review->revision ?? 0], [
                 'solar_case_id' => $intake->solar_case_id,
                 'inputs' => ['current_kwh' => $input->currentConsumptionKwh, 'period_days' => $input->periodDays,
                     'history_kwh' => $input->historyKwh, 'module_power_w' => null, 'normalization_version' => NormalizeReceipt::VERSION,
-                    'history_actual_days' => $normalized['history_actual_days'] ?? null,
+                    'consumption_average' => ['total_kwh' => $input->consumptionAverage?->totalKwh,
+                        'covered_days' => $input->consumptionAverage?->coveredDays],
+                    'history_actual_days' => $history['actual_days'],
                     'history_policy' => AnnualReceiptHistory::VERSION, 'annual_selection' => $history,
                     'hsp' => $lookup->value->snapshot()],
                 'result' => $result->toArray(),

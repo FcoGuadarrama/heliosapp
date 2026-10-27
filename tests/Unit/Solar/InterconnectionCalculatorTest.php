@@ -1,5 +1,6 @@
 <?php
 
+use App\Domain\Solar\ConsumptionAverage;
 use App\Domain\Solar\InterconnectionCalculator;
 use App\Domain\Solar\InterconnectionInput;
 
@@ -68,3 +69,21 @@ it('rejects invalid inputs instead of supplying defaults', function (float $kwh,
     [600.0, 60, 5.0, 550.0, [], 0],
     [1.0e300, 1, 0.0001, 550.0, [], null],
 ])->throws(InvalidArgumentException::class);
+
+it('dimensions from verified consumption coverage without renormalizing 22 months to a year', function () {
+    $average = new ConsumptionAverage(7200, 720);
+    $result = (new InterconnectionCalculator)->calculate(new InterconnectionInput(
+        600, 60, 5, 550, consumptionAverage: $average,
+    ));
+
+    expect($result->dailyConsumptionKwh)->toBe(10.0)
+        ->and($result->historyDays)->toBe(720.0)
+        ->and($result->consumptionSource)->toBe('verified_periods')
+        ->and($result->requiredKwp)->toEqualWithDelta(2.5974025974, 0.000000001)
+        ->and($result->moduleCount)->toBe(5);
+});
+
+it('rejects invalid verified consumption coverage', function (float $kwh, int $days) {
+    new ConsumptionAverage($kwh, $days);
+})->with([[600.0, 0], [-1.0, 60], [0.0, 60], [INF, 60], [NAN, 60]])
+    ->throws(InvalidArgumentException::class);

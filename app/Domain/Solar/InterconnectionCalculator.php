@@ -8,7 +8,7 @@ use InvalidArgumentException;
 
 final class InterconnectionCalculator
 {
-    public const VERSION = 'syscom-interconnection-v1';
+    public const VERSION = 'syscom-interconnection-v2';
 
     public const PERFORMANCE_RATIO = 0.77;
 
@@ -25,6 +25,12 @@ final class InterconnectionCalculator
         $dailyConsumption = $useHistory
             ? array_sum($input->historyKwh) / $historyDays
             : $input->currentConsumptionKwh / $input->periodDays;
+        $source = $useHistory ? 'history' : 'current_period';
+        if ($input->consumptionAverage !== null) {
+            $dailyConsumption = $input->consumptionAverage->dailyKwh();
+            $historyDays = $input->consumptionAverage->coveredDays;
+            $source = 'verified_periods';
+        }
 
         if (! is_finite($dailyConsumption) || $dailyConsumption <= 0) {
             throw new InvalidArgumentException('Se necesita un consumo diario positivo para dimensionar.');
@@ -35,7 +41,7 @@ final class InterconnectionCalculator
 
         return new InterconnectionResult(
             motorVersion: self::VERSION,
-            consumptionSource: $useHistory ? 'history' : 'current_period',
+            consumptionSource: $source,
             historyDays: (float) $historyDays,
             dailyConsumptionKwh: $dailyConsumption,
             requiredKwp: $requiredKwp,

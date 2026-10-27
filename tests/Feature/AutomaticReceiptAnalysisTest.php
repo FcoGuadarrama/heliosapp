@@ -22,6 +22,7 @@ use App\Models\ReceiptReview;
 use App\Models\SolarCalculation;
 use App\Models\SolarCase;
 use App\Models\User;
+use Carbon\CarbonImmutable;
 use Database\Seeders\RolesAndPermissionsSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
@@ -63,9 +64,12 @@ class AutomaticReceiptAnalysisTest extends TestCase
         return app(StoreReceiptIntake::class)(['name' => 'Synthetic prospect', 'email' => 'synthetic@example.test'], $this->file(), null, null);
     }
 
-    private function reader(bool $verified = true): void
+    private function reader(bool $verified = true, ?array $history = null): void
     {
         $payload = json_decode(file_get_contents(resource_path('fixtures/receipts/complete.json')), true);
+        if ($history !== null) {
+            $payload['consumption_history'] = $history;
+        }
         foreach (['service.tariff_code', 'current_period.period_start', 'current_period.period_end'] as $field) {
             $payload['extraction']['evidence'][] = ['field' => $field, 'page' => 1, 'text' => data_get($payload, $field)];
         }
@@ -151,10 +155,40 @@ class AutomaticReceiptAnalysisTest extends TestCase
         $this->assertNull($calculation->result['moduleCount']);
         $this->assertNull($calculation->inputs['module_power_w']);
         $this->assertSame('test-catalog', $calculation->inputs['hsp']['catalogVersion']);
-        $this->assertEqualsWithDelta((520 / 60) / (0.77 * 5), $calculation->result['requiredKwp'], 0.000001);
+        $this->assertEqualsWithDelta((1450 / 180) / (0.77 * 5), $calculation->result['requiredKwp'], 0.000001);
+        $this->assertSame('verified_periods', $calculation->result['consumptionSource']);
+        $this->assertSame(180, $calculation->inputs['annual_selection']['actual_days']);
+        $this->assertSame('all-unique-verifiable-periods-v2', $calculation->inputs['history_policy']);
+        $this->assertEquals(1450, $calculation->inputs['consumption_average']['total_kwh']);
+        $this->assertSame(180, $calculation->inputs['consumption_average']['covered_days']);
         $this->assertSame('draft', SolarCase::sole()->publication_status);
         app(ProcessReceiptRun::class)($run->id);
         $this->assertDatabaseCount('solar_calculations', 1);
+    }
+
+    public function test_all_eleven_historic_periods_reach_the_calculation_without_being_divided_by_365(): void
+    {
+        $end = CarbonImmutable::parse('2026-07-15');
+        $history = [];
+        for ($index = 0; $index < 11; $index++) {
+            $start = $end->subDays(60);
+            $history[] = ['period_start' => $start->toDateString(), 'period_end' => $end->toDateString(), 'consumption_kwh' => 600];
+            $end = $start;
+        }
+        $this->reader(history: $history);
+        $this->hsp();
+        $intake = $this->intake();
+        $reading = app(ReadReceiptFile::class)($intake);
+        app(ReviewReceiptReading::class)($reading, $this->actor(), $reading->payload_json, 'Datos cotejados contra el recibo original.', 0);
+        $run = app(QueueReceiptProcessing::class)($intake);
+        app(ProcessReceiptRun::class)($run->id);
+
+        $calculation = SolarCalculation::sole();
+        $this->assertSame(ProcessingStatus::Completed, SolarCase::sole()->processing_status);
+        $this->assertSame(720, $calculation->inputs['annual_selection']['actual_days']);
+        $this->assertCount(12, $calculation->inputs['annual_selection']['kwh']);
+        $this->assertEqualsWithDelta(7120 / 720, $calculation->result['dailyConsumptionKwh'], 0.000000001);
+        $this->assertEqualsWithDelta((7120 / 720) / (0.77 * 5), $calculation->result['requiredKwp'], 0.000000001);
     }
 
     public function test_analysis_json_is_authorized_and_does_not_expose_raw_response_or_private_path(): void
